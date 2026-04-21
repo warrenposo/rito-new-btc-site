@@ -239,6 +239,11 @@ const SignUp = () => {
               {error && (
                 <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-md">
                   <p className="text-sm text-red-400">{error}</p>
+                  {(error.includes('already exists') || error.includes('already registered')) && (
+                    <Link to="/login" className="mt-2 block text-sm text-teal-400 hover:underline font-medium">
+                      → Go to Sign In
+                    </Link>
+                  )}
                 </div>
               )}
 

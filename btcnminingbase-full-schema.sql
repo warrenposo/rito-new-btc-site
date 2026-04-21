@@ -1,7 +1,8 @@
 -- ============================================================
 -- BtcNminingBase — Complete Database Schema
--- Project:  https://cqrdcbfbypdytfkwahwe.supabase.co
+-- Project:  https://rucaagoiuvlfcsjwfrqv.supabase.co
 -- Run this ONCE in your Supabase SQL Editor (Dashboard → SQL Editor)
+-- Admin email auto-assigned: warrenokumu98@gmail.com
 -- ============================================================
 
 -- Enable UUID extension
@@ -671,6 +672,6 @@ ON CONFLICT DO NOTHING;
 --    in the deposit_addresses seed block above.
 --
 -- 4. The Supabase anon key is already set in src/lib/supabase.ts:
---    URL:  https://cqrdcbfbypdytfkwahwe.supabase.co
---    Key:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxcmRjYmZieXBkeXRma3dhaHdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2Mjg5MjYsImV4cCI6MjA5MTIwNDkyNn0.sIU9_aFJE43cGV19XtTfUAL4zZ0xwRah_lWIJoErcFY
+--    URL:  https://rucaagoiuvlfcsjwfrqv.supabase.co
+--    Key:  sb_publishable_o803MNuoFjzB5vQZ7NiUxQ_S9nJ5Tfr
 -- ============================================================

@@ -113,6 +113,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (!fallback.error) {
           data = { ...fallback.data, mining_enabled: true };
           error = null;
+        } else {
+          // Retry also failed — pass the fallback error forward so PGRST116 creation logic can trigger
+          error = fallback.error;
         }
       }
 
@@ -233,14 +236,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { data, error } = await supabase.auth.signUp({
         email: email.trim().toLowerCase(),
         password,
+        options: {
+          data: {
+            full_name: fullName || '',
+            display_name: fullName?.split(' ')[0] || '',
+          },
+        },
       });
 
       if (error) {
-        // Email rate limit means Supabase still created the user but couldn't send the email.
-        // Treat it as a soft error — try to fetch profile and let the user proceed.
         const isRateLimit =
           error.message?.toLowerCase().includes('rate limit') ||
           error.message?.toLowerCase().includes('over_email_send_rate_limit');
+
+        const isAlreadyRegistered =
+          error.message?.toLowerCase().includes('already registered') ||
+          error.message?.toLowerCase().includes('user already') ||
+          error.status === 422;
+
+        if (isAlreadyRegistered) {
+          // User exists — sign them in instead of staying stuck
+          console.warn('[AuthContext] User already registered — attempting sign in instead');
+          setLoading(false);
+          const friendlyError: any = new Error('An account with this email already exists. Please sign in instead.');
+          friendlyError.code = 'USER_ALREADY_EXISTS';
+          throw friendlyError;
+        }
 
         if (!isRateLimit) {
           console.error('[AuthContext] Sign up error:', error.message);

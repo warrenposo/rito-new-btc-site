@@ -104,7 +104,7 @@ const GATEWAY_LABELS: Record<string, string> = {
 };
 
 const AdminDashboard = () => {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [allStats, setAllStats] = useState<MiningStats[]>([]);
@@ -131,24 +131,47 @@ const AdminDashboard = () => {
   const [savingDepositId, setSavingDepositId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (profile?.role !== 'admin') {
-      navigate('/dashboard');
+    // Wait for auth to finish loading before making routing decisions
+    if (authLoading) return;
+
+    if (!user) {
+      navigate('/login', { replace: true });
       return;
     }
+
+    // Use isAdmin which checks both profile.role AND email fallback
+    if (!isAdmin) {
+      navigate('/dashboard', { replace: true });
+      return;
+    }
+
     fetchData();
-  }, [profile, navigate]);
+  }, [user, isAdmin, authLoading, navigate]);
 
   const fetchData = async () => {
     try {
-      console.log('Admin Dashboard: Fetching data...', { userId: user?.id, profileRole: profile?.role });
+      console.log('Admin Dashboard: Fetching data...', { userId: user?.id, isAdmin });
 
-      // Fetch all users
+      // Fetch all users — gracefully handle missing table (schema not yet applied)
       const { data: allUsers, error: usersError } = await supabase
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (usersError) throw usersError;
+      if (usersError) {
+        if (usersError.code === '42P01' || usersError.message?.includes('does not exist') || String(usersError.code) === '404') {
+          // Schema not applied yet — show dashboard with empty data
+          console.warn('AdminDashboard: Tables not found. Please run the SQL schema in Supabase.');
+          toast({
+            title: 'Database not set up yet',
+            description: 'Please run btcnminingbase-full-schema.sql in your Supabase SQL Editor first.',
+            variant: 'destructive',
+          });
+          setLoading(false);
+          return;
+        }
+        throw usersError;
+      }
       setUsers(allUsers || []);
 
       // Fetch all tickets
@@ -156,9 +179,13 @@ const AdminDashboard = () => {
         .from('support_tickets')
         .select('*')
         .order('created_at', { ascending: false });
-      
-      if (ticketError) throw ticketError;
-      setAllTickets(ticketData || []);
+
+      if (ticketError) {
+        console.warn('Support tickets fetch failed:', ticketError.message);
+        setAllTickets([]);
+      } else {
+        setAllTickets(ticketData || []);
+      }
 
       // Fetch all mining stats
       const { data: stats, error: statsError } = await supabase
@@ -448,12 +475,15 @@ const AdminDashboard = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#040a0f] text-white">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-400"></div>
+        <div className="text-center space-y-4">
+          <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-teal-400"></div>
           <p className="text-white/70">Preparing admin dashboard...</p>
+          <p className="text-white/30 text-xs max-w-xs">
+            If this takes too long, make sure the SQL schema has been run in your Supabase project.
+          </p>
         </div>
       </div>
     );

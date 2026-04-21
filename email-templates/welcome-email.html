@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to BtcNminingBase</title>
+  <!--[if mso]>
+  <noscript>
+    <xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+  </noscript>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#040a0f;font-family:'Segoe UI',Arial,sans-serif;">
+
+  <!-- Outer wrapper -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#040a0f;padding:32px 16px;">
+    <tr>
+      <td align="center">
+
+        <!-- Card -->
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background-color:#060d13;border-radius:16px;overflow:hidden;border:1px solid rgba(0,229,255,0.12);">
+
+          <!-- ══════════════ HEADER BANNER ══════════════ -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#040a0f 0%,#071218 100%);padding:0;position:relative;">
+              <!-- Top accent line -->
+              <div style="height:3px;background:linear-gradient(90deg,#00e5ff,#00c853,#00e5ff);"></div>
+
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding:36px 40px 32px;">
+
+                    <!-- Logo row -->
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="vertical-align:middle;">
+                          <!-- Logo icon -->
+                          <div style="display:inline-block;width:44px;height:44px;background:linear-gradient(135deg,#00e5ff,#00c853);border-radius:10px;text-align:center;line-height:44px;font-size:22px;font-weight:900;color:#040a0f;vertical-align:middle;">₿</div>
+                        </td>
+                        <td style="padding-left:12px;vertical-align:middle;">
+                          <span style="font-size:22px;font-weight:900;color:#ffffff;letter-spacing:-0.5px;">Btc</span><span style="font-size:22px;font-weight:900;background:linear-gradient(135deg,#00e5ff,#00c853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;">NminingBase</span>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Headline -->
+                    <p style="margin:28px 0 0;font-size:32px;font-weight:900;color:#ffffff;line-height:1.2;letter-spacing:-0.5px;">
+                      Welcome aboard,<br/>
+                      <span style="background:linear-gradient(135deg,#00e5ff,#00c853);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ index .Data "display_name" }}!</span>
+                    </p>
+
+                    <p style="margin:12px 0 0;font-size:16px;color:rgba(255,255,255,0.5);line-height:1.6;">
+                      Your BtcNminingBase account has been successfully created.
+                    </p>
+
+                  </td>
+
+                  <!-- Right decorative orbs (hidden on mobile) -->
+                  <td style="width:140px;padding-right:32px;vertical-align:middle;text-align:right;" class="hide-mobile">
+                    <div style="position:relative;width:100px;height:100px;display:inline-block;">
+                      <div style="position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.15),transparent);border:1px solid rgba(0,229,255,0.2);"></div>
+                      <div style="position:absolute;top:20px;right:20px;width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,83,0.15),transparent);border:1px solid rgba(0,200,83,0.2);"></div>
+                      <div style="position:absolute;top:10px;right:10px;font-size:36px;color:rgba(0,229,255,0.3);">⛏</div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- ══════════════ STATS BAR ══════════════ -->
+          <tr>
+            <td style="padding:0 40px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.1);border-radius:12px;margin:4px 0;">
+                <tr>
+                  <td style="padding:16px 20px;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                    <div style="font-size:18px;font-weight:900;color:#00e5ff;">50,000+</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;">Active Miners</div>
+                  </td>
+                  <td style="padding:16px 20px;text-align:center;border-right:1px solid rgba(255,255,255,0.06);">
+                    <div style="font-size:18px;font-weight:900;color:#00c853;">$2.4M+</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;">Total Paid Out</div>
+                  </td>
+                  <td style="padding:16px 20px;text-align:center;">
+                    <div style="font-size:18px;font-weight:900;color:#00e5ff;">99.9%</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;">Platform Uptime</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ══════════════ BODY ══════════════ -->
+          <tr>
+            <td style="padding:32px 40px;">
+
+              <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;">
+                Hi <strong style="color:#ffffff;">{{ index .Data "display_name" }}</strong>, we're thrilled to have you join our mining community.
+                Your account is ready and you can start earning Bitcoin right away — no hardware required.
+              </p>
+
+              <!-- What's next section -->
+              <p style="margin:0 0 16px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">What to do next</p>
+
+              <!-- Step 1 -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+                <tr>
+                  <td style="width:36px;vertical-align:top;padding-top:2px;">
+                    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#00c853);text-align:center;line-height:28px;font-size:13px;font-weight:800;color:#040a0f;">1</div>
+                  </td>
+                  <td style="padding-left:12px;vertical-align:top;">
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#ffffff;">Complete Your Profile</p>
+                    <p style="margin:2px 0 0;font-size:13px;color:rgba(255,255,255,0.4);">Add your details, country, and wallet address.</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 2 -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+                <tr>
+                  <td style="width:36px;vertical-align:top;padding-top:2px;">
+                    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#00c853);text-align:center;line-height:28px;font-size:13px;font-weight:800;color:#040a0f;">2</div>
+                  </td>
+                  <td style="padding-left:12px;vertical-align:top;">
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#ffffff;">Make Your First Deposit</p>
+                    <p style="margin:2px 0 0;font-size:13px;color:rgba(255,255,255,0.4);">Fund your account with BTC, USDT, ETH, or Solana.</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 3 -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+                <tr>
+                  <td style="width:36px;vertical-align:top;padding-top:2px;">
+                    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#00c853);text-align:center;line-height:28px;font-size:13px;font-weight:800;color:#040a0f;">3</div>
+                  </td>
+                  <td style="padding-left:12px;vertical-align:top;">
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#ffffff;">Choose a Mining Plan</p>
+                    <p style="margin:2px 0 0;font-size:13px;color:rgba(255,255,255,0.4);">Pick from Beginner to VIP — daily payouts start immediately.</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 4 -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td style="width:36px;vertical-align:top;padding-top:2px;">
+                    <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#00c853);text-align:center;line-height:28px;font-size:13px;font-weight:800;color:#040a0f;">4</div>
+                  </td>
+                  <td style="padding-left:12px;vertical-align:top;">
+                    <p style="margin:0;font-size:14px;font-weight:700;color:#ffffff;">Watch Your Earnings Grow</p>
+                    <p style="margin:2px 0 0;font-size:13px;color:rgba(255,255,255,0.4);">Track your hash rate, balance, and payouts live in the dashboard.</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA Button -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td align="center">
+                    <a href="{{ .SiteURL }}/dashboard"
+                       style="display:inline-block;padding:16px 48px;background:linear-gradient(135deg,#00e5ff,#00c853);color:#040a0f;font-size:15px;font-weight:800;text-decoration:none;border-radius:12px;letter-spacing:0.02em;">
+                      Go to Dashboard →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,0.15),transparent);margin-bottom:24px;"></div>
+
+              <!-- Referral tip -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:10px;margin-bottom:24px;">
+                <tr>
+                  <td style="padding:16px 20px;">
+                    <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#00e5ff;">💰 Refer &amp; Earn</p>
+                    <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">
+                      Share your unique referral link from your dashboard and earn commissions on every plan your friends purchase.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Support -->
+              <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.35);line-height:1.7;text-align:center;">
+                Questions? Our support team is available 24/7.<br/>
+                <a href="mailto:support@btcnminingbase.com" style="color:#00e5ff;text-decoration:none;">support@btcnminingbase.com</a>
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- ══════════════ FOOTER ══════════════ -->
+          <tr>
+            <td style="background:#040a0f;padding:20px 40px;border-top:1px solid rgba(0,229,255,0.07);">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td>
+                    <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.2);">
+                      Best regards,<br/>
+                      <strong style="color:rgba(255,255,255,0.35);">The BtcNminingBase Team</strong>
+                    </p>
+                  </td>
+                  <td style="text-align:right;">
+                    <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.15);">
+                      © 2026 BtcNminingBase.<br/>All rights reserved.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top:12px;">
+                    <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.15);text-align:center;">
+                      This email was sent to {{ .Email }} · 57 Kingfisher Grove, Willenhall, England, WV12 5HG
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Card -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
