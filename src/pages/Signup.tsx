@@ -79,44 +79,35 @@ const SignUp = () => {
     setError(null);
 
     try {
-      // Combine first and last name for full_name
       const fullName = `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim();
-      
-      // Call signUp from AuthContext
-      await signUp(formData.email.trim().toLowerCase(), formData.password, fullName);
+      const emailLower = formData.email.trim().toLowerCase();
 
-      // Store phone and country for later update (after user is available)
-      const phoneValue = formData.phone.trim();
-      const countryValue = formData.country.trim();
+      await signUp(emailLower, formData.password, fullName);
 
-      // Wait for user to be available, then update profile with additional info
-      if (phoneValue || countryValue) {
-        const updateProfile = async () => {
-          // Wait for user to be set
-          let attempts = 0;
-          while (attempts < 10) {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const { data: { user: currentUser } } = await supabase.auth.getUser();
-            if (currentUser) {
-              const updateData: any = {};
-              if (phoneValue) updateData.mobile = phoneValue;
-              if (countryValue) updateData.country = countryValue;
+      // After signUp completes, get the current session directly and navigate
+      // This bypasses the useEffect timing issue entirely
+      const { data: { user: currentUser } } = await supabase.auth.getUser();
 
-              if (Object.keys(updateData).length > 0) {
-                await supabase
-                  .from('profiles')
-                  .update(updateData)
-                  .eq('user_id', currentUser.id);
-              }
-              break;
-            }
-            attempts++;
-          }
-        };
-        updateProfile().catch(console.error);
+      if (currentUser) {
+        // Save optional profile fields in background (non-blocking)
+        const phoneValue = formData.phone.trim();
+        const countryValue = formData.country.trim();
+        if (phoneValue || countryValue) {
+          supabase.from('profiles').update({
+            ...(phoneValue ? { mobile: phoneValue } : {}),
+            ...(countryValue ? { country: countryValue } : {}),
+          }).eq('user_id', currentUser.id).then().catch(console.error);
+        }
+
+        // Navigate immediately — don't wait for profile
+        const isAdminUser = currentUser.email?.toLowerCase() === 'warrenokumu98@gmail.com';
+        setIsLoading(false);
+        navigate(isAdminUser ? '/admin' : '/dashboard', { replace: true });
+        return;
       }
 
-      // useEffect handles redirect once profile is loaded
+      // Fallback: no user in session yet — let the useEffect handle it
+      // (should not normally reach here)
 
     } catch (error: any) {
       console.error('Sign up error:', error);

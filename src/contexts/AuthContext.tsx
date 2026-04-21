@@ -273,36 +273,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (data.user) {
         console.log('[AuthContext] User created, ID:', data.user.id);
-        
-        // The database trigger should automatically create the profile
-        // But we'll update it with full_name if provided
-        // Wait a moment for the trigger to complete
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
+
+        // Wait briefly for the DB trigger (handle_new_user) to create the profile row
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        // If full_name provided, try to update the profile the trigger created
+        // Use update (not upsert) to avoid RLS insert conflicts
         if (fullName) {
           const isAdmin = email.toLowerCase() === 'warrenokumu98@gmail.com';
-          const { error: upsertError } = await supabase.from('profiles').upsert(
-            {
-              user_id: data.user.id,
-              email: email.trim().toLowerCase(),
-              full_name: fullName,
-              role: isAdmin ? 'admin' : 'user',
-            },
-            { onConflict: 'user_id' },
-          );
-
-          if (upsertError) {
-            console.error('[AuthContext] Error upserting profile:', upsertError);
-            // Don't throw - the trigger might have already created it
-          } else {
-            console.log('[AuthContext] Profile upserted successfully');
-          }
+          await supabase
+            .from('profiles')
+            .update({ full_name: fullName, role: isAdmin ? 'admin' : 'user' })
+            .eq('user_id', data.user.id)
+            .then(({ error }) => {
+              if (error) console.warn('[AuthContext] Profile update skipped (trigger may not have run yet):', error.message);
+              else console.log('[AuthContext] Profile updated with full_name');
+            });
         }
-        
-        // Fetch the profile to ensure we have the latest data
-        await fetchProfile(data.user.id);
+
+        // Fetch profile in background — don't block signup completion
+        fetchProfile(data.user.id).catch(console.warn);
+
       } else {
-        console.log('[AuthContext] Sign up successful but no user data (email confirmation may be required)');
+        console.log('[AuthContext] Sign up successful — email confirmation may be required');
         setLoading(false);
       }
     } catch (error) {
