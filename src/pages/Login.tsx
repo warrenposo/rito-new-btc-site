@@ -101,23 +101,32 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-primary/5 flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen bg-[#040a0f] flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 circuit-bg opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 diagonal-lines pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle, #00e5ff, transparent)" }} />
+
+      <div className="w-full max-w-md space-y-6 relative z-10">
         <div className="text-center">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-xl font-bold text-primary-foreground">
-              CM
+          <Link to="/" className="inline-flex items-center gap-2.5 justify-center">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #00e5ff 0%, #00c853 100%)" }}
+            >
+              <span className="text-black font-black text-lg">₿</span>
             </div>
-            <span className="text-2xl font-bold text-white">
-              Crypto<span className="text-primary">Mine</span>
+            <span className="text-2xl font-black tracking-tight">
+              <span className="text-white">Btc</span>
+              <span className="text-gradient-teal">NminingBase</span>
             </span>
           </Link>
         </div>
 
-        <Card className="shadow-2xl border border-white/10 bg-[#050C1A]/80 backdrop-blur">
+        <Card className="shadow-2xl border border-white/10 bg-[#060d13]/80 backdrop-blur">
           <CardHeader className="text-center pb-6">
             <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
-            <CardDescription className="text-white/60">Sign in to access your BtcCloudBase dashboard</CardDescription>
+            <CardDescription className="text-white/60">Sign in to access your BtcNminingBase dashboard</CardDescription>
           </CardHeader>
 
           {authError && (
@@ -227,7 +236,7 @@ const Login = () => {
         </Card>
 
         <div className="text-center text-xs text-white/40">
-          <p>Need help? Contact support@BtcCloudBase.com • PCI Compliant • ISO 27001 Certified</p>
+          <p>Need help? Contact support@BtcNminingBase.com • PCI Compliant • ISO 27001 Certified</p>
         </div>
       </div>
     </div>

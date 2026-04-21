@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
@@ -504,7 +504,7 @@ const Deposit = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <div className="flex">
         <UserSidebar
           activeView={activeView === 'deposit' ? 'deposit' : activeView === 'log' ? 'log' : undefined}
@@ -549,12 +549,12 @@ const Deposit = () => {
                 </ul>
               </div>
 
-              <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-100">
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 p-4 text-sm text-yellow-100">
                 Minimum deposit is <span className="font-semibold">$70</span>.
               </div>
 
               {depositStage === 'form' && (
-                <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <h2 className="text-xl font-semibold">Deposit on Your USD Wallet</h2>
@@ -563,7 +563,7 @@ const Deposit = () => {
                       </p>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-white/60">
-                      <Shield className="h-4 w-4 text-yellow-400" />
+                      <Shield className="h-4 w-4 text-teal-400" />
                       SSL encrypted payment instructions
                     </div>
                   </div>
@@ -575,10 +575,10 @@ const Deposit = () => {
                         value={gateway || undefined}
                         onValueChange={(value) => handleGatewayChange(value as GatewayValue)}
                       >
-                        <SelectTrigger className="h-12 border-white/10 bg-[#0B1421] text-white">
+                        <SelectTrigger className="h-12 border-white/10 bg-[#040a0f] text-white">
                           <SelectValue placeholder="Select One" />
                         </SelectTrigger>
-                        <SelectContent className="border-white/10 bg-[#0B1421] text-white">
+                        <SelectContent className="border-white/10 bg-[#040a0f] text-white">
                           {gatewayOptions.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               <div>
@@ -599,29 +599,29 @@ const Deposit = () => {
                           value={amount}
                           onChange={(e) => handleAmountChange(e.target.value)}
                           placeholder="Enter amount"
-                          className="h-12 flex-1 border-white/10 bg-[#0B1421] text-white"
+                          className="h-12 flex-1 border-white/10 bg-[#040a0f] text-white"
                           min={limit.min > 0 ? limit.min : undefined}
                           max={limit.max > 0 ? limit.max : undefined}
                           step="0.01"
                         />
-                        <Button type="button" className="h-12 bg-yellow-500 px-6 text-black hover:bg-yellow-400">
+                        <Button type="button" className="h-12 bg-teal-500 px-6 text-black hover:bg-teal-400">
                           USD
                         </Button>
                       </div>
                     </div>
 
                     <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Limit</p>
                         <p className="mt-2 text-lg font-semibold">
                           {limit.min > 0 ? `${formatUSD(limit.min)} - ${formatUSD(limit.max)}` : 'Select gateway'}
                         </p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Charge</p>
                         <p className="mt-2 text-lg font-semibold">{charge > 0 ? formatUSD(charge) : '$0.00'}</p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Payable</p>
                         <p className="mt-2 text-lg font-semibold">{payable > 0 ? formatUSD(payable) : '$0.00'}</p>
                       </div>
@@ -630,7 +630,7 @@ const Deposit = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="h-12 w-full bg-yellow-500 text-lg font-semibold text-black hover:bg-yellow-400"
+                      className="h-12 w-full bg-teal-500 text-lg font-semibold text-black hover:bg-teal-400"
                     >
                       {isSubmitting ? 'Preparing...' : 'Submit'}
                     </Button>
@@ -640,7 +640,7 @@ const Deposit = () => {
 
               {depositStage === 'preview' && previewData && (
                 <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <button
                       onClick={handleBackToForm}
                       className="mb-4 flex items-center gap-2 text-sm text-white/60 hover:text-white"
@@ -664,14 +664,14 @@ const Deposit = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-white/60">Payable</span>
-                        <span className="text-lg font-semibold text-yellow-400">{formatUSD(previewData.payable)}</span>
+                        <span className="text-lg font-semibold text-teal-400">{formatUSD(previewData.payable)}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <div className="mb-4 flex items-center gap-2 text-sm text-white/60">
-                      <CreditCard className="h-4 w-4 text-yellow-400" />
+                      <CreditCard className="h-4 w-4 text-teal-400" />
                       Payment Preview
                     </div>
                     <div className="space-y-3 text-sm">
@@ -703,7 +703,7 @@ const Deposit = () => {
                       <Button
                         onClick={handleConfirmPayment}
                         disabled={isConfirming}
-                        className="mt-4 h-12 w-full bg-yellow-500 text-black hover:bg-yellow-400"
+                        className="mt-4 h-12 w-full bg-teal-500 text-black hover:bg-teal-400"
                       >
                         {isConfirming ? 'Reserving address...' : 'Pay Now'}
                       </Button>
@@ -714,11 +714,11 @@ const Deposit = () => {
 
               {depositStage === 'payment' && activeDeposit && (
                 <div className="space-y-6">
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div>
                         <p className="text-sm text-white/60">Transaction ID</p>
-                        <p className="font-mono text-lg text-yellow-400">{activeDeposit.transaction_id}</p>
+                        <p className="font-mono text-lg text-teal-400">{activeDeposit.transaction_id}</p>
                       </div>
                       <Button variant="outline" onClick={handleStartNewDeposit}>
                         Start new deposit
@@ -739,7 +739,7 @@ const Deposit = () => {
                         <span className="font-mono text-[#FF7B7B]">{activeDeposit.deposit_address}</span>
                         <button
                           onClick={() => copyToClipboard(activeDeposit.deposit_address)}
-                          className="rounded-md bg-yellow-500/20 p-2 text-yellow-400 transition hover:bg-yellow-500/30"
+                          className="rounded-md bg-teal-500/20 p-2 text-teal-400 transition hover:bg-teal-500/30"
                         >
                           <Copy className="h-4 w-4" />
                         </button>
@@ -771,7 +771,7 @@ const Deposit = () => {
                       </p>
                       <Button
                         onClick={() => setShowPaymentConfirmationModal(true)}
-                        className="mt-6 h-12 w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                        className="mt-6 h-12 w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                       >
                         I Have Paid
                       </Button>
@@ -782,7 +782,7 @@ const Deposit = () => {
 
               {/* Payment Confirmation Modal */}
               <Dialog open={showPaymentConfirmationModal} onOpenChange={setShowPaymentConfirmationModal}>
-                <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+                <DialogContent className="bg-[#060d13] border-teal-500/50 text-white max-w-md [&>button]:hidden">
                   <DialogHeader className="relative">
                     <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
                       Payment Submitted
@@ -795,10 +795,10 @@ const Deposit = () => {
                     </button>
                   </DialogHeader>
                   <div className="space-y-4">
-                    <div className="rounded-lg bg-yellow-500/10 border border-yellow-500/30 p-4">
-                      <p className="text-yellow-400 font-semibold mb-2">⏱️ Processing Time</p>
+                    <div className="rounded-lg bg-teal-500/10 border border-teal-500/30 p-4">
+                      <p className="text-teal-400 font-semibold mb-2">⏱️ Processing Time</p>
                       <p className="text-white/90">
-                        Your payment is being processed. It may take <span className="font-semibold text-yellow-400">1-5 minutes</span> for the balance to reflect in your account.
+                        Your payment is being processed. It may take <span className="font-semibold text-teal-400">1-5 minutes</span> for the balance to reflect in your account.
                       </p>
                     </div>
                     <div className="rounded-lg bg-blue-500/10 border border-blue-500/30 p-4">
@@ -814,7 +814,7 @@ const Deposit = () => {
                           // Refresh deposits to check status
                           fetchDeposits();
                         }}
-                        className="flex-1 bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                        className="flex-1 bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                       >
                         OK, I Understand
                       </Button>
@@ -824,7 +824,7 @@ const Deposit = () => {
               </Dialog>
             </div>
           ) : (
-            <div className="rounded-lg border border-white/5 bg-[#111B2D] p-6">
+            <div className="rounded-lg border border-white/5 bg-[#060d13] p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -845,7 +845,7 @@ const Deposit = () => {
                           <p className="text-white/60 text-lg">
                             No wallet found yet?{' '}
                             <span
-                              className="cursor-pointer text-yellow-400 hover:underline"
+                              className="cursor-pointer text-teal-400 hover:underline"
                               onClick={() => setActiveView('deposit')}
                             >
                               Deposit
@@ -880,7 +880,7 @@ const Deposit = () => {
                               className={`rounded-full px-3 py-1 text-xs capitalize ${deposit.status === 'completed'
                                   ? 'bg-green-500/20 text-green-400'
                                   : deposit.status === 'pending' || deposit.status === 'processing'
-                                    ? 'bg-yellow-500/20 text-yellow-400'
+                                    ? 'bg-teal-500/20 text-teal-400'
                                     : 'bg-red-500/20 text-red-400'
                                 }`}
                             >
@@ -891,7 +891,7 @@ const Deposit = () => {
                             {new Date(deposit.created_at).toLocaleString()}
                           </td>
                           <td className="px-4 py-4">
-                            <Button variant="ghost" className="text-yellow-400 hover:text-yellow-300">
+                            <Button variant="ghost" className="text-teal-400 hover:text-teal-300">
                               View
                             </Button>
                           </td>

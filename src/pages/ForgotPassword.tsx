@@ -41,12 +41,13 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1421] flex flex-col">
-      <div className="relative h-28 bg-[#050C1A] flex items-center justify-center">
-        <h1 className="text-3xl font-bold text-white">Reset password</h1>
+    <div className="min-h-screen bg-[#040a0f] flex flex-col">
+      <div className="relative h-28 bg-[#040a0f] border-b border-teal-500/10 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 circuit-bg opacity-40 pointer-events-none" />
+        <h1 className="text-3xl font-bold text-white relative z-10">Reset Password</h1>
       </div>
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="w-full max-w-md rounded-lg border border-white/5 bg-[#0F1A2B] p-6 sm:p-8">
+        <div className="w-full max-w-md rounded-xl border border-teal-500/15 bg-[#060d13] p-6 sm:p-8">
           <p className="text-sm text-white/60 mb-6">
             Enter your account email. We will send you a link to choose a new password.
           </p>
@@ -71,7 +72,7 @@ const ForgotPassword = () => {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#0B1421] pl-10 text-white border-white/10"
+                  className="bg-[#040a0f] pl-10 text-white border-white/10"
                   placeholder="you@example.com"
                 />
               </div>
@@ -79,14 +80,15 @@ const ForgotPassword = () => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+              className="w-full font-semibold text-black border-0 hover:opacity-90"
+            style={{ background: "linear-gradient(135deg, #00e5ff 0%, #00c853 100%)" }}
             >
               {loading ? 'Sending…' : 'Send reset link'}
             </Button>
           </form>
           <Link
             to="/login"
-            className="mt-6 inline-flex items-center gap-2 text-sm text-yellow-400 hover:text-yellow-300"
+            className="mt-6 inline-flex items-center gap-2 text-sm text-teal-400 hover:text-teal-300"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to sign in

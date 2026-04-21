@@ -1,5 +1,5 @@
 -- ============================================================
--- BtcCloudBase — Complete Database Schema
+-- BtcNminingBase — Complete Database Schema
 -- Project:  https://cqrdcbfbypdytfkwahwe.supabase.co
 -- Run this ONCE in your Supabase SQL Editor (Dashboard → SQL Editor)
 -- ============================================================

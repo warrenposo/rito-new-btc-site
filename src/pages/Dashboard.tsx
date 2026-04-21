@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
@@ -55,9 +55,9 @@ const translations = {
   en: {
     heroTitle: 'World-class security',
     heroBody1:
-      'As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcCloudBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.',
+      'As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNminingBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.',
     heroBody2:
-      'BtcCloudBase already supports direct transfers from Coinbase exchange accounts to BtcCloudBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.',
+      'BtcNminingBase already supports direct transfers from Coinbase exchange accounts to BtcNminingBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.',
     heroBody3: 'The funds are supervised by Coinbase, a third-party listed company.',
     depositCta: 'Deposit Funds',
     withdrawCta: 'Withdraw Now',
@@ -66,9 +66,9 @@ const translations = {
   es: {
     heroTitle: 'Seguridad de clase mundial',
     heroBody1:
-      'Como subsidiaria de Digital Currency Group, ofrecemos a los clientes la oportunidad de acceder a nuestro ecosistema. BtcCloudBase mantiene una alianza estratégica con Coinbase, el mayor intercambio de criptomonedas en Estados Unidos.',
+      'Como subsidiaria de Digital Currency Group, ofrecemos a los clientes la oportunidad de acceder a nuestro ecosistema. BtcNminingBase mantiene una alianza estratégica con Coinbase, el mayor intercambio de criptomonedas en Estados Unidos.',
     heroBody2:
-      'BtcCloudBase ya admite transferencias directas desde cuentas de Coinbase a cuentas de BtcCloudBase. Si también eres cliente de Coinbase, puedes elegir Coinbase Payments al realizar pagos.',
+      'BtcNminingBase ya admite transferencias directas desde cuentas de Coinbase a cuentas de BtcNminingBase. Si también eres cliente de Coinbase, puedes elegir Coinbase Payments al realizar pagos.',
     heroBody3: 'Los fondos están supervisados por Coinbase, una compañía que cotiza en bolsa.',
     depositCta: 'Depositar fondos',
     withdrawCta: 'Retirar ahora',
@@ -77,9 +77,9 @@ const translations = {
   fr: {
     heroTitle: 'Une sécurité de classe mondiale',
     heroBody1:
-      "En tant que filiale du Digital Currency Group, nous offrons aux clients l'opportunité d'accéder à notre écosystème. BtcCloudBase a conclu un partenariat stratégique avec Coinbase, le plus grand échange de crypto-monnaies aux États-Unis.",
+      "En tant que filiale du Digital Currency Group, nous offrons aux clients l'opportunité d'accéder à notre écosystème. BtcNminingBase a conclu un partenariat stratégique avec Coinbase, le plus grand échange de crypto-monnaies aux États-Unis.",
     heroBody2:
-      'BtcCloudBase prend déjà en charge les transferts directs des comptes Coinbase vers les comptes BtcCloudBase. Si vous êtes également client de Coinbase, vous pouvez choisir Coinbase Payments lors de vos paiements.',
+      'BtcNminingBase prend déjà en charge les transferts directs des comptes Coinbase vers les comptes BtcNminingBase. Si vous êtes également client de Coinbase, vous pouvez choisir Coinbase Payments lors de vos paiements.',
     heroBody3: 'Les fonds sont supervisés par Coinbase, une société cotée en bourse.',
     depositCta: 'Déposer des fonds',
     withdrawCta: 'Retirer maintenant',
@@ -88,9 +88,9 @@ const translations = {
   de: {
     heroTitle: 'Sicherheit auf Weltklasseniveau',
     heroBody1:
-      'Als Tochtergesellschaft der Digital Currency Group bieten wir Kunden Zugang zu unserem Ökosystem. BtcCloudBase hat eine strategische Partnerschaft mit Coinbase, der größten Kryptobörse in den USA.',
+      'Als Tochtergesellschaft der Digital Currency Group bieten wir Kunden Zugang zu unserem Ökosystem. BtcNminingBase hat eine strategische Partnerschaft mit Coinbase, der größten Kryptobörse in den USA.',
     heroBody2:
-      'BtcCloudBase unterstützt bereits direkte Überweisungen von Coinbase-Konten auf BTC-Mining-Konten. Wenn Sie ebenfalls Coinbase-Kunde sind, können Sie Coinbase Payments für Zahlungen wählen.',
+      'BtcNminingBase unterstützt bereits direkte Überweisungen von Coinbase-Konten auf BTC-Mining-Konten. Wenn Sie ebenfalls Coinbase-Kunde sind, können Sie Coinbase Payments für Zahlungen wählen.',
     heroBody3: 'Die Gelder werden von Coinbase, einem börsennotierten Unternehmen, überwacht.',
     depositCta: 'Geld einzahlen',
     withdrawCta: 'Jetzt abheben',
@@ -376,16 +376,16 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       {/* Top Navigation Bar */}
-      <header className="bg-[#0F1A2B] border-b border-white/5 px-6 py-4">
+      <header className="bg-[#060d13] border-b border-white/5 px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
               <span className="text-black font-bold text-lg">B</span>
             </div>
-            <span className="text-xl font-bold text-white">BtcCloudBase</span>
+            <span className="text-xl font-bold text-white">BtcNminingBase</span>
           </div>
           
           {/* Center Navigation */}
@@ -396,7 +396,7 @@ const Dashboard = () => {
                 navigate('/dashboard');
               }}
               className={`text-sm font-medium transition-colors ${
-                activeView === 'dashboard' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'dashboard' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               Home
@@ -404,7 +404,7 @@ const Dashboard = () => {
             <button
               onClick={() => setActiveView('team')}
               className={`text-sm font-medium transition-colors ${
-                activeView === 'team' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'team' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               Team
@@ -412,7 +412,7 @@ const Dashboard = () => {
             <button
               onClick={() => setActiveView('about-us')}
               className={`text-sm font-medium transition-colors ${
-                activeView === 'about-us' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'about-us' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               AboutUs
@@ -465,12 +465,12 @@ const Dashboard = () => {
           {activeView === 'my-referrals' && (
             <div className="space-y-6">
               {/* My Commission Section */}
-              <div className="flex items-center justify-between rounded-lg border border-white/5 bg-[#111B2D]/70 p-4">
+              <div className="flex items-center justify-between rounded-lg border border-white/5 bg-[#060d13]/70 p-4">
                 <div className="flex items-center gap-4">
                   <span className="text-white/70">USDT</span>
                   <span className="text-white text-lg font-semibold">{commission.toFixed(4)}</span>
                 </div>
-                <Button className="bg-yellow-500 text-black hover:bg-yellow-400">
+                <Button className="bg-teal-500 text-black hover:bg-teal-400">
                   Withdrawal
                 </Button>
               </div>
@@ -483,7 +483,7 @@ const Dashboard = () => {
                     value={walletAddress}
                     onChange={(e) => setWalletAddress(e.target.value)}
                     disabled={!isEditingWallet}
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                     placeholder="Enter your USDT wallet address"
                   />
                   <Button
@@ -499,7 +499,7 @@ const Dashboard = () => {
                         setIsEditingWallet(true);
                       }
                     }}
-                    className="bg-yellow-500 text-black hover:bg-yellow-400"
+                    className="bg-teal-500 text-black hover:bg-teal-400"
                   >
                     {isEditingWallet ? 'Save' : 'Edit'}
                   </Button>
@@ -513,7 +513,7 @@ const Dashboard = () => {
                   <Input
                     value={referralLink}
                     readOnly
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                   />
                   <Button
                     onClick={() => {
@@ -523,7 +523,7 @@ const Dashboard = () => {
                         description: 'Referral link copied to clipboard',
                       });
                     }}
-                    className="bg-yellow-500 text-black hover:bg-yellow-400"
+                    className="bg-teal-500 text-black hover:bg-teal-400"
                   >
                     <Copy className="h-4 w-4 mr-2" />
                     Copy
@@ -532,7 +532,7 @@ const Dashboard = () => {
               </div>
 
               {/* Referral Program Description */}
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4">
                 <h3 className="text-xl font-semibold text-white">
                   Earn USDT by referring new users, join our Affiliate Program (Partner Program), and earn a lifetime 10% commission!
                 </h3>
@@ -541,7 +541,7 @@ const Dashboard = () => {
                   <li>
                     New users register with us. You will get 10% of the top-up amount. For example, You recommend user A, you can get 7% of the referral plan, A recommends B to buy plan, you can get 2% B recommends C to buy plan, you can get 1%
                   </li>
-                  <li>Mention BtcCloudBase. in your newsletter and use your affiliate link.</li>
+                  <li>Mention BtcNminingBase. in your newsletter and use your affiliate link.</li>
                   <li>
                     Invite your friends and earn USDT benefits when they complete their purchases. Keep an eye on how much you earn each week, get paid in USDT, and each of your affiliates will generate lifetime commissions.
                   </li>
@@ -551,13 +551,13 @@ const Dashboard = () => {
               </div>
 
               {/* Your Team Section */}
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   Your Team invited {teamMembers.length} users
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
-                    <thead className="bg-[#0B1421] text-white/70">
+                    <thead className="bg-[#040a0f] text-white/70">
                       <tr>
                         <th className="py-3 px-4">User</th>
                         <th className="py-3 px-4">Recharge Amount</th>
@@ -591,11 +591,11 @@ const Dashboard = () => {
 
           {/* Referral Bonus Logs Page */}
           {activeView === 'referral-bonus-logs' && (
-            <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6">
+            <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6">
               <h3 className="text-xl font-semibold text-white mb-4">Referral Bonus Logs</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-[#0B1421] text-white">
+                  <thead className="bg-[#040a0f] text-white">
                     <tr>
                       <th className="py-3 px-4">User</th>
                       <th className="py-3 px-4">Recharge amount</th>
@@ -628,11 +628,11 @@ const Dashboard = () => {
 
           {/* Withdraw Logs Page */}
           {activeView === 'withdraw-logs' && (
-            <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6">
+            <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6">
               <h3 className="text-xl font-semibold text-white mb-4">Withdraw Logs</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-[#0B1421] text-white">
+                  <thead className="bg-[#040a0f] text-white">
                     <tr>
                       <th className="py-3 px-4">Time</th>
                       <th className="py-3 px-4">Transaction ID</th>
@@ -663,14 +663,14 @@ const Dashboard = () => {
                           <td className="py-3 px-4">
                             <span className={`px-2 py-1 rounded text-xs ${
                               log.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                              log.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :
+                              log.status === 'pending' ? 'bg-teal-500/20 text-teal-400' :
                               'bg-red-500/20 text-red-400'
                             }`}>
                               {log.status}
                             </span>
                           </td>
                           <td className="py-3 px-4">
-                            <button className="text-yellow-400 hover:text-yellow-300">View</button>
+                            <button className="text-teal-400 hover:text-teal-300">View</button>
                           </td>
                         </tr>
                       ))
@@ -685,7 +685,7 @@ const Dashboard = () => {
           {activeView === 'support-new' && (
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <LifeBuoy className="h-8 w-8 text-yellow-400" />
+                <LifeBuoy className="h-8 w-8 text-teal-400" />
                 <h2 className="text-3xl font-bold text-white">Open New Ticket</h2>
               </div>
               
@@ -735,7 +735,7 @@ const Dashboard = () => {
                     setSubmittingTicket(false);
                   }
                 }}
-                className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4"
+                className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -744,7 +744,7 @@ const Dashboard = () => {
                       value={ticketSubject}
                       onChange={(e) => setTicketSubject(e.target.value)}
                       required
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Enter ticket subject"
                     />
                   </div>
@@ -753,7 +753,7 @@ const Dashboard = () => {
                     <select
                       value={ticketPriority}
                       onChange={(e) => setTicketPriority(e.target.value)}
-                      className="w-full bg-[#0B1421] text-white border border-white/10 rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-yellow-500"
+                      className="w-full bg-[#040a0f] text-white border border-white/10 rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-teal-500"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
@@ -768,14 +768,14 @@ const Dashboard = () => {
                     value={ticketMessage}
                     onChange={(e) => setTicketMessage(e.target.value)}
                     required
-                    className="bg-[#0B1421] text-white border-white/10 min-h-[200px]"
+                    className="bg-[#040a0f] text-white border-white/10 min-h-[200px]"
                     placeholder="Describe your issue in detail..."
                   />
                 </div>
                 <Button
                   type="submit"
                   disabled={submittingTicket}
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400 mt-6"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400 mt-6"
                 >
                   {submittingTicket ? 'Submitting...' : 'Submit Ticket'}
                 </Button>
@@ -788,22 +788,22 @@ const Dashboard = () => {
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <MessageSquare className="h-8 w-8 text-yellow-400" />
+                  <MessageSquare className="h-8 w-8 text-teal-400" />
                   <h2 className="text-3xl font-bold text-white">Support Tickets</h2>
                 </div>
                 <Button 
                   onClick={() => setActiveView('support-new')}
-                  className="bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="bg-teal-500 text-black hover:bg-teal-400"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   New Ticket
                 </Button>
               </div>
 
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 overflow-hidden">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm">
-                    <thead className="bg-[#0B1421] text-white/70">
+                    <thead className="bg-[#040a0f] text-white/70">
                       <tr>
                         <th className="py-4 px-6">Subject</th>
                         <th className="py-4 px-6">Status</th>
@@ -833,7 +833,7 @@ const Dashboard = () => {
                               <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                                 ticket.status === 'open' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
                                 ticket.status === 'in_progress' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                                ticket.status === 'resolved' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                                ticket.status === 'resolved' ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30' :
                                 'bg-red-500/20 text-red-400 border border-red-500/30'
                               }`}>
                                 {ticket.status.replace('_', ' ')}
@@ -843,7 +843,7 @@ const Dashboard = () => {
                               <span className={`flex items-center gap-1.5 ${
                                 ticket.priority === 'urgent' ? 'text-red-400' :
                                 ticket.priority === 'high' ? 'text-orange-400' :
-                                ticket.priority === 'medium' ? 'text-yellow-400' :
+                                ticket.priority === 'medium' ? 'text-teal-400' :
                                 'text-green-400'
                               }`}>
                                 <AlertCircle className="h-3 w-3" />
@@ -860,7 +860,7 @@ const Dashboard = () => {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
+                                className="text-teal-400 hover:text-teal-300 hover:bg-teal-500/10"
                                 onClick={() => {
                                   // Detailed view could be implemented later if needed
                                   toast({
@@ -925,7 +925,7 @@ const Dashboard = () => {
                     });
                   }
                 }}
-                className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4"
+                className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -936,7 +936,7 @@ const Dashboard = () => {
                       value={profileData.firstName}
                       onChange={(e) => setProfileData(prev => ({ ...prev, firstName: e.target.value }))}
                       required
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="First Name"
                     />
                   </div>
@@ -948,7 +948,7 @@ const Dashboard = () => {
                       value={profileData.lastName}
                       onChange={(e) => setProfileData(prev => ({ ...prev, lastName: e.target.value }))}
                       required
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Last Name"
                     />
                   </div>
@@ -957,7 +957,7 @@ const Dashboard = () => {
                     <Input
                       value={profileData.username}
                       onChange={(e) => setProfileData(prev => ({ ...prev, username: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Username"
                     />
                   </div>
@@ -968,7 +968,7 @@ const Dashboard = () => {
                       value={profileData.email}
                       readOnly
                       title="Email cannot be changed here"
-                      className="bg-[#0B1421]/60 text-white/70 border-white/10 cursor-not-allowed"
+                      className="bg-[#040a0f]/60 text-white/70 border-white/10 cursor-not-allowed"
                       placeholder="Email"
                     />
                   </div>
@@ -978,7 +978,7 @@ const Dashboard = () => {
                       <select
                         value={profileData.countryCode}
                         onChange={(e) => setProfileData(prev => ({ ...prev, countryCode: e.target.value }))}
-                        className="bg-yellow-500 text-black px-3 py-2 rounded border-white/10"
+                        className="bg-teal-500 text-black px-3 py-2 rounded border-white/10"
                       >
                         {dialCodeOptions.map((opt) => (
                           <option key={`${opt.iso2}-${opt.dial}`} value={opt.dial}>
@@ -989,7 +989,7 @@ const Dashboard = () => {
                       <Input
                         value={profileData.phone}
                         onChange={(e) => setProfileData(prev => ({ ...prev, phone: e.target.value }))}
-                        className="bg-[#0B1421] text-white border-white/10 flex-1"
+                        className="bg-[#040a0f] text-white border-white/10 flex-1"
                         placeholder="Your Phone Number"
                       />
                     </div>
@@ -999,7 +999,7 @@ const Dashboard = () => {
                     <Input
                       value={profileData.country}
                       onChange={(e) => setProfileData(prev => ({ ...prev, country: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Country"
                     />
                   </div>
@@ -1008,7 +1008,7 @@ const Dashboard = () => {
                     <Input
                       value={profileData.address}
                       onChange={(e) => setProfileData(prev => ({ ...prev, address: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Address"
                     />
                   </div>
@@ -1017,7 +1017,7 @@ const Dashboard = () => {
                     <Input
                       value={profileData.state}
                       onChange={(e) => setProfileData(prev => ({ ...prev, state: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="State"
                     />
                   </div>
@@ -1026,7 +1026,7 @@ const Dashboard = () => {
                     <Input
                       value={profileData.zipCode}
                       onChange={(e) => setProfileData(prev => ({ ...prev, zipCode: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="Zip Code"
                     />
                   </div>
@@ -1035,14 +1035,14 @@ const Dashboard = () => {
                     <Input
                       value={profileData.city}
                       onChange={(e) => setProfileData(prev => ({ ...prev, city: e.target.value }))}
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                       placeholder="City"
                     />
                   </div>
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400 mt-6"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400 mt-6"
                 >
                   Submit
                 </Button>
@@ -1054,7 +1054,7 @@ const Dashboard = () => {
           {activeView === 'wallets' && (
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold text-white">User Coin Wallets</h2>
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                 <p className="text-center text-red-500 text-lg">
                   You have no wallet yet, please buy some plan first
                 </p>
@@ -1066,12 +1066,12 @@ const Dashboard = () => {
           {activeView === '2fa-security' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Left Panel - Add Your Account */}
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4">
                 <h2 className="text-2xl font-semibold text-white">Add Your Account</h2>
                 <p className="text-white/70">
                   Use the QR code or setup key on your Google Authenticator app to add your account.
                 </p>
-                <div className="flex items-center justify-center bg-[#0B1421] rounded-lg p-8 border border-white/10">
+                <div className="flex items-center justify-center bg-[#040a0f] rounded-lg p-8 border border-white/10">
                   <div className="text-white/50 text-center">
                     <Lock className="h-16 w-16 mx-auto mb-2" />
                     <p>QR Code Placeholder</p>
@@ -1083,7 +1083,7 @@ const Dashboard = () => {
                     <Input
                       value={setupKey}
                       readOnly
-                      className="bg-[#0B1421] text-white border-white/10"
+                      className="bg-[#040a0f] text-white border-white/10"
                     />
                     <Button
                       type="button"
@@ -1094,7 +1094,7 @@ const Dashboard = () => {
                           description: 'Setup key copied to clipboard',
                         });
                       }}
-                      className="bg-yellow-500 text-black hover:bg-yellow-400"
+                      className="bg-teal-500 text-black hover:bg-teal-400"
                     >
                       <Copy className="h-4 w-4" />
                     </Button>
@@ -1102,12 +1102,12 @@ const Dashboard = () => {
                 </div>
                 <div className="space-y-2 pt-4 border-t border-white/10">
                   <div className="flex items-center gap-2">
-                    <Info className="h-4 w-4 text-yellow-400" />
+                    <Info className="h-4 w-4 text-teal-400" />
                     <span className="text-white font-semibold">Help</span>
                   </div>
                   <p className="text-white/70 text-sm">
                     Google Authenticator is a multifactor app for mobile devices. It generates timed codes used during the 2-step verification process. To use Google Authenticator, install the Google Authenticator application on your mobile device.{' '}
-                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:underline">
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:underline">
                       Download
                     </a>
                   </p>
@@ -1115,14 +1115,14 @@ const Dashboard = () => {
               </div>
 
               {/* Right Panel - Enable 2FA Security */}
-              <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4">
+              <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4">
                 <h2 className="text-2xl font-semibold text-white">Enable 2FA Security</h2>
                 <div className="space-y-2">
                   <Label className="text-white/70">Google Authenticator OTP</Label>
                   <Input
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                     placeholder="Enter the OTP"
                   />
                 </div>
@@ -1143,7 +1143,7 @@ const Dashboard = () => {
                     });
                     setOtp('');
                   }}
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400"
                 >
                   Submit
                 </Button>
@@ -1202,7 +1202,7 @@ const Dashboard = () => {
                     });
                   }
                 }}
-                className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-6 space-y-4 max-w-2xl"
+                className="rounded-lg border border-white/5 bg-[#060d13]/70 p-6 space-y-4 max-w-2xl"
               >
                 <div className="space-y-2">
                   <Label className="text-white/70">Current Password</Label>
@@ -1211,7 +1211,7 @@ const Dashboard = () => {
                     value={passwordData.currentPassword}
                     onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
                     required
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                     placeholder="Enter your current password"
                   />
                 </div>
@@ -1222,7 +1222,7 @@ const Dashboard = () => {
                     value={passwordData.newPassword}
                     onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
                     required
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                     placeholder="Enter your new password"
                   />
                 </div>
@@ -1233,13 +1233,13 @@ const Dashboard = () => {
                     value={passwordData.confirmPassword}
                     onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
                     required
-                    className="bg-[#0B1421] text-white border-white/10"
+                    className="bg-[#040a0f] text-white border-white/10"
                     placeholder="Confirm your new password"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400"
                 >
                   Change Password
                 </Button>
@@ -1259,7 +1259,7 @@ const Dashboard = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Alexander Wright */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" 
@@ -1275,7 +1275,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Sophia Smith */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop" 
@@ -1291,7 +1291,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Michael Rodriguez */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop" 
@@ -1353,7 +1353,7 @@ const Dashboard = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* David Kim */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop" 
@@ -1369,7 +1369,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Abraham Johnson */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop" 
@@ -1385,7 +1385,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* James Wilson */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop" 
@@ -1401,7 +1401,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Jack Thompson */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop" 
@@ -1417,7 +1417,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Robert Williams */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" 
@@ -1433,7 +1433,7 @@ const Dashboard = () => {
                   </div>
                   
                   {/* Olivia Martinez */}
-                  <div className="bg-[#111B2D]/70 rounded-lg p-6 border border-white/5">
+                  <div className="bg-[#060d13]/70 rounded-lg p-6 border border-white/5">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full border-2 border-cyan-400 overflow-hidden">
                       <img 
                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" 
@@ -1455,7 +1455,7 @@ const Dashboard = () => {
                 <h2 className="text-3xl font-bold text-white text-center">Supported Cryptocurrencies</h2>
                 <div className="flex flex-wrap justify-center items-center gap-8">
                   {/* Bitcoin */}
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-yellow-500 flex items-center justify-center p-2">
+                  <div className="w-16 h-16 rounded-full overflow-hidden bg-teal-500 flex items-center justify-center p-2">
                     <img 
                       src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" 
                       alt="Bitcoin"
@@ -1583,22 +1583,22 @@ const Dashboard = () => {
               
               <div className="space-y-6">
                 {/* Mission Section */}
-                <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
+                <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                   <h2 className="text-2xl font-semibold text-white mb-4">Our Mission</h2>
                   <p className="text-white/80 text-lg leading-relaxed">
-                    BtcCloudBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers and experienced miners alike. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+                    BtcNminingBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers and experienced miners alike. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                   </p>
                 </div>
                 
                 {/* Company Overview */}
-                <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
+                <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                   <h2 className="text-2xl font-semibold text-white mb-4">Company Overview</h2>
                   <div className="space-y-4 text-white/80">
                     <p>
-                      As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcCloudBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.
+                      As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNminingBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.
                     </p>
                     <p>
-                      BtcCloudBase already supports direct transfers from Coinbase exchange accounts to BtcCloudBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.
+                      BtcNminingBase already supports direct transfers from Coinbase exchange accounts to BtcNminingBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.
                     </p>
                     <p>
                       The funds are supervised by Coinbase, a third-party listed company, ensuring the highest level of security and trust for our users.
@@ -1607,12 +1607,12 @@ const Dashboard = () => {
                 </div>
                 
                 {/* Why Choose Us */}
-                <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
-                  <h2 className="text-2xl font-semibold text-white mb-4">Why Choose BtcCloudBase?</h2>
+                <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
+                  <h2 className="text-2xl font-semibold text-white mb-4">Why Choose BtcNminingBase?</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div className="bg-[#0B1421] rounded-lg p-6 border border-white/5">
-                      <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4">
-                        <Zap className="h-6 w-6 text-yellow-400" />
+                    <div className="bg-[#040a0f] rounded-lg p-6 border border-white/5">
+                      <div className="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
+                        <Zap className="h-6 w-6 text-teal-400" />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">High Performance</h3>
                       <p className="text-white/70 text-sm">
@@ -1620,9 +1620,9 @@ const Dashboard = () => {
                       </p>
                     </div>
                     
-                    <div className="bg-[#0B1421] rounded-lg p-6 border border-white/5">
-                      <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4">
-                        <Lock className="h-6 w-6 text-yellow-400" />
+                    <div className="bg-[#040a0f] rounded-lg p-6 border border-white/5">
+                      <div className="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
+                        <Lock className="h-6 w-6 text-teal-400" />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">Secure & Trusted</h3>
                       <p className="text-white/70 text-sm">
@@ -1630,9 +1630,9 @@ const Dashboard = () => {
                       </p>
                     </div>
                     
-                    <div className="bg-[#0B1421] rounded-lg p-6 border border-white/5">
-                      <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4">
-                        <CircleDollarSign className="h-6 w-6 text-yellow-400" />
+                    <div className="bg-[#040a0f] rounded-lg p-6 border border-white/5">
+                      <div className="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
+                        <CircleDollarSign className="h-6 w-6 text-teal-400" />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">Daily Payouts</h3>
                       <p className="text-white/70 text-sm">
@@ -1640,9 +1640,9 @@ const Dashboard = () => {
                       </p>
                     </div>
                     
-                    <div className="bg-[#0B1421] rounded-lg p-6 border border-white/5">
-                      <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-4">
-                        <Headphones className="h-6 w-6 text-yellow-400" />
+                    <div className="bg-[#040a0f] rounded-lg p-6 border border-white/5">
+                      <div className="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
+                        <Headphones className="h-6 w-6 text-teal-400" />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">24/7 Support</h3>
                       <p className="text-white/70 text-sm">
@@ -1653,65 +1653,65 @@ const Dashboard = () => {
                 </div>
                 
                 {/* Statistics */}
-                <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
+                <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                   <h2 className="text-2xl font-semibold text-white mb-6">Our Achievements</h2>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-yellow-400 mb-2">100K+</div>
+                      <div className="text-4xl font-bold text-teal-400 mb-2">100K+</div>
                       <div className="text-white/70">Active Users</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-yellow-400 mb-2">$50M+</div>
+                      <div className="text-4xl font-bold text-teal-400 mb-2">$50M+</div>
                       <div className="text-white/70">Mined Value</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-yellow-400 mb-2">99.9%</div>
+                      <div className="text-4xl font-bold text-teal-400 mb-2">99.9%</div>
                       <div className="text-white/70">Uptime</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-yellow-400 mb-2">150+</div>
+                      <div className="text-4xl font-bold text-teal-400 mb-2">150+</div>
                       <div className="text-white/70">Countries</div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Contact Section */}
-                <div className="rounded-lg border border-white/5 bg-[#111B2D]/70 p-8">
+                <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                   <h2 className="text-2xl font-semibold text-white mb-4">Get in Touch</h2>
                   <p className="text-white/80 mb-6">
                     Have questions or want to learn more? We're here to help!
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
-                      <Mail className="h-5 w-5 text-yellow-400" />
-                      <a href="mailto:support@BtcCloudBase.com" className="text-white/70 hover:text-yellow-400 transition-colors">
-                        support@BtcCloudBase.com
+                      <Mail className="h-5 w-5 text-teal-400" />
+                      <a href="mailto:support@BtcNminingBase.com" className="text-white/70 hover:text-teal-400 transition-colors">
+                        support@BtcNminingBase.com
                       </a>
                     </div>
                     <div className="flex items-center gap-3">
-                      <WhatsAppIcon className="h-5 w-5 text-yellow-400" />
+                      <WhatsAppIcon className="h-5 w-5 text-teal-400" />
                       <a 
                         href={WHATSAPP_LINK} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-yellow-400 transition-colors"
+                        className="text-white/70 hover:text-teal-400 transition-colors"
                       >
                         {WHATSAPP_DISPLAY}
                       </a>
                     </div>
                     <div className="flex items-center gap-3">
-                      <TelegramIcon className="h-5 w-5 text-yellow-400" />
+                      <TelegramIcon className="h-5 w-5 text-teal-400" />
                       <a 
                         href="https://t.me/+dz1QVygXLJxlNzc0" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-white/70 hover:text-yellow-400 transition-colors"
+                        className="text-white/70 hover:text-teal-400 transition-colors"
                       >
                         Join Telegram Group
                       </a>
                     </div>
                     <div className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-yellow-400 mt-1" />
+                      <MapPin className="h-5 w-5 text-teal-400 mt-1" />
                       <span className="text-white/70">
                         57 Kingfisher Grove, Willenhall, England, WV12 5HG
                       </span>
@@ -1725,7 +1725,7 @@ const Dashboard = () => {
           {/* Dashboard View */}
           {activeView === 'dashboard' && (
             <>
-          <section className="rounded-2xl border border-white/5 bg-[#111B2D]/70 p-6 text-sm leading-relaxed text-white/80">
+          <section className="rounded-2xl border border-white/5 bg-[#060d13]/70 p-6 text-sm leading-relaxed text-white/80">
             <h2 className="mb-3 text-lg font-semibold text-white">{copy.heroTitle}</h2>
             <p>{copy.heroBody1}</p>
             <p className="mt-3">{copy.heroBody2}</p>
@@ -1736,7 +1736,7 @@ const Dashboard = () => {
             <Card className="bg-gradient-to-br from-[#1B2436] to-[#131B2B] border-white/5">
               <CardHeader className="pb-2">
                 <CardTitle className="text-white">Balance</CardTitle>
-                <CardDescription className="text-yellow-400">Deposit</CardDescription>
+                <CardDescription className="text-teal-400">Deposit</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-3xl font-bold">{formatCurrency(miningStats?.total_mined)}</p>
@@ -1745,7 +1745,7 @@ const Dashboard = () => {
             <Card className="bg-gradient-to-br from-[#1B2436] to-[#131B2B] border-white/5">
               <CardHeader className="pb-2">
                 <CardTitle className="text-white">Referral Bonus</CardTitle>
-                <CardDescription className="text-yellow-400">My Referrals</CardDescription>
+                <CardDescription className="text-teal-400">My Referrals</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-3xl font-bold">{formatCurrency(referralBalance ?? profile?.referral_balance ?? 0)}</p>
@@ -1753,13 +1753,13 @@ const Dashboard = () => {
             </Card>
             <Card className="bg-gradient-to-br from-[#1B2436] to-[#131B2B] border-white/5">
               <CardHeader className="pb-2">
-                <CardTitle className="text-white">BtcCloudBase</CardTitle>
-                <CardDescription className="text-yellow-400">Start Mining</CardDescription>
+                <CardTitle className="text-white">BtcNminingBase</CardTitle>
+                <CardDescription className="text-teal-400">Start Mining</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col gap-3">
                 <p className="text-white/70">Start your Miner</p>
                 <Button 
-                  className="w-fit bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="w-fit bg-teal-500 text-black hover:bg-teal-400"
                   onClick={() => navigate('/start-mining')}
                 >
                   Start Mining
@@ -1769,28 +1769,28 @@ const Dashboard = () => {
           </section>
 
           <section className="grid gap-6 md:grid-cols-3">
-            <Card className="border-white/5 bg-[#111B2D]/70">
+            <Card className="border-white/5 bg-[#060d13]/70">
               <CardHeader>
                 <CardTitle className="text-white">Deposit</CardTitle>
                 <CardDescription className="text-white/60">Secure Coinbase gateway</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400"
                   onClick={() => navigate('/deposit')}
                 >
                   {copy.depositCta}
                 </Button>
               </CardContent>
             </Card>
-            <Card className="border-white/5 bg-[#111B2D]/70">
+            <Card className="border-white/5 bg-[#060d13]/70">
               <CardHeader>
                 <CardTitle className="text-white">Withdraw</CardTitle>
                 <CardDescription className="text-white/60">Request payouts seamlessly</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400"
                   onClick={() => navigate('/withdraw')}
                 >
                   {copy.withdrawCta}
@@ -1800,7 +1800,7 @@ const Dashboard = () => {
           </section>
 
           <section className="grid gap-6">
-            <div className="rounded-2xl border border-white/5 bg-[#0F1A2B]/70 p-6">
+            <div className="rounded-2xl border border-white/5 bg-[#060d13]/70 p-6">
               <h4 className="mb-4 text-xl font-semibold text-white">Account Information</h4>
               <div className="space-y-4 text-sm text-white/80">
                 <div className="flex items-center justify-between rounded-xl bg-[#101B2C] p-3">
@@ -1829,25 +1829,25 @@ const Dashboard = () => {
                   </div>
                   <Button 
                     variant="outline" 
-                    className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10"
+                    className="border-teal-500 text-teal-400 hover:bg-teal-500/10"
                     onClick={() => setActiveView('support-new')}
                   >
                     <Headphones className="mr-2 h-4 w-4" />
                     Contact Support
                   </Button>
                 </div>
-                <p className="mt-4 text-sm text-white/50">support@BtcCloudBase.com</p>
+                <p className="mt-4 text-sm text-white/50">support@BtcNminingBase.com</p>
                 <p className="text-xs text-white/40">57 Kingfisher Grove, Willenhall, England, WV12 5HG (Company No. 15415402)</p>
               </div>
             </div>
           </section>
 
-          <footer id="about-section" className="rounded-2xl border border-white/5 bg-[#0F1A2B]/70 p-6 text-sm text-white/70">
+          <footer id="about-section" className="rounded-2xl border border-white/5 bg-[#060d13]/70 p-6 text-sm text-white/70">
             <div className="grid gap-6 lg:grid-cols-3">
               <div>
-                <h5 className="text-lg font-semibold text-white">BtcCloudBase</h5>
+                <h5 className="text-lg font-semibold text-white">BtcNminingBase</h5>
                 <p className="mt-2">
-                  BtcCloudBase is one of the leading cryptocurrency mining platforms, offering capacities in every range for newcomers and pros.
+                  BtcNminingBase is one of the leading cryptocurrency mining platforms, offering capacities in every range for newcomers and pros.
                   Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                 </p>
               </div>
@@ -1869,7 +1869,7 @@ const Dashboard = () => {
                 </ul>
               </div>
             </div>
-            <p className="mt-6 text-center text-xs text-white/40">Copyright © 2020–2026 BtcCloudBase All Rights Reserved</p>
+            <p className="mt-6 text-center text-xs text-white/40">Copyright © 2020–2026 BtcNminingBase All Rights Reserved</p>
           </footer>
             </>
           )}

@@ -148,21 +148,21 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1421] flex flex-col">
-      {/* Header Section with Floating Coins */}
-      <div className="relative h-32 bg-[#050C1A] flex items-center justify-center overflow-hidden">
-        {/* Floating Golden Coins Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-4 left-10 w-16 h-16 bg-yellow-500/30 rounded-full blur-md animate-pulse"></div>
-          <div className="absolute top-8 right-20 w-12 h-12 bg-yellow-500/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute bottom-4 left-1/4 w-20 h-20 bg-yellow-500/25 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-14 h-14 bg-yellow-500/20 rounded-full blur-md animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+    <div className="min-h-screen bg-[#040a0f] flex flex-col">
+      {/* Header Section */}
+      <div className="relative h-32 bg-[#040a0f] border-b border-teal-500/10 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 circuit-bg opacity-50 pointer-events-none" />
+        <div className="absolute inset-0 diagonal-lines pointer-events-none" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-4 left-10 w-16 h-16 rounded-full blur-2xl animate-pulse" style={{ background: "rgba(0,229,255,0.15)" }} />
+          <div className="absolute top-8 right-20 w-12 h-12 rounded-full blur-2xl animate-pulse" style={{ background: "rgba(0,200,83,0.12)", animationDelay: "0.5s" }} />
+          <div className="absolute bottom-4 left-1/4 w-20 h-20 rounded-full blur-3xl animate-pulse" style={{ background: "rgba(0,229,255,0.10)", animationDelay: "1s" }} />
         </div>
         <h1 className="text-4xl font-bold text-white relative z-10">Create Account</h1>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 bg-[#111B2D] flex items-center justify-center p-4 sm:p-8">
+      <div className="flex-1 bg-[#040a0f] flex items-center justify-center p-4 sm:p-8">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 items-center max-w-6xl">
           {/* Left Column - Illustration */}
           <div className="hidden lg:block relative h-full flex items-center justify-center">
@@ -181,8 +181,8 @@ const SignUp = () => {
                   {/* Head */}
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-12 h-12 bg-white/30 rounded-full border-2 border-white/40"></div>
                   
-                  {/* Body - Yellow shirt with black polka dots */}
-                  <div className="relative w-16 h-20 bg-yellow-500 rounded-lg">
+                  {/* Body - Teal shirt with black polka dots */}
+                  <div className="relative w-16 h-20 bg-teal-500 rounded-lg">
                     {/* Polka dots */}
                     <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div>
                     <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
@@ -195,12 +195,12 @@ const SignUp = () => {
                   <div className="absolute top-20 left-1/2 -translate-x-1/2 w-12 h-12 bg-gray-600 rounded-b-lg"></div>
                   
                   {/* Shoes */}
-                  <div className="absolute top-28 left-1/2 -translate-x-1/2 w-16 h-3 bg-yellow-500 rounded"></div>
+                  <div className="absolute top-28 left-1/2 -translate-x-1/2 w-16 h-3 bg-teal-500 rounded"></div>
                   
                   {/* Mobile Device - Large phone/tablet */}
-                  <div className="absolute top-4 left-full ml-4 w-28 h-40 bg-[#0B1421] rounded-xl border-2 border-white/30 p-3 shadow-xl">
+                  <div className="absolute top-4 left-full ml-4 w-28 h-40 bg-[#040a0f] rounded-xl border-2 border-white/30 p-3 shadow-xl">
                     <div className="text-white text-xs font-bold mb-2 text-center">Sign Up</div>
-                    <div className="w-10 h-10 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                    <div className="w-10 h-10 bg-teal-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                       <User className="h-5 w-5 text-black" />
                     </div>
                     <div className="space-y-2 mb-3">
@@ -211,7 +211,7 @@ const SignUp = () => {
                     <div className="flex items-center gap-1 mb-3 justify-center">
                       <div className="w-1 h-1 bg-white/30 rounded-full"></div>
                     </div>
-                    <div className="h-5 bg-yellow-500 rounded w-full"></div>
+                    <div className="h-5 bg-teal-500 rounded w-full"></div>
                   </div>
                 </div>
                 
@@ -219,12 +219,12 @@ const SignUp = () => {
                 <div className="absolute bottom-0 left-0">
                   <div className="relative">
                     {/* Pot */}
-                    <div className="w-10 h-10 bg-yellow-500 rounded-full"></div>
+                    <div className="w-10 h-10 bg-teal-500 rounded-full"></div>
                     {/* Leaves */}
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 bg-yellow-400 rounded-full"></div>
-                    <div className="absolute -top-4 -left-2 w-6 h-6 bg-yellow-400 rounded-full"></div>
-                    <div className="absolute -top-6 right-0 w-6 h-6 bg-yellow-400 rounded-full"></div>
-                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-5 h-5 bg-yellow-300 rounded-full"></div>
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 bg-emerald-400 rounded-full"></div>
+                    <div className="absolute -top-4 -left-2 w-6 h-6 bg-emerald-400 rounded-full"></div>
+                    <div className="absolute -top-6 right-0 w-6 h-6 bg-emerald-400 rounded-full"></div>
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-5 h-5 bg-emerald-300 rounded-full"></div>
                   </div>
                 </div>
               </div>
@@ -233,7 +233,7 @@ const SignUp = () => {
 
           {/* Right Column - Sign Up Form */}
           <div className="w-full max-w-md mx-auto">
-            <div className="bg-[#0F1A2B] rounded-lg p-4 sm:p-8 border border-white/5">
+            <div className="bg-[#060d13] rounded-xl p-4 sm:p-8 border border-teal-500/15">
               <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Create Your Account</h2>
               
               {error && (
@@ -255,7 +255,7 @@ const SignUp = () => {
                         placeholder="John"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        className={`pl-10 bg-[#0B1421] text-white border-white/10 ${errors.firstName ? "border-red-500" : ""}`}
+                        className={`pl-10 bg-[#040a0f] text-white border-white/10 ${errors.firstName ? "border-red-500" : ""}`}
                       />
                     </div>
                     {errors.firstName && <p className="text-sm text-red-400 mt-1">{errors.firstName}</p>}
@@ -271,7 +271,7 @@ const SignUp = () => {
                         placeholder="Doe"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        className={`pl-10 bg-[#0B1421] text-white border-white/10 ${errors.lastName ? "border-red-500" : ""}`}
+                        className={`pl-10 bg-[#040a0f] text-white border-white/10 ${errors.lastName ? "border-red-500" : ""}`}
                       />
                     </div>
                     {errors.lastName && <p className="text-sm text-red-400 mt-1">{errors.lastName}</p>}
@@ -289,7 +289,7 @@ const SignUp = () => {
                       placeholder="john@example.com"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      className={`pl-10 bg-[#0B1421] text-white border-white/10 ${errors.email ? "border-red-500" : ""}`}
+                      className={`pl-10 bg-[#040a0f] text-white border-white/10 ${errors.email ? "border-red-500" : ""}`}
                     />
                   </div>
                   {errors.email && <p className="text-sm text-red-400 mt-1">{errors.email}</p>}
@@ -306,7 +306,7 @@ const SignUp = () => {
                       placeholder="+1 234 567 8900"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
-                      className="pl-10 bg-[#0B1421] text-white border-white/10"
+                      className="pl-10 bg-[#040a0f] text-white border-white/10"
                     />
                   </div>
                 </div>
@@ -322,7 +322,7 @@ const SignUp = () => {
                       placeholder="United States"
                       value={formData.country}
                       onChange={(e) => handleInputChange("country", e.target.value)}
-                      className="pl-10 bg-[#0B1421] text-white border-white/10"
+                      className="pl-10 bg-[#040a0f] text-white border-white/10"
                     />
                   </div>
                 </div>
@@ -338,7 +338,7 @@ const SignUp = () => {
                       placeholder="Create a strong password"
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
-                      className={`pl-10 pr-10 bg-[#0B1421] text-white border-white/10 ${errors.password ? "border-red-500" : ""}`}
+                      className={`pl-10 pr-10 bg-[#040a0f] text-white border-white/10 ${errors.password ? "border-red-500" : ""}`}
                     />
                     <button
                       type="button"
@@ -362,7 +362,7 @@ const SignUp = () => {
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
                       onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                      className={`pl-10 pr-10 bg-[#0B1421] text-white border-white/10 ${errors.confirmPassword ? "border-red-500" : ""}`}
+                      className={`pl-10 pr-10 bg-[#040a0f] text-white border-white/10 ${errors.confirmPassword ? "border-red-500" : ""}`}
                     />
                     <button
                       type="button"
@@ -389,11 +389,11 @@ const SignUp = () => {
                       className="text-sm font-medium leading-none text-white/70 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       I agree to the{" "}
-                      <Link to="/terms" className="text-yellow-400 hover:underline">
+                      <Link to="/terms" className="text-teal-400 hover:underline">
                         Terms and Conditions
                       </Link>{" "}
                       and{" "}
-                      <Link to="/privacy" className="text-yellow-400 hover:underline">
+                      <Link to="/privacy" className="text-teal-400 hover:underline">
                         Privacy Policy
                       </Link>
                     </Label>
@@ -404,7 +404,8 @@ const SignUp = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-3"
+                  className="w-full font-semibold py-3 text-black border-0 hover:opacity-90 transition-opacity"
+                  style={{ background: "linear-gradient(135deg, #00e5ff 0%, #00c853 100%)" }}
                   disabled={isLoading}
                 >
                   {isLoading ? "Creating Account..." : "Create Account"}
@@ -415,7 +416,7 @@ const SignUp = () => {
               <div className="mt-6 text-center">
                 <p className="text-sm text-white/50">
                   Already have an account?{" "}
-                  <Link to="/login" className="text-yellow-400 hover:underline font-medium">
+                  <Link to="/login" className="text-teal-400 hover:underline font-medium">
                     Sign In
                   </Link>
                 </p>

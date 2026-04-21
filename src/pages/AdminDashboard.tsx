@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
@@ -450,9 +450,9 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#050C1A] text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#040a0f] text-white">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-yellow-400"></div>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-teal-400"></div>
           <p className="text-white/70">Preparing admin dashboard...</p>
         </div>
       </div>
@@ -460,13 +460,13 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050C1A] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <header className="border-b border-white/5 bg-[#091328]/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center gap-2 sm:gap-3">
-            <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400" />
+            <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-teal-400" />
             <div>
-              <p className="text-xs sm:text-sm text-white/50">BtcCloudBase</p>
+              <p className="text-xs sm:text-sm text-white/50">BtcNminingBase</p>
               <p className="text-base sm:text-lg font-semibold">Admin Control Center</p>
             </div>
           </div>
@@ -487,7 +487,7 @@ const AdminDashboard = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center gap-2 transition-colors py-2 lg:py-0 ${
-                activeView === 'overview' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'overview' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               <Home className="h-4 w-4" /> Overview
@@ -498,7 +498,7 @@ const AdminDashboard = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center gap-2 transition-colors py-2 lg:py-0 ${
-                activeView === 'users' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'users' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               <Users className="h-4 w-4" /> Users
@@ -509,7 +509,7 @@ const AdminDashboard = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center gap-2 transition-colors py-2 lg:py-0 ${
-                activeView === 'analytics' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'analytics' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               <BarChart3 className="h-4 w-4" /> Analytics
@@ -520,7 +520,7 @@ const AdminDashboard = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex items-center gap-2 transition-colors py-2 lg:py-0 ${
-                activeView === 'deposit-addresses' ? 'text-yellow-400' : 'text-white/70 hover:text-white'
+                activeView === 'deposit-addresses' ? 'text-teal-400' : 'text-white/70 hover:text-white'
               }`}
             >
               <Wallet className="h-4 w-4" /> Deposit addresses
@@ -531,7 +531,7 @@ const AdminDashboard = () => {
                 setMobileMenuOpen(false);
               }}
               className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
-              activeView === 'settings' ? 'bg-yellow-500 text-black font-bold' : 'text-white/70 hover:bg-white/5'
+              activeView === 'settings' ? 'bg-teal-500 text-black font-bold' : 'text-white/70 hover:bg-white/5'
             }`}
           >
             <Settings className="h-5 w-5" />
@@ -540,7 +540,7 @@ const AdminDashboard = () => {
           <button
             onClick={() => { setActiveView('support'); setMobileMenuOpen(false); }}
             className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors ${
-              activeView === 'support' ? 'bg-yellow-500 text-black font-bold' : 'text-white/70 hover:bg-white/5'
+              activeView === 'support' ? 'bg-teal-500 text-black font-bold' : 'text-white/70 hover:bg-white/5'
             }`}
           >
             <Headphones className="h-5 w-5" />
@@ -552,7 +552,7 @@ const AdminDashboard = () => {
               <p className="font-semibold text-white">{profile?.full_name || profile?.email}</p>
               <p>System Administrator</p>
             </div>
-            <Button variant="outline" className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10 text-sm px-3 lg:px-4" onClick={handleSignOut}>
+            <Button variant="outline" className="border-teal-500 text-teal-400 hover:bg-teal-500/10 text-sm px-3 lg:px-4" onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
               <span className="hidden sm:inline">Logout</span>
             </Button>
@@ -566,17 +566,17 @@ const AdminDashboard = () => {
           <div className="mt-4 space-y-4 text-sm">
             <div className="rounded-xl bg-[#0F1F3F] p-4">
               <p className="text-white/50">Total Users</p>
-              <p className="text-3xl font-semibold text-yellow-400">{users.length}</p>
+              <p className="text-3xl font-semibold text-teal-400">{users.length}</p>
               <p className="text-xs text-white/40">{users.filter((u) => u.role === 'admin').length} admins / {users.length} accounts</p>
             </div>
             <div className="rounded-xl bg-[#0F1F3F] p-4">
               <p className="text-white/50">Total Mined</p>
-              <p className="text-3xl font-semibold text-yellow-400">{allStats.reduce((sum, stat) => sum + stat.total_mined, 0).toFixed(2)} BTC</p>
+              <p className="text-3xl font-semibold text-teal-400">{allStats.reduce((sum, stat) => sum + stat.total_mined, 0).toFixed(2)} BTC</p>
               <p className="text-xs text-white/40">Across all users</p>
             </div>
             <div className="rounded-xl bg-[#0F1F3F] p-4">
               <p className="text-white/50">Hash Power</p>
-              <p className="text-3xl font-semibold text-yellow-400">
+              <p className="text-3xl font-semibold text-teal-400">
                 {allStats.reduce((sum, stat) => sum + stat.hash_rate, 0).toFixed(2)} TH/s
               </p>
               <p className="text-xs text-white/40">Global hash rate</p>
@@ -610,7 +610,7 @@ const AdminDashboard = () => {
                 <Card className="border-white/5 bg-[#0B152F]">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5 text-yellow-400" />
+                      <Users className="h-5 w-5 text-teal-400" />
                       Recent Users
                     </CardTitle>
                     <CardDescription className="text-white/50">Latest registered users</CardDescription>
@@ -622,7 +622,7 @@ const AdminDashboard = () => {
                       users.slice(0, 5).map((user) => (
                         <div
                           key={user.id}
-                          className="cursor-pointer rounded-xl border border-white/10 p-4 transition hover:border-yellow-500"
+                          className="cursor-pointer rounded-xl border border-white/10 p-4 transition hover:border-teal-500"
                           onClick={() => setActiveView('users')}
                         >
                           <div className="flex items-center justify-between">
@@ -632,7 +632,7 @@ const AdminDashboard = () => {
                             </div>
                             <span
                               className={`rounded-full px-3 py-1 text-xs ${
-                                user.role === 'admin' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-white/10 text-white/60'
+                                user.role === 'admin' ? 'bg-teal-500/20 text-teal-400' : 'bg-white/10 text-white/60'
                               }`}
                             >
                               {user.role}
@@ -668,7 +668,7 @@ const AdminDashboard = () => {
               {depositAddressRows.length === 0 ? (
                 <Card className="border-white/5 bg-[#0B152F]">
                   <CardContent className="py-10 text-center text-white/50">
-                    No deposit address rows found. Run your database schema seed for <code className="text-yellow-400/80">deposit_addresses</code>.
+                    No deposit address rows found. Run your database schema seed for <code className="text-teal-400/80">deposit_addresses</code>.
                   </CardContent>
                 </Card>
               ) : (
@@ -724,7 +724,7 @@ const AdminDashboard = () => {
                                 />
                               </div>
                               <Button
-                                className="w-full bg-yellow-500 text-black hover:bg-yellow-400 sm:w-auto"
+                                className="w-full bg-teal-500 text-black hover:bg-teal-400 sm:w-auto"
                                 disabled={savingDepositId === row.id}
                                 onClick={() => handleSaveDepositAddress(row)}
                               >
@@ -785,7 +785,7 @@ const AdminDashboard = () => {
                               <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                                 ticket.status === 'open' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
                                 ticket.status === 'in_progress' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                                ticket.status === 'resolved' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                                ticket.status === 'resolved' ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30' :
                                 'bg-red-500/20 text-red-400 border border-red-500/30'
                               }`}>
                                 {ticket.status.replace('_', ' ')}
@@ -795,7 +795,7 @@ const AdminDashboard = () => {
                               <span className={`flex items-center gap-1.5 ${
                                 ticket.priority === 'urgent' ? 'text-red-400' :
                                 ticket.priority === 'high' ? 'text-orange-400' :
-                                ticket.priority === 'medium' ? 'text-yellow-400' :
+                                ticket.priority === 'medium' ? 'text-teal-400' :
                                 'text-green-400'
                               }`}>
                                 <AlertCircle className="h-3 w-3" />
@@ -809,7 +809,7 @@ const AdminDashboard = () => {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
+                                className="text-teal-400 hover:text-teal-300 hover:bg-teal-500/10"
                                 onClick={() => {
                                   setSelectedTicket(ticket);
                                   setAdminResponse(ticket.admin_response || '');
@@ -873,7 +873,7 @@ const AdminDashboard = () => {
                         <td>
                           <span
                             className={`rounded-full px-3 py-1 text-xs ${
-                              user.role === 'admin' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-white/10 text-white/60'
+                              user.role === 'admin' ? 'bg-teal-500/20 text-teal-400' : 'bg-white/10 text-white/60'
                             }`}
                           >
                             {user.role}
@@ -906,7 +906,7 @@ const AdminDashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10 mr-1"
+                            className="text-teal-400 hover:text-teal-300 hover:bg-teal-500/10 mr-1"
                             onClick={() => handleOpenBalanceEdit(user)}
                           >
                             <Pencil className="h-4 w-4 mr-1 inline" />
@@ -962,7 +962,7 @@ const AdminDashboard = () => {
                 <Button variant="outline" className="border-white/10 text-white" onClick={() => setBalanceEditUser(null)} disabled={balanceEditSaving}>
                   Cancel
                 </Button>
-                <Button className="bg-yellow-500 text-black hover:bg-yellow-400" onClick={handleSaveBalance} disabled={balanceEditSaving}>
+                <Button className="bg-teal-500 text-black hover:bg-teal-400" onClick={handleSaveBalance} disabled={balanceEditSaving}>
                   {balanceEditSaving ? 'Saving...' : 'Save'}
                 </Button>
               </DialogFooter>
@@ -1010,7 +1010,7 @@ const AdminDashboard = () => {
           <Card className="border-white/5 bg-[#0B152F]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-yellow-400" />
+                    <BarChart3 className="h-5 w-5 text-teal-400" />
                     Platform Analytics
                   </CardTitle>
                   <CardDescription className="text-white/50">Comprehensive platform statistics and insights</CardDescription>
@@ -1019,21 +1019,21 @@ const AdminDashboard = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="rounded-xl bg-[#0F1F3F] p-4">
                       <p className="text-white/50 text-sm">Total Users</p>
-                      <p className="text-3xl font-semibold text-yellow-400 mt-2">{users.length}</p>
+                      <p className="text-3xl font-semibold text-teal-400 mt-2">{users.length}</p>
                       <p className="text-xs text-white/40 mt-1">
                         {users.filter((u) => u.role === 'admin').length} admins
                       </p>
                     </div>
                     <div className="rounded-xl bg-[#0F1F3F] p-4">
                       <p className="text-white/50 text-sm">Total Mined</p>
-                      <p className="text-3xl font-semibold text-yellow-400 mt-2">
+                      <p className="text-3xl font-semibold text-teal-400 mt-2">
                         {allStats.reduce((sum, stat) => sum + stat.total_mined, 0).toFixed(2)}
                       </p>
                       <p className="text-xs text-white/40 mt-1">BTC</p>
                     </div>
                     <div className="rounded-xl bg-[#0F1F3F] p-4">
                       <p className="text-white/50 text-sm">Hash Power</p>
-                      <p className="text-3xl font-semibold text-yellow-400 mt-2">
+                      <p className="text-3xl font-semibold text-teal-400 mt-2">
                         {allStats.reduce((sum, stat) => sum + stat.hash_rate, 0).toFixed(2)}
                       </p>
                       <p className="text-xs text-white/40 mt-1">TH/s</p>
@@ -1047,7 +1047,7 @@ const AdminDashboard = () => {
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-white/70 text-sm">New Users (Last 7 days)</span>
-                          <span className="text-yellow-400 font-semibold">
+                          <span className="text-teal-400 font-semibold">
                             {users.filter((u) => {
                               const weekAgo = new Date();
                               weekAgo.setDate(weekAgo.getDate() - 7);
@@ -1057,13 +1057,13 @@ const AdminDashboard = () => {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-white/70 text-sm">Active Miners</span>
-                          <span className="text-yellow-400 font-semibold">
+                          <span className="text-teal-400 font-semibold">
                             {allStats.filter((s) => s.total_mined > 0).length}
                           </span>
               </div>
                         <div className="flex items-center justify-between">
                           <span className="text-white/70 text-sm">Average Daily Earnings</span>
-                          <span className="text-yellow-400 font-semibold">
+                          <span className="text-teal-400 font-semibold">
                             {allStats.length > 0
                               ? (allStats.reduce((sum, s) => sum + s.daily_earnings, 0) / allStats.length).toFixed(4)
                               : '0.0000'}{' '}
@@ -1116,7 +1116,7 @@ const AdminDashboard = () => {
                   <select
                     value={selectedTicket.status}
                     onChange={(e) => setSelectedTicket({ ...selectedTicket, status: e.target.value })}
-                    className="w-full bg-[#0F1F3F] text-white border border-white/10 rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-yellow-500"
+                    className="w-full bg-[#0F1F3F] text-white border border-white/10 rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-teal-500"
                   >
                     <option value="open">Open</option>
                     <option value="in_progress">In Progress</option>
@@ -1129,7 +1129,7 @@ const AdminDashboard = () => {
                   <div className={`px-3 py-2 rounded-md border border-white/10 bg-white/5 capitalize ${
                     selectedTicket.priority === 'urgent' ? 'text-red-400' :
                     selectedTicket.priority === 'high' ? 'text-orange-400' :
-                    selectedTicket.priority === 'medium' ? 'text-yellow-400' :
+                    selectedTicket.priority === 'medium' ? 'text-teal-400' :
                     'text-green-400'
                   }`}>
                     {selectedTicket.priority}
@@ -1156,7 +1156,7 @@ const AdminDashboard = () => {
             <Button 
               onClick={handleUpdateTicketStatus} 
               disabled={updatingTicket || !adminResponse}
-              className="bg-yellow-500 text-black hover:bg-yellow-400"
+              className="bg-teal-500 text-black hover:bg-teal-400"
             >
               {updatingTicket ? 'Updating...' : 'Save & Update'}
             </Button>

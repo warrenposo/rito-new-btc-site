@@ -3,27 +3,27 @@ import { Navbar } from "@/components/Navbar";
 
 const TermsOfService = () => {
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8 text-yellow-400">Terms of Service</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gradient-teal">Terms of Service</h1>
         <div className="space-y-6 text-white/80 leading-relaxed">
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Acceptance of Terms</h2>
             <p>
-              By accessing and using BtcCloudBase ("we", "us", or "our"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+              By accessing and using BtcNminingBase ("we", "us", or "our"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">2. Use License</h2>
             <p>
-              Permission is granted to temporarily access the materials on BtcCloudBase's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+              Permission is granted to temporarily access the materials on BtcNminingBase's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li>Modify or copy the materials</li>
               <li>Use the materials for any commercial purpose or for any public display</li>
-              <li>Attempt to reverse engineer any software contained on BtcCloudBase's website</li>
+              <li>Attempt to reverse engineer any software contained on BtcNminingBase's website</li>
               <li>Remove any copyright or other proprietary notations from the materials</li>
             </ul>
           </section>
@@ -31,7 +31,7 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">3. Mining Services</h2>
             <p>
-              BtcCloudBase provides cloud mining services for cryptocurrency. By using our services, you acknowledge that:
+              BtcNminingBase provides cloud mining services for cryptocurrency. By using our services, you acknowledge that:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li>Cryptocurrency mining involves risk and may result in losses</li>
@@ -63,21 +63,21 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">6. Limitation of Liability</h2>
             <p>
-              In no event shall BtcCloudBase or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on BtcCloudBase's website.
+              In no event shall BtcNminingBase or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on BtcNminingBase's website.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">7. Revisions and Errata</h2>
             <p>
-              The materials appearing on BtcCloudBase's website could include technical, typographical, or photographic errors. BtcCloudBase does not warrant that any of the materials on its website are accurate, complete, or current.
+              The materials appearing on BtcNminingBase's website could include technical, typographical, or photographic errors. BtcNminingBase does not warrant that any of the materials on its website are accurate, complete, or current.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">8. Contact Information</h2>
             <p>
-              If you have any questions about these Terms of Service, please contact us at support@BtcCloudBase.com
+              If you have any questions about these Terms of Service, please contact us at support@BtcNminingBase.com
             </p>
           </section>
 

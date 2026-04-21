@@ -15,13 +15,13 @@ const AboutUs = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8 text-center text-yellow-400">About Us</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center text-gradient-teal">About Us</h1>
         <div className="max-w-4xl mx-auto space-y-6 text-white/80 leading-relaxed">
           <p>
-            BtcCloudBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+            BtcNminingBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
           </p>
           <p>
             Please sign in to view more about our company, mission, and values.

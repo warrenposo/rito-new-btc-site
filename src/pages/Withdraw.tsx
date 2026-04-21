@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
@@ -230,7 +230,7 @@ const Withdraw = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <div className="flex">
         <UserSidebar 
           activeView={activeView === 'withdraw' ? 'withdraw' : activeView === 'log' ? 'log' : undefined}
@@ -251,7 +251,7 @@ const Withdraw = () => {
 
           {activeView === 'withdraw' ? (
             /* Withdraw Now View */
-            <div className="bg-[#111B2D] border border-white/5 rounded-lg p-6 max-w-2xl">
+            <div className="bg-[#060d13] border border-white/5 rounded-lg p-6 max-w-2xl">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Amount Input */}
                 <div>
@@ -281,27 +281,27 @@ const Withdraw = () => {
                   <Select value={gateway} onValueChange={setGateway}>
                     <SelectTrigger 
                       id="gateway"
-                      className="bg-[#0B1421] border-white/10 text-white h-12"
+                      className="bg-[#040a0f] border-white/10 text-white h-12"
                     >
                       <SelectValue placeholder="Select One" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#0B1421] border-white/10">
-                      <SelectItem value="btc" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                    <SelectContent className="bg-[#040a0f] border-white/10">
+                      <SelectItem value="btc" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         BTC
                       </SelectItem>
-                      <SelectItem value="usdt-trc20" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                      <SelectItem value="usdt-trc20" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         USDT.TRC20
                       </SelectItem>
-                      <SelectItem value="usdt-erc20" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                      <SelectItem value="usdt-erc20" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         USDT.ERC20
                       </SelectItem>
-                      <SelectItem value="usdc" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                      <SelectItem value="usdc" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         USDC
                       </SelectItem>
-                      <SelectItem value="eth" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                      <SelectItem value="eth" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         ETH
                       </SelectItem>
-                      <SelectItem value="solana" className="text-white hover:bg-white/10 focus:bg-yellow-500/20">
+                      <SelectItem value="solana" className="text-white hover:bg-white/10 focus:bg-teal-500/20">
                         Solana (SOL)
                       </SelectItem>
                     </SelectContent>
@@ -330,7 +330,7 @@ const Withdraw = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 text-black hover:bg-yellow-400 h-12 text-lg font-semibold"
+                  className="w-full bg-teal-500 text-black hover:bg-teal-400 h-12 text-lg font-semibold"
                 >
                   Submit Withdrawal
                 </Button>
@@ -338,11 +338,11 @@ const Withdraw = () => {
             </div>
           ) : (
             /* Withdraw Log View */
-            <div className="bg-[#111B2D] border border-white/5 rounded-lg overflow-hidden">
+            <div className="bg-[#060d13] border border-white/5 rounded-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-[#0B1421] border-b border-white/10">
+                    <tr className="bg-[#040a0f] border-b border-white/10">
                       <th className="text-left py-4 px-4 text-white/80 font-semibold">Time</th>
                       <th className="text-left py-4 px-4 text-white/80 font-semibold">Transaction ID</th>
                       <th className="text-left py-4 px-4 text-white/80 font-semibold">Wallet</th>
@@ -356,7 +356,7 @@ const Withdraw = () => {
                       <tr>
                         <td colSpan={6} className="text-center py-12">
                           <div className="flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-400"></div>
                           </div>
                         </td>
                       </tr>
@@ -386,7 +386,7 @@ const Withdraw = () => {
                               withdrawal.status === 'completed' 
                                 ? 'bg-green-500/20 text-green-400'
                                 : withdrawal.status === 'pending'
-                                ? 'bg-yellow-500/20 text-yellow-400'
+                                ? 'bg-teal-500/20 text-teal-400'
                                 : withdrawal.status === 'rejected'
                                 ? 'bg-red-500/20 text-red-400'
                                 : 'bg-gray-500/20 text-gray-400'
@@ -395,7 +395,7 @@ const Withdraw = () => {
                             </span>
                           </td>
                           <td className="py-4 px-4">
-                            <Button variant="ghost" className="text-yellow-400 hover:text-yellow-300">
+                            <Button variant="ghost" className="text-teal-400 hover:text-teal-300">
                               View
                             </Button>
                           </td>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -97,21 +97,21 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1421] flex flex-col">
+    <div className="min-h-screen bg-[#040a0f] flex flex-col">
       {/* Header Section with Floating Coins */}
-      <div className="relative h-32 bg-[#050C1A] flex items-center justify-center overflow-hidden">
+      <div className="relative h-32 bg-[#040a0f] flex items-center justify-center overflow-hidden">
         {/* Floating Golden Coins Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-4 left-10 w-16 h-16 bg-yellow-500/30 rounded-full blur-md animate-pulse"></div>
-          <div className="absolute top-8 right-20 w-12 h-12 bg-yellow-500/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute bottom-4 left-1/4 w-20 h-20 bg-yellow-500/25 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 right-1/3 w-14 h-14 bg-yellow-500/20 rounded-full blur-md animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-4 left-10 w-16 h-16 bg-teal-500/30 rounded-full blur-md animate-pulse"></div>
+          <div className="absolute top-8 right-20 w-12 h-12 bg-teal-500/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-4 left-1/4 w-20 h-20 bg-teal-500/25 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 right-1/3 w-14 h-14 bg-teal-500/20 rounded-full blur-md animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         </div>
         <h1 className="text-4xl font-bold text-white relative z-10">Sign In</h1>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 bg-[#111B2D] flex items-center justify-center p-4 sm:p-8">
+      <div className="flex-1 bg-[#060d13] flex items-center justify-center p-4 sm:p-8">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 items-center max-w-6xl">
           {/* Left Column - Illustration */}
           <div className="hidden lg:block relative h-full flex items-center justify-center">
@@ -131,7 +131,7 @@ const SignIn = () => {
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-12 h-12 bg-white/30 rounded-full border-2 border-white/40"></div>
                   
                   {/* Body - Yellow shirt with black polka dots */}
-                  <div className="relative w-16 h-20 bg-yellow-500 rounded-lg">
+                  <div className="relative w-16 h-20 bg-teal-500 rounded-lg">
                     {/* Polka dots */}
                     <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div>
                     <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
@@ -144,12 +144,12 @@ const SignIn = () => {
                   <div className="absolute top-20 left-1/2 -translate-x-1/2 w-12 h-12 bg-gray-600 rounded-b-lg"></div>
                   
                   {/* Shoes */}
-                  <div className="absolute top-28 left-1/2 -translate-x-1/2 w-16 h-3 bg-yellow-500 rounded"></div>
+                  <div className="absolute top-28 left-1/2 -translate-x-1/2 w-16 h-3 bg-teal-500 rounded"></div>
                   
                   {/* Mobile Device - Large phone/tablet */}
-                  <div className="absolute top-4 left-full ml-4 w-28 h-40 bg-[#0B1421] rounded-xl border-2 border-white/30 p-3 shadow-xl">
+                  <div className="absolute top-4 left-full ml-4 w-28 h-40 bg-[#040a0f] rounded-xl border-2 border-white/30 p-3 shadow-xl">
                     <div className="text-white text-xs font-bold mb-2 text-center">Login</div>
-                    <div className="w-10 h-10 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                    <div className="w-10 h-10 bg-teal-500 rounded-full mx-auto mb-3 flex items-center justify-center">
                       <User className="h-5 w-5 text-black" />
                     </div>
                     <div className="space-y-2 mb-3">
@@ -160,7 +160,7 @@ const SignIn = () => {
                     <div className="flex items-center gap-1 mb-3 justify-center">
                       <div className="w-1 h-1 bg-white/30 rounded-full"></div>
                     </div>
-                    <div className="h-5 bg-yellow-500 rounded w-full"></div>
+                    <div className="h-5 bg-teal-500 rounded w-full"></div>
                   </div>
                 </div>
                 
@@ -168,7 +168,7 @@ const SignIn = () => {
                 <div className="absolute bottom-0 left-0">
                   <div className="relative">
                     {/* Pot */}
-                    <div className="w-10 h-10 bg-yellow-500 rounded-full"></div>
+                    <div className="w-10 h-10 bg-teal-500 rounded-full"></div>
                     {/* Leaves */}
                     <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 bg-yellow-400 rounded-full"></div>
                     <div className="absolute -top-4 -left-2 w-6 h-6 bg-yellow-400 rounded-full"></div>
@@ -182,7 +182,7 @@ const SignIn = () => {
 
           {/* Right Column - Login Form */}
           <div className="w-full max-w-md mx-auto">
-            <div className="bg-[#0F1A2B] rounded-lg p-4 sm:p-8 border border-white/5">
+            <div className="bg-[#060d13] rounded-lg p-4 sm:p-8 border border-white/5">
               <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Login To Your Account</h2>
               
               {error && (
@@ -199,7 +199,7 @@ const SignIn = () => {
                     placeholder="Username or Email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="bg-[#0B1421] text-white border-white/10 h-12"
+                    className="bg-[#040a0f] text-white border-white/10 h-12"
                   />
                   {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email}</p>}
                 </div>
@@ -212,7 +212,7 @@ const SignIn = () => {
                       placeholder="Password"
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
-                      className="bg-[#0B1421] text-white border-white/10 h-12 pr-10"
+                      className="bg-[#040a0f] text-white border-white/10 h-12 pr-10"
                     />
                     <button
                       type="button"
@@ -237,7 +237,7 @@ const SignIn = () => {
                       Remember Me
                     </Label>
                   </div>
-                  <Link to="/forgot-password" className="text-sm text-yellow-400 hover:text-yellow-300">
+                  <Link to="/forgot-password" className="text-sm text-teal-400 hover:text-teal-300">
                     Forgot Password
                   </Link>
                 </div>
@@ -245,7 +245,7 @@ const SignIn = () => {
                 {/* Login Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-3 h-12"
+                  className="w-full bg-teal-500 hover:bg-teal-400 text-black font-semibold py-3 h-12"
                   disabled={isLoading}
                 >
                   {isLoading ? "Signing In..." : "Login"}
@@ -256,7 +256,7 @@ const SignIn = () => {
               <div className="mt-6 text-center">
                 <p className="text-sm text-white/70">
                   Don't Have An Account?{" "}
-                  <Link to="/signup" className="text-yellow-400 hover:text-yellow-300 font-medium">
+                  <Link to="/signup" className="text-teal-400 hover:text-teal-300 font-medium">
                     Register
                   </Link>
                 </p>

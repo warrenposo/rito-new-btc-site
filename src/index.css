@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 220 35% 12%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 45 93% 58%;
+    --primary: 186 100% 50%;
     --primary-foreground: 220 40% 8%;
 
     --secondary: 220 30% 18%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 220 30% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 45 93% 58%;
+    --accent: 186 100% 50%;
     --accent-foreground: 220 40% 8%;
 
     --destructive: 0 84% 60%;
@@ -34,7 +34,7 @@ All colors MUST be HSL.
 
     --border: 220 30% 20%;
     --input: 220 30% 20%;
-    --ring: 45 93% 58%;
+    --ring: 186 100% 50%;
 
     --radius: 0.75rem;
 
@@ -51,7 +51,7 @@ All colors MUST be HSL.
     --gradient-gold: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(45 100% 65%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 40px hsl(45 93% 58% / 0.3);
+    --shadow-glow: 0 0 40px hsl(186 100% 50% / 0.3);
     --shadow-card: 0 10px 40px hsl(220 45% 4% / 0.5);
     
     /* Transitions */
@@ -94,6 +94,7 @@ All colors MUST be HSL.
       linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+  /* Original gold gradient — kept for Dashboard/other pages */
   .text-gradient-gold {
     background: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(45 100% 75%) 50%, hsl(35 95% 60%) 100%);
     -webkit-background-clip: text;
@@ -106,14 +107,43 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  /* New teal/cyber gradient for the redesigned homepage */
+  .text-gradient-teal {
+    background: linear-gradient(135deg, #00e5ff 0%, #00c853 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .card-glow:hover {
-    box-shadow: 0 0 30px hsl(45 93% 58% / 0.15), 0 20px 60px hsl(220 45% 4% / 0.5);
+    box-shadow: 0 0 30px hsl(186 100% 50% / 0.15), 0 20px 60px hsl(220 45% 4% / 0.5);
   }
   .orb {
     border-radius: 50%;
     filter: blur(80px);
     position: absolute;
     pointer-events: none;
+  }
+  /* Circuit dot pattern */
+  .circuit-bg {
+    background-image: radial-gradient(circle, rgba(0, 229, 255, 0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  /* Diagonal stripe overlay */
+  .diagonal-lines {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 229, 255, 0.022),
+      rgba(0, 229, 255, 0.022) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  }
+  /* Gradient border for cards */
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(45 100% 65%) 100%);
+  }
+  .shadow-glow {
+    box-shadow: 0 0 30px hsl(45 93% 58% / 0.3);
   }
 }
 

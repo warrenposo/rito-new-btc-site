@@ -3,10 +3,10 @@ import { Navbar } from "@/components/Navbar";
 
 const CookiePolicy = () => {
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8 text-yellow-400">Cookie Policy</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gradient-teal">Cookie Policy</h1>
         <div className="space-y-6 text-white/80 leading-relaxed">
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. What Are Cookies</h2>
@@ -17,7 +17,7 @@ const CookiePolicy = () => {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">2. How We Use Cookies</h2>
-            <p>BtcCloudBase uses cookies for the following purposes:</p>
+            <p>BtcNminingBase uses cookies for the following purposes:</p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li><strong>Essential Cookies:</strong> Required for the website to function properly</li>
               <li><strong>Authentication Cookies:</strong> To keep you logged in and maintain your session</li>
@@ -78,7 +78,7 @@ const CookiePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">8. Contact Us</h2>
             <p>
-              If you have any questions about our use of cookies, please contact us at support@BtcCloudBase.com
+              If you have any questions about our use of cookies, please contact us at support@BtcNminingBase.com
             </p>
           </section>
 

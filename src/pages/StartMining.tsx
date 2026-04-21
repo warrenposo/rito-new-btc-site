@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+﻿import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMining } from '@/contexts/MiningContext';
 import { useNavigate } from 'react-router-dom';
@@ -1029,7 +1029,7 @@ const StartMining = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <div className="flex">
         <UserSidebar
           activeView={activeView === 'buy' ? 'buy' : activeView === 'purchased' ? 'purchased' : activeView === 'mining' ? 'mining' : undefined}
@@ -1116,7 +1116,7 @@ const StartMining = () => {
 
               {/* BTC Price Display */}
               <div className="flex gap-4 items-center">
-                <div className="px-6 py-3 rounded-lg font-semibold bg-yellow-500 text-black">
+                <div className="px-6 py-3 rounded-lg font-semibold bg-teal-500 text-black">
                   BTC
                 </div>
                 <div className="text-lg font-semibold">
@@ -1131,9 +1131,9 @@ const StartMining = () => {
                     const progress = (plan.sold / plan.available) * 100;
 
                     return (
-                      <Card key={plan.id} className="bg-[#111B2D] border-white/5 overflow-hidden">
+                      <Card key={plan.id} className="bg-[#060d13] border-white/5 overflow-hidden">
                         {/* Header */}
-                        <div className="bg-yellow-500 p-4">
+                        <div className="bg-teal-500 p-4">
                           <div className="text-white text-sm font-semibold mb-2">{plan.name}</div>
                           <div className="text-white text-2xl font-bold">
                             ${plan.price.toLocaleString()}
@@ -1144,16 +1144,16 @@ const StartMining = () => {
                         {/* Body */}
                         <CardContent className="p-4 space-y-3">
                           <div className="flex items-center gap-2 text-white/80 text-sm">
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                             <span>{t.hardware}: {plan.hardware}</span>
                           </div>
                           <div className="flex items-center gap-2 text-white/80 text-sm">
-                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                             <span>{t.contractDuration}: {plan.duration} {plan.duration === 1 ? t.day : t.days}</span>
                           </div>
                           {plan.totalMining && (
                             <div className="flex items-center gap-2 text-white/80 text-sm">
-                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                               <span>
                                 {t.totalMining}: {plan.totalMining.btc?.toFixed(6)} BTC=${((plan.totalMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </span>
@@ -1161,7 +1161,7 @@ const StartMining = () => {
                           )}
                           {plan.dailyMining && (
                             <div className="flex items-center gap-2 text-white/80 text-sm">
-                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                               <span>
                                 {t.dailyMining}: {plan.dailyMining.btc?.toFixed(6)} BTC=${((plan.dailyMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </span>
@@ -1169,7 +1169,7 @@ const StartMining = () => {
                           )}
                           {plan.monthlyMining && (
                             <div className="flex items-center gap-2 text-white/80 text-sm">
-                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                               <span>
                                 {t.monthlyMining}: {plan.monthlyMining.btc?.toFixed(6)} BTC=${((plan.monthlyMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </span>
@@ -1177,7 +1177,7 @@ const StartMining = () => {
                           )}
                           {plan.referralRewards && (
                             <div className="flex items-center gap-2 text-white/80 text-sm">
-                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
                               <span>{t.referralRewards}: {plan.referralRewards} USDT</span>
                             </div>
                           )}
@@ -1189,7 +1189,7 @@ const StartMining = () => {
                             </div>
                             <div className="relative h-2 w-full bg-white/10 rounded-full overflow-hidden">
                               <div
-                                className="absolute top-0 left-0 h-full bg-yellow-500 transition-all"
+                                className="absolute top-0 left-0 h-full bg-teal-500 transition-all"
                                 style={{ width: `${progress}%` }}
                               ></div>
                             </div>
@@ -1198,7 +1198,7 @@ const StartMining = () => {
                           {/* Buy Now Button */}
                           <Button
                             onClick={() => handleBuyPlan(plan)}
-                            className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                            className="w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                           >
                             Buy Now
                           </Button>
@@ -1211,7 +1211,7 @@ const StartMining = () => {
 
               {/* Purchase Form */}
               {purchaseStage === 'form' && selectedPlan && (
-                <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                   <button
                     onClick={handleStartNewPurchase}
                     className="mb-4 flex items-center gap-2 text-sm text-white/60 hover:text-white"
@@ -1221,7 +1221,7 @@ const StartMining = () => {
                   <h2 className="text-xl font-semibold mb-2">Complete your purchase</h2>
                   <p className="text-sm text-white/60 mb-6">
                     Selected: {selectedPlan.name} — {formatUSD(selectedPlan.price)} + {formatUSD(charge)} charge ={' '}
-                    <span className="text-yellow-300 font-semibold">{formatUSD(payable)}</span>
+                    <span className="text-teal-300 font-semibold">{formatUSD(payable)}</span>
                   </p>
 
                   <form onSubmit={handleSubmitPurchase} className="space-y-6">
@@ -1231,10 +1231,10 @@ const StartMining = () => {
                         value={gateway || undefined}
                         onValueChange={(value) => handleGatewayChange(value as GatewayValue)}
                       >
-                        <SelectTrigger className="h-12 border-white/10 bg-[#0B1421] text-white">
+                        <SelectTrigger className="h-12 border-white/10 bg-[#040a0f] text-white">
                           <SelectValue placeholder="Select One" />
                         </SelectTrigger>
-                        <SelectContent className="border-white/10 bg-[#0B1421] text-white">
+                        <SelectContent className="border-white/10 bg-[#040a0f] text-white">
                           {gatewayOptions.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               <div>
@@ -1248,17 +1248,17 @@ const StartMining = () => {
                     </div>
 
                     <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Plan</p>
                         <p className="mt-2 text-lg font-semibold">{selectedPlan.name}</p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Charge</p>
                         <p className="mt-2 text-lg font-semibold">{charge > 0 ? formatUSD(charge) : '$0.00'}</p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                      <div className="rounded-lg border border-white/10 bg-[#040a0f] p-4">
                         <p className="text-xs uppercase tracking-wide text-white/50">Payable</p>
-                        <p className="mt-2 text-lg font-semibold text-yellow-400">
+                        <p className="mt-2 text-lg font-semibold text-teal-400">
                           {payable > 0 ? formatUSD(payable) : '$0.00'}
                         </p>
                       </div>
@@ -1267,7 +1267,7 @@ const StartMining = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting || !gateway}
-                      className="h-12 w-full bg-yellow-500 text-lg font-semibold text-black hover:bg-yellow-400 disabled:opacity-60"
+                      className="h-12 w-full bg-teal-500 text-lg font-semibold text-black hover:bg-teal-400 disabled:opacity-60"
                     >
                       {isSubmitting ? 'Preparing...' : 'Continue to payment'}
                     </Button>
@@ -1278,7 +1278,7 @@ const StartMining = () => {
               {/* Purchase Preview */}
               {purchaseStage === 'preview' && previewData && (
                 <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <button
                       onClick={handleBackToForm}
                       className="mb-4 flex items-center gap-2 text-sm text-white/60 hover:text-white"
@@ -1306,12 +1306,12 @@ const StartMining = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-white/60">Payable</span>
-                        <span className="text-lg font-semibold text-yellow-400">{formatUSD(previewData.payable)}</span>
+                        <span className="text-lg font-semibold text-teal-400">{formatUSD(previewData.payable)}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <div className="mb-4 text-sm text-white/60">Payment Preview</div>
                     <div className="space-y-3 text-sm">
                       <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -1327,7 +1327,7 @@ const StartMining = () => {
                       <Button
                         onClick={handleConfirmPayment}
                         disabled={isConfirming}
-                        className="mt-4 h-12 w-full bg-yellow-500 text-black hover:bg-yellow-400 disabled:opacity-60"
+                        className="mt-4 h-12 w-full bg-teal-500 text-black hover:bg-teal-400 disabled:opacity-60"
                       >
                         {isConfirming ? 'Reserving address...' : 'Pay Now'}
                       </Button>
@@ -1339,11 +1339,11 @@ const StartMining = () => {
               {/* Purchase Payment Instructions */}
               {purchaseStage === 'payment' && activePurchase && (
                 <div className="space-y-6">
-                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <div className="rounded-xl border border-white/5 bg-[#060d13] p-6">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div>
                         <p className="text-sm text-white/60">Transaction ID</p>
-                        <p className="font-mono text-lg text-yellow-400">{activePurchase.transaction_id}</p>
+                        <p className="font-mono text-lg text-teal-400">{activePurchase.transaction_id}</p>
                       </div>
                       <Button variant="outline" onClick={handleStartNewPurchase}>
                         Start new purchase
@@ -1364,7 +1364,7 @@ const StartMining = () => {
                         <span className="font-mono text-[#FF7B7B] break-all">{activePurchase.deposit_address}</span>
                         <button
                           onClick={() => copyToClipboard(activePurchase.deposit_address)}
-                          className="rounded-md bg-yellow-500/20 p-2 text-yellow-400 transition hover:bg-yellow-500/30 shrink-0"
+                          className="rounded-md bg-teal-500/20 p-2 text-teal-400 transition hover:bg-teal-500/30 shrink-0"
                         >
                           <Copy className="h-4 w-4" />
                         </button>
@@ -1453,31 +1453,31 @@ const StartMining = () => {
                     <div>
                       <div className="flex items-center gap-2 mb-4">
                         <span className="rounded-full bg-[#f97316] px-2 py-1 text-sm font-bold">BTC</span>
-                        <span className="text-xl font-semibold">BtcCloudBase</span>
+                        <span className="text-xl font-semibold">BtcNminingBase</span>
                       </div>
                       <p className="text-white/70 text-sm">
-                        BtcCloudBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+                        BtcNminingBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                       </p>
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Quick Links</h3>
+                      <h3 className="text-white font-semibold mb-4 border-b border-teal-500 pb-2 inline-block">Quick Links</h3>
                       <ul className="space-y-2 text-white/70 text-sm">
-                        <li><a href="#" className="hover:text-yellow-400">Team</a></li>
-                        <li><a href="#" className="hover:text-yellow-400">AboutUs</a></li>
-                        <li><a href="#" className="hover:text-yellow-400">Plans</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Team</a></li>
+                        <li><a href="#" className="hover:text-teal-400">AboutUs</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Plans</a></li>
                       </ul>
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Useful Links</h3>
+                      <h3 className="text-white font-semibold mb-4 border-b border-teal-500 pb-2 inline-block">Useful Links</h3>
                       <ul className="space-y-2 text-white/70 text-sm">
-                        <li><a href="#" className="hover:text-yellow-400">Usage Policy</a></li>
-                        <li><a href="#" className="hover:text-yellow-400">Cookie Policy</a></li>
-                        <li><a href="#" className="hover:text-yellow-400">Privacy Policy</a></li>
-                        <li><a href="#" className="hover:text-yellow-400">Terms of Service</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Usage Policy</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Cookie Policy</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Privacy Policy</a></li>
+                        <li><a href="#" className="hover:text-teal-400">Terms of Service</a></li>
                       </ul>
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Contact Info</h3>
+                      <h3 className="text-white font-semibold mb-4 border-b border-teal-500 pb-2 inline-block">Contact Info</h3>
                       <ul className="space-y-2 text-white/70 text-sm">
                         <li className="flex items-center gap-2">
                           <span>📞</span>
@@ -1485,7 +1485,7 @@ const StartMining = () => {
                         </li>
                         <li className="flex items-center gap-2">
                           <span>✉️</span>
-                          <span>support@BtcCloudBase.com</span>
+                          <span>support@BtcNminingBase.com</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <span>📍</span>
@@ -1499,13 +1499,13 @@ const StartMining = () => {
             </div>
           ) : activeView === 'purchased' ? (
             /* Purchased Plans View */
-            <div className="bg-[#111B2D] border border-white/5 rounded-lg overflow-hidden">
+            <div className="bg-[#060d13] border border-white/5 rounded-lg overflow-hidden">
               {purchasedPlans.length === 0 ? (
                 <div className="text-center py-12 p-6">
                   <p className="text-white/60 text-lg">No purchased plans yet</p>
                   <Button
                     onClick={() => setActiveView('buy')}
-                    className="mt-4 bg-yellow-500 text-black hover:bg-yellow-400"
+                    className="mt-4 bg-teal-500 text-black hover:bg-teal-400"
                   >
                     Browse Plans
                   </Button>
@@ -1514,7 +1514,7 @@ const StartMining = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-[#0B1421] border-b border-white/10">
+                      <tr className="bg-[#040a0f] border-b border-white/10">
                         <th className="text-left py-4 px-4 text-white/80 font-semibold">S.N.</th>
                         <th className="text-left py-4 px-4 text-white/80 font-semibold">Plan</th>
                         <th className="text-left py-4 px-4 text-white/80 font-semibold">Price</th>
@@ -1554,7 +1554,7 @@ const StartMining = () => {
                                 setSelectedPurchasedPlan(plan);
                                 setIsDialogOpen(true);
                               }}
-                              className="bg-yellow-500 text-black hover:bg-yellow-400"
+                              className="bg-teal-500 text-black hover:bg-teal-400"
                             >
                               View
                             </Button>
@@ -1570,11 +1570,11 @@ const StartMining = () => {
             /* Mining View */
             <div className="space-y-6">
               {/* Terminal-like Log Output */}
-              <div className="bg-[#111B2D] border border-white/10 rounded-lg p-4 font-mono text-xs overflow-hidden">
-                <div className="bg-[#0F1A2B] px-3 py-2 border-b border-white/10 mb-3 rounded-t">
+              <div className="bg-[#060d13] border border-white/10 rounded-lg p-4 font-mono text-xs overflow-hidden">
+                <div className="bg-[#060d13] px-3 py-2 border-b border-white/10 mb-3 rounded-t">
                   <span className="text-green-400">miner@cryptohash</span>
                   <span className="text-white/60"> ~ </span>
-                  <span className="text-yellow-400">stratum+tcp:</span>
+                  <span className="text-teal-400">stratum+tcp:</span>
                 </div>
                 <div className="space-y-1 text-white/80 max-h-64 overflow-y-auto" id="mining-log-container">
                   {miningLogs.length > 0 ? (
@@ -1585,7 +1585,7 @@ const StartMining = () => {
                       return (
                         <div
                           key={index}
-                          className={isGreen ? 'text-green-400' : isYellow ? 'text-yellow-400' : isCommand ? 'text-white/50' : 'text-white/60'}
+                          className={isGreen ? 'text-green-400' : isYellow ? 'text-teal-400' : isCommand ? 'text-white/50' : 'text-white/60'}
                           style={{ animation: 'fadeIn 0.3s ease-in' }}
                         >
                           {log}
@@ -1604,24 +1604,24 @@ const StartMining = () => {
 
               {/* Mining Statistics */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                <div className="bg-[#060d13] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-teal-400 mb-2">
                     {sessionMined.toFixed(2)}
                   </div>
                   <div className="text-white/60 text-sm">MINED (USD)</div>
                 </div>
-                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                <div className="bg-[#060d13] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-teal-400 mb-2">
                     {sessionTarget.toFixed(2)}
                   </div>
                   <div className="text-white/60 text-sm">TARGET</div>
                 </div>
-                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">{currentHashRate.toFixed(1)} TH/s</div>
+                <div className="bg-[#060d13] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-teal-400 mb-2">{currentHashRate.toFixed(1)} TH/s</div>
                   <div className="text-white/60 text-sm">HASHRATE</div>
                 </div>
-                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">{currentShares}</div>
+                <div className="bg-[#060d13] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-teal-400 mb-2">{currentShares}</div>
                   <div className="text-white/60 text-sm">SHARES</div>
                 </div>
               </div>
@@ -1637,7 +1637,7 @@ const StartMining = () => {
                   <Button
                     onClick={() => (userBalance > 0 ? handleStartMiningSession() : setShowStartSessionModal(true))}
                     disabled={isSessionActive || userBalance <= 0 || !miningEnabled}
-                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold text-lg py-6 disabled:opacity-60 disabled:pointer-events-none"
+                    className="w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold text-lg py-6 disabled:opacity-60 disabled:pointer-events-none"
                   >
                     {isSessionActive ? 'Mining...' : 'Start New Session'}
                   </Button>
@@ -1660,7 +1660,7 @@ const StartMining = () => {
 
           {/* Withdraw Modal */}
           <Dialog open={showWithdrawModal} onOpenChange={setShowWithdrawModal}>
-            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+            <DialogContent className="bg-[#060d13] border-teal-500/50 text-white max-w-md [&>button]:hidden">
               <DialogHeader className="relative">
                 <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
                   Start Mining Session
@@ -1682,7 +1682,7 @@ const StartMining = () => {
                       setShowWithdrawModal(false);
                       setShowStartSessionModal(true);
                     }}
-                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                    className="w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                   >
                     Start New Session
                   </Button>
@@ -1702,7 +1702,7 @@ const StartMining = () => {
 
           {/* Start New Session Modal */}
           <Dialog open={showStartSessionModal} onOpenChange={setShowStartSessionModal}>
-            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+            <DialogContent className="bg-[#060d13] border-teal-500/50 text-white max-w-md [&>button]:hidden">
               <DialogHeader className="relative">
                 <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
                   Purchase Plan Required
@@ -1725,7 +1725,7 @@ const StartMining = () => {
                       setShowStartSessionModal(false);
                       setActiveView('buy');
                     }}
-                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                    className="w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                   >
                     Go to Buy Plan Page
                   </Button>
@@ -1737,7 +1737,7 @@ const StartMining = () => {
                       navigate('/deposit');
                     }}
                     variant="outline"
-                    className="w-full border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                    className="w-full border-teal-500/50 text-teal-400 hover:bg-teal-500/10"
                   >
                     Go to Deposit Page
                   </Button>
@@ -1757,7 +1757,7 @@ const StartMining = () => {
 
           {/* Insufficient Funds Modal */}
           <Dialog open={showInsufficientFundsModal} onOpenChange={setShowInsufficientFundsModal}>
-            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+            <DialogContent className="bg-[#060d13] border-teal-500/50 text-white max-w-md [&>button]:hidden">
               <DialogHeader className="relative">
                 <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
                   Insufficient Funds
@@ -1771,13 +1771,13 @@ const StartMining = () => {
               </DialogHeader>
               <div className="space-y-4">
                 <p className="text-white/80">
-                  You need <span className="font-semibold text-yellow-400">${requiredAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> to purchase this plan.
+                  You need <span className="font-semibold text-teal-400">${requiredAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> to purchase this plan.
                 </p>
                 <p className="text-white/80">
                   Your current balance: <span className="font-semibold">${userBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </p>
                 <p className="text-white/80">
-                  You need <span className="font-semibold text-yellow-400">${Math.max(requiredAmount - userBalance, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> or more.
+                  You need <span className="font-semibold text-teal-400">${Math.max(requiredAmount - userBalance, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> or more.
                 </p>
                 <div className="flex flex-col gap-3 pt-4">
                   <Button
@@ -1790,7 +1790,7 @@ const StartMining = () => {
                       setShowInsufficientFundsModal(false);
                       navigate('/deposit');
                     }}
-                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                    className="w-full bg-teal-500 text-black hover:bg-teal-400 font-semibold"
                   >
                     Go to Deposit Page
                   </Button>
@@ -1804,7 +1804,7 @@ const StartMining = () => {
                       navigate('/deposit');
                     }}
                     variant="outline"
-                    className="w-full border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                    className="w-full border-teal-500/50 text-teal-400 hover:bg-teal-500/10"
                   >
                     Continue with Payment Gateway
                   </Button>
@@ -1826,7 +1826,7 @@ const StartMining = () => {
 
           {/* Plan Details Dialog */}
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+            <DialogContent className="bg-[#060d13] border-teal-500/50 text-white max-w-md [&>button]:hidden">
               <DialogHeader className="relative">
                 <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
                   Purchased Plan Details

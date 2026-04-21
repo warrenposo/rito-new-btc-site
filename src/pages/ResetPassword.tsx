@@ -107,8 +107,8 @@ const ResetPassword = () => {
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-[#0B1421] flex flex-col items-center justify-center text-white/70">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-yellow-400 border-t-transparent" />
+      <div className="min-h-screen bg-[#040a0f] flex flex-col items-center justify-center text-white/70">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-teal-400 border-t-transparent" />
         <p className="mt-4 text-sm">Verifying reset link…</p>
       </div>
     );
@@ -116,19 +116,19 @@ const ResetPassword = () => {
 
   if (invalid && !ready) {
     return (
-      <div className="min-h-screen bg-[#0B1421] flex flex-col">
+      <div className="min-h-screen bg-[#040a0f] flex flex-col">
         <div className="flex-1 flex items-center justify-center p-6">
-          <div className="max-w-md rounded-lg border border-white/10 bg-[#0F1A2B] p-8 text-center">
+          <div className="max-w-md rounded-xl border border-teal-500/15 bg-[#060d13] p-8 text-center">
             <h1 className="text-xl font-semibold text-white mb-2">Link invalid or expired</h1>
             <p className="text-sm text-white/60 mb-6">
               Request a new reset link from the sign-in page. If you already reset your password, sign in with your new
               password.
             </p>
-            <Button asChild className="bg-yellow-500 text-black hover:bg-yellow-400">
+            <Button asChild className="font-semibold text-black border-0 hover:opacity-90" style={{ background: "linear-gradient(135deg, #00e5ff 0%, #00c853 100%)" }}>
               <Link to="/forgot-password">Request new link</Link>
             </Button>
             <div className="mt-4">
-              <Link to="/login" className="text-sm text-yellow-400 hover:underline">
+              <Link to="/login" className="text-sm text-teal-400 hover:underline">
                 Back to sign in
               </Link>
             </div>
@@ -140,12 +140,13 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B1421] flex flex-col">
-      <div className="relative h-28 bg-[#050C1A] flex items-center justify-center">
-        <h1 className="text-3xl font-bold text-white">Set new password</h1>
+    <div className="min-h-screen bg-[#040a0f] flex flex-col">
+      <div className="relative h-28 bg-[#040a0f] border-b border-teal-500/10 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 circuit-bg opacity-40 pointer-events-none" />
+        <h1 className="text-3xl font-bold text-white relative z-10">Set New Password</h1>
       </div>
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="w-full max-w-md rounded-lg border border-white/5 bg-[#0F1A2B] p-6 sm:p-8">
+        <div className="w-full max-w-md rounded-xl border border-teal-500/15 bg-[#060d13] p-6 sm:p-8">
           {error && (
             <div className="mb-4 rounded-md border border-red-500/50 bg-red-500/10 p-3 text-sm text-red-300">{error}</div>
           )}
@@ -159,7 +160,7 @@ const ResetPassword = () => {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-[#0B1421] pl-10 pr-10 text-white border-white/10"
+                  className="bg-[#040a0f] pl-10 pr-10 text-white border-white/10"
                 />
                 <button
                   type="button"
@@ -179,19 +180,20 @@ const ResetPassword = () => {
                   autoComplete="new-password"
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
-                  className="bg-[#0B1421] pl-10 text-white border-white/10"
+                  className="bg-[#040a0f] pl-10 text-white border-white/10"
                 />
               </div>
             </div>
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+              className="w-full font-semibold text-black border-0 hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #00e5ff 0%, #00c853 100%)" }}
             >
               {loading ? 'Updating…' : 'Update password'}
             </Button>
           </form>
-          <Link to="/login" className="mt-6 block text-center text-sm text-yellow-400 hover:underline">
+          <Link to="/login" className="mt-6 block text-center text-sm text-teal-400 hover:underline">
             Cancel and sign in
           </Link>
         </div>

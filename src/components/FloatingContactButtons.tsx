@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { WHATSAPP_LINK } from "@/constants/contact";
 
 // Lightweight WhatsApp icon
@@ -57,7 +57,7 @@ export const FloatingContactButtons = () => {
           <div
             className={`absolute inset-0 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-300 bg-gradient-to-r ${glow}`}
           />
-          <div className="relative rounded-full bg-[#0B1421] border border-white/10 shadow-lg shadow-black/40">
+          <div className="relative rounded-full bg-[#040a0f] border border-white/10 shadow-lg shadow-black/40">
             <div className="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-white/90 to-white text-[#0F1A2B] transition-transform duration-300 group-hover:scale-105">
               <Icon className="h-6 w-6" />
             </div>

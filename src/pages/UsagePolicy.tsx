@@ -3,15 +3,15 @@ import { Navbar } from "@/components/Navbar";
 
 const UsagePolicy = () => {
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8 text-yellow-400">Usage Policy</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gradient-teal">Usage Policy</h1>
         <div className="space-y-6 text-white/80 leading-relaxed">
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Acceptable Use</h2>
             <p>
-              BtcCloudBase provides cloud mining services for legitimate cryptocurrency mining purposes. Users are expected to use our platform in a responsible and lawful manner.
+              BtcNminingBase provides cloud mining services for legitimate cryptocurrency mining purposes. Users are expected to use our platform in a responsible and lawful manner.
             </p>
           </section>
 
@@ -50,7 +50,7 @@ const UsagePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">5. Intellectual Property</h2>
             <p>
-              All content, features, and functionality of the BtcCloudBase platform are owned by us and are protected by international copyright, trademark, and other intellectual property laws.
+              All content, features, and functionality of the BtcNminingBase platform are owned by us and are protected by international copyright, trademark, and other intellectual property laws.
             </p>
           </section>
 
@@ -64,7 +64,7 @@ const UsagePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">7. Contact Information</h2>
             <p>
-              For questions about this Usage Policy, please contact us at support@BtcCloudBase.com
+              For questions about this Usage Policy, please contact us at support@BtcNminingBase.com
             </p>
           </section>
 

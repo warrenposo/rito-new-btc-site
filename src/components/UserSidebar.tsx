@@ -255,7 +255,7 @@ export const UserSidebar = ({ activeView, onViewChange, onSignOut }: UserSidebar
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 lg:z-auto w-64 min-h-screen bg-[#0F1A2B] border-r border-white/5 p-4 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 lg:z-auto w-64 min-h-screen bg-[#040a0f] border-r border-teal-500/10 p-4 transform transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -282,8 +282,8 @@ export const UserSidebar = ({ activeView, onViewChange, onSignOut }: UserSidebar
                     onClick={() => handleMenuClick(item)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm transition ${
                       getExpandedState(item.label)
-                        ? 'bg-yellow-500/20 text-yellow-400'
-                        : 'text-white/70 hover:text-white hover:bg-white/5'
+                        ? 'bg-teal-500/15 text-teal-400'
+                        : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -313,8 +313,8 @@ export const UserSidebar = ({ activeView, onViewChange, onSignOut }: UserSidebar
                             onClick={() => handleSubItemClick(subItem)}
                             className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition ${
                               isActive
-                                ? 'bg-yellow-500/20 text-yellow-400'
-                                : 'text-white/70 hover:text-white hover:bg-white/5'
+                                ? 'bg-teal-500/15 text-teal-400'
+                                : 'text-white/60 hover:text-white hover:bg-white/5'
                             }`}
                           >
                             {subItem.view === 'my-referrals' && <Users className="h-4 w-4" />}
@@ -337,8 +337,8 @@ export const UserSidebar = ({ activeView, onViewChange, onSignOut }: UserSidebar
                   onClick={() => handleMenuClick(item)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${
                     location.pathname === item.path
-                      ? 'bg-yellow-500/20 text-yellow-400'
-                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                      ? 'bg-teal-500/15 text-teal-400'
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <item.icon className="h-4 w-4" />

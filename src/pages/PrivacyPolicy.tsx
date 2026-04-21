@@ -3,15 +3,15 @@ import { Navbar } from "@/components/Navbar";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-[#0B1421] text-white">
+    <div className="min-h-screen bg-[#040a0f] text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8 text-yellow-400">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gradient-teal">Privacy Policy</h1>
         <div className="space-y-6 text-white/80 leading-relaxed">
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Introduction</h2>
             <p>
-              BtcCloudBase ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cloud mining platform.
+              BtcNminingBase ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cloud mining platform.
             </p>
           </section>
 
@@ -95,7 +95,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">10. Contact Us</h2>
             <p>
-              If you have any questions about this Privacy Policy, please contact us at support@BtcCloudBase.com
+              If you have any questions about this Privacy Policy, please contact us at support@BtcNminingBase.com
             </p>
           </section>
 
