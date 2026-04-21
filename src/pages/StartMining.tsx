@@ -1,0 +1,1888 @@
+import { useState, useEffect, useMemo } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useMining } from '@/contexts/MiningContext';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  ShoppingCart,
+  List,
+  LogOut,
+  Copy,
+  ArrowLeft,
+} from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
+import { UserSidebar } from '@/components/UserSidebar';
+import { WHATSAPP_LINK } from '@/constants/contact';
+import { depositAddressQrUrl } from '@/lib/depositQr';
+
+interface MiningPlan {
+  id: string;
+  name: string;
+  price: number;
+  duration: number;
+  hardware: string;
+  dailyMining?: { btc?: number; ltc?: number; usd: number };
+  monthlyMining?: { btc?: number; ltc?: number; usd: number };
+  totalMining?: { btc?: number; ltc?: number; usd: number };
+  referralRewards?: number;
+  available: number;
+  sold: number;
+  currency: 'BTC' | 'LTC';
+}
+
+interface PurchasedPlan {
+  id: string;
+  sn: number;
+  planName: string;
+  price: number;
+  returnPerDay: { min: number; max: number; currency: string };
+  totalDays: number;
+  remainingDays: number;
+  status: 'pending' | 'active' | 'completed' | 'expired';
+  purchasedDate: string;
+  miner: string;
+  fixedReturn: number;
+}
+
+type PurchaseStage = 'form' | 'preview' | 'payment';
+type GatewayValue = 'btc' | 'usdt-trc20' | 'usdt-erc20' | 'usdc' | 'eth' | 'solana';
+
+interface GatewayOption {
+  value: GatewayValue;
+  label: string;
+  currency: 'BTC' | 'USDT' | 'USDC' | 'ETH' | 'SOL';
+  network: string;
+  min: number;
+  max: number;
+  coingeckoId?: string;
+  description: string;
+}
+
+interface PreviewData {
+  gateway: GatewayValue;
+  gatewayLabel: string;
+  amount: number;
+  charge: number;
+  payable: number;
+  currency: 'BTC' | 'USDT' | 'USDC' | 'ETH' | 'SOL';
+  network: string;
+  conversionRate: number;
+  cryptoAmount: number;
+  plan: MiningPlan;
+}
+
+const translations = {
+  en: {
+    hardware: 'Hardware',
+    contractDuration: 'Contract duration',
+    totalMining: 'Total mining',
+    dailyMining: 'Daily mining',
+    monthlyMining: 'Monthly mining',
+    referralRewards: 'Referral Rewards',
+    day: 'day',
+    days: 'days',
+  },
+  es: {
+    hardware: 'Hardware',
+    contractDuration: 'Duración del contrato',
+    totalMining: 'Minería total',
+    dailyMining: 'Minería diaria',
+    monthlyMining: 'Minería mensual',
+    referralRewards: 'Recompensas por referencia',
+    day: 'día',
+    days: 'días',
+  },
+  fr: {
+    hardware: 'Matériel',
+    contractDuration: 'Durée du contrat',
+    totalMining: 'Mining total',
+    dailyMining: 'Mining quotidien',
+    monthlyMining: 'Mining mensuel',
+    referralRewards: 'Récompenses de parrainage',
+    day: 'jour',
+    days: 'jours',
+  },
+  de: {
+    hardware: 'Hardware',
+    contractDuration: 'Vertragsdauer',
+    totalMining: 'Gesamt-Mining',
+    dailyMining: 'Tägliches Mining',
+    monthlyMining: 'Monatliches Mining',
+    referralRewards: 'Empfehlungsprämien',
+    day: 'Tag',
+    days: 'Tage',
+  },
+};
+
+type LanguageKey = keyof typeof translations;
+
+const StartMining = () => {
+  const { user, profile, signOut } = useAuth();
+  const navigate = useNavigate();
+  // Check if there's a view preference from navigation
+  const initialView = (sessionStorage.getItem('/start-mining_view') as 'buy' | 'purchased' | 'mining') || 'buy';
+  const [activeView, setActiveView] = useState<'buy' | 'purchased' | 'mining'>(initialView);
+  // Initialize language from localStorage if available, otherwise default to 'en'
+  const [language, setLanguage] = useState<LanguageKey>(() => {
+    const storedLang = localStorage.getItem('selectedLanguage') as LanguageKey;
+    return storedLang && translations[storedLang] ? storedLang : 'en';
+  });
+
+  // Update translations object reference based on current language
+  const t = translations[language];
+
+  // Clear the view preference after using it
+  useEffect(() => {
+    if (initialView) {
+      sessionStorage.removeItem('/start-mining_view');
+    }
+  }, []);
+
+  // Listen for view changes from menu when already on this page
+  useEffect(() => {
+    const checkView = () => {
+      const storedView = sessionStorage.getItem('/start-mining_view');
+      if (storedView && (storedView === 'buy' || storedView === 'purchased' || storedView === 'mining')) {
+        setActiveView(storedView as 'buy' | 'purchased' | 'mining');
+        sessionStorage.removeItem('/start-mining_view');
+      }
+    };
+
+    // Check immediately
+    checkView();
+
+    // Also listen for storage events (when navigating from same page)
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === '/start-mining_view' && e.newValue) {
+        if (e.newValue === 'buy' || e.newValue === 'purchased' || e.newValue === 'mining') {
+          setActiveView(e.newValue as 'buy' | 'purchased' | 'mining');
+        }
+      }
+      // Sync language changes from other pages
+      if (e.key === 'selectedLanguage' && e.newValue) {
+        const newLang = e.newValue as LanguageKey;
+        if (translations[newLang]) {
+          setLanguage(newLang);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+  const [btcPrice, setBtcPrice] = useState(90073.63);
+
+  // Fetch current prices from CoinGecko
+  const fetchCryptoPrices = async () => {
+    try {
+      const response = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+      );
+      const data = await response.json();
+
+      if (data?.bitcoin?.usd) {
+        setBtcPrice(data.bitcoin.usd);
+      }
+    } catch (error) {
+      console.error('Error fetching crypto prices:', error);
+      // Keep using the default/hardcoded values if fetch fails
+    }
+  };
+
+  // Fetch prices on component mount and set up refresh interval
+  useEffect(() => {
+    // Fetch immediately
+    fetchCryptoPrices();
+
+    // Refresh prices every 5 minutes (300000 ms)
+    const intervalId = setInterval(() => {
+      fetchCryptoPrices();
+    }, 300000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Purchase flow state
+  const [selectedPlan, setSelectedPlan] = useState<MiningPlan | null>(null);
+  const [purchaseStage, setPurchaseStage] = useState<PurchaseStage>('form');
+  const [gateway, setGateway] = useState<GatewayValue | ''>('');
+  const [charge, setCharge] = useState(0);
+  const [payable, setPayable] = useState(0);
+  const [previewData, setPreviewData] = useState<PreviewData | null>(null);
+  const [activePurchase, setActivePurchase] = useState<any>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  // BTC Plans
+  const btcPlans: MiningPlan[] = [
+    {
+      id: 'promotions',
+      name: 'PROMOTIONS',
+      price: 70,
+      duration: 1,
+      hardware: 'Antminer S19',
+      totalMining: { btc: 0.00249, usd: 225.04 },
+      available: 4000,
+      sold: 652,
+      currency: 'BTC',
+    },
+    {
+      id: 'new-beginner',
+      name: 'NEW BEGINNER',
+      price: 100,
+      duration: 3,
+      hardware: 'Antminer S19',
+      totalMining: { btc: 0.00720, usd: 650.07 },
+      available: 4000,
+      sold: 652,
+      currency: 'BTC',
+    },
+    {
+      id: 'basic',
+      name: 'BASIC',
+      price: 200,
+      duration: 7,
+      hardware: 'Antminer S19',
+      totalMining: { btc: 0.01329, usd: 1200.18 },
+      available: 4000,
+      sold: 452,
+      currency: 'BTC',
+    },
+    {
+      id: 'economy',
+      name: 'ECONOMY',
+      price: 400,
+      duration: 7,
+      hardware: 'Antminer S19',
+      totalMining: { btc: 0.01994, usd: 1800.37 },
+      referralRewards: 72.8,
+      available: 3000,
+      sold: 2154,
+      currency: 'BTC',
+    },
+    {
+      id: 'bronze',
+      name: 'BRONZE',
+      price: 1000,
+      duration: 30,
+      hardware: 'Antminer S19',
+      totalMining: { btc: 0.08325, usd: 7500 },
+      available: 1000,
+      sold: 0,
+      currency: 'BTC',
+    },
+    {
+      id: 'standart',
+      name: 'STANDARD',
+      price: 2400,
+      duration: 90,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.0025, usd: 225.175 },
+      monthlyMining: { btc: 0.075, usd: 6755.525 },
+      referralRewards: 240,
+      available: 2000,
+      sold: 1096,
+      currency: 'BTC',
+    },
+    {
+      id: 'silver',
+      name: 'SILVER',
+      price: 4000,
+      duration: 90,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.00275, usd: 250 },
+      monthlyMining: { btc: 0.08325, usd: 7500 },
+      available: 500,
+      sold: 0,
+      currency: 'BTC',
+    },
+    {
+      id: 'senior',
+      name: 'SENIOR',
+      price: 6500,
+      duration: 90,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.005, usd: 450.375 },
+      monthlyMining: { btc: 0.15, usd: 13511.05 },
+      referralRewards: 650,
+      available: 1000,
+      sold: 800,
+      currency: 'BTC',
+    },
+    {
+      id: 'advanced',
+      name: 'ADVANCED',
+      price: 12600,
+      duration: 90,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.015, usd: 1351.10 },
+      monthlyMining: { btc: 0.45, usd: 40533.13 },
+      referralRewards: 1260,
+      available: 800,
+      sold: 461,
+      currency: 'BTC',
+    },
+    {
+      id: 'gold',
+      name: 'GOLD',
+      price: 20000,
+      duration: 365,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.0185, usd: 1666.67 },
+      monthlyMining: { btc: 0.555, usd: 50000 },
+      available: 200,
+      sold: 0,
+      currency: 'BTC',
+    },
+    {
+      id: 'luxurious',
+      name: 'LUXURIOUS',
+      price: 32000,
+      duration: 365,
+      hardware: 'Antminer S19',
+      dailyMining: { btc: 0.03, usd: 2702.21 },
+      monthlyMining: { btc: 0.9, usd: 81066.27 },
+      referralRewards: 3200,
+      available: 300,
+      sold: 177,
+      currency: 'BTC',
+    },
+  ];
+
+  const currentPlans = btcPlans;
+  const currentPrice = btcPrice;
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  const gatewayOptions: GatewayOption[] = [
+    {
+      value: 'btc',
+      label: 'BTC',
+      currency: 'BTC',
+      network: 'Bitcoin',
+      min: 70,
+      max: 500000,
+      coingeckoId: 'bitcoin',
+      description: 'Instant confirmation on Bitcoin network',
+    },
+    {
+      value: 'usdt-trc20',
+      label: 'USDT.TRC20',
+      currency: 'USDT',
+      network: 'TRC20',
+      min: 70,
+      max: 250000,
+      description: 'Fast & low cost payments on Tron network',
+    },
+    {
+      value: 'usdt-erc20',
+      label: 'USDT.ERC20',
+      currency: 'USDT',
+      network: 'ERC20',
+      min: 70,
+      max: 250000,
+      description: 'USDT payments on Ethereum network',
+    },
+    {
+      value: 'usdc',
+      label: 'USDC',
+      currency: 'USDC',
+      network: 'ERC20',
+      min: 70,
+      max: 250000,
+      description: 'USD Coin payments (1:1 USD)',
+    },
+    {
+      value: 'eth',
+      label: 'ETH',
+      currency: 'ETH',
+      network: 'Ethereum',
+      min: 70,
+      max: 500000,
+      coingeckoId: 'ethereum',
+      description: 'Native Ethereum deposits',
+    },
+    {
+      value: 'solana',
+      label: 'Solana (SOL)',
+      currency: 'SOL',
+      network: 'Solana',
+      min: 70,
+      max: 500000,
+      coingeckoId: 'solana',
+      description: 'Fast & low-fee payments on Solana network',
+    },
+  ];
+
+  const fallbackAddresses: Record<GatewayValue, string> = {
+    btc: 'bc1q8wchmdhvxatty6evk8gjh0cfg262jr0tuwkn9x',
+    'usdt-trc20': 'TGtTjW3Vso5Rcxx3BGcpQmeq72MMz2MxZ1',
+    'usdt-erc20': '0x2b5E6d86F7C9b8e64cD753e55a18749f4F268F05',
+    usdc: '0x2b5E6d86F7C9b8e64cD753e55a18749f4F268F05',
+    eth: '0x2b5E6d86F7C9b8e64cD753e55a18749f4F268F05',
+    solana: 'D26bc2Rh5Ebz5vMxb8dkHKMLJB6YRy4GGapKJWiiqgwc',
+  };
+
+  const selectedGatewayOption = useMemo(
+    () => gatewayOptions.find((option) => option.value === gateway),
+    [gateway]
+  );
+
+  const formatUSD = (value: number) =>
+    value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+  const formatCrypto = (value: number, decimals = 8) =>
+    value.toLocaleString('en-US', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+
+  const getPaymentURI = (gateway: GatewayValue, address: string, amount: number) => {
+    const formattedAmount = Number(amount || 0).toFixed(8);
+
+    switch (gateway) {
+      case 'btc':
+        return `bitcoin:${address}?amount=${formattedAmount}`;
+      case 'eth':
+        return `ethereum:${address}?value=${formattedAmount}`;
+      case 'usdt-trc20':
+        return `tron:${address}?amount=${formattedAmount}`;
+      case 'usdt-erc20':
+      case 'usdc':
+        return `ethereum:${address}?value=${formattedAmount}`;
+      case 'solana':
+        return address;
+      default:
+        return address;
+    }
+  };
+
+  const fetchConversionRate = async (option: GatewayOption) => {
+    if (option.currency === 'USDT' || option.currency === 'USDC') {
+      return 1;
+    }
+
+    if (!option.coingeckoId) return 0;
+
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${option.coingeckoId}&vs_currencies=usd`
+      );
+      const data = await response.json();
+      return data?.[option.coingeckoId]?.usd || 0;
+    } catch (error) {
+      console.error('Conversion rate error:', error);
+      return 0;
+    }
+  };
+
+  const handleBuyPlan = async (plan: MiningPlan) => {
+    // Clear any previous purchase selection while we validate balance
+    setSelectedPlan(null);
+    setPurchaseStage('form');
+    setGateway('');
+    setCharge(0);
+    setPayable(0);
+    setPreviewData(null);
+    setActivePurchase(null);
+
+    // Fetch latest balance and use the returned value (state updates are async)
+    const currentBalance = await fetchUserBalance();
+
+    // Calculate total required (plan price + 2% charge)
+    const calculatedCharge = plan.price * 0.02;
+    const totalRequired = plan.price + calculatedCharge;
+
+    // Check if user has sufficient balance
+    if (currentBalance < totalRequired) {
+      setRequiredAmount(totalRequired);
+      setShowInsufficientFundsModal(true);
+      // Don't proceed to purchase form yet
+      return;
+    }
+
+    // User has sufficient balance, proceed with purchase
+    setSelectedPlan(plan);
+    setPurchaseStage('form');
+    setCharge(calculatedCharge);
+    setPayable(totalRequired);
+    setGateway('');
+    setPreviewData(null);
+    setActivePurchase(null);
+  };
+
+  const handleGatewayChange = (value: GatewayValue) => {
+    setGateway(value);
+    const config = gatewayOptions.find((option) => option.value === value);
+    if (config && selectedPlan) {
+      // Validate plan price is within limits
+      if (selectedPlan.price < config.min || selectedPlan.price > config.max) {
+        toast({
+          title: 'Plan price outside limits',
+          description: `This payment method requires amounts between ${formatUSD(config.min)} and ${formatUSD(config.max)}`,
+          variant: 'destructive',
+        });
+        setGateway('');
+        return;
+      }
+    }
+  };
+
+  const handleSubmitPurchase = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!selectedPlan) {
+      toast({
+        title: 'No plan selected',
+        description: 'Please select a plan first',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!selectedGatewayOption) {
+      toast({
+        title: 'Payment method required',
+        description: 'Please select a payment method',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const conversionRate = await fetchConversionRate(selectedGatewayOption);
+      if (!conversionRate) throw new Error('Unable to fetch live conversion rate');
+
+      const cryptoAmount = payable / conversionRate;
+
+      setPreviewData({
+        gateway: selectedGatewayOption.value,
+        gatewayLabel: selectedGatewayOption.label,
+        amount: selectedPlan.price,
+        charge,
+        payable,
+        currency: selectedGatewayOption.currency,
+        network: selectedGatewayOption.network,
+        conversionRate,
+        cryptoAmount,
+        plan: selectedPlan,
+      });
+      setPurchaseStage('preview');
+    } catch (error: any) {
+      toast({
+        title: 'Preview unavailable',
+        description: error.message || 'Failed to prepare payment preview',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleConfirmPayment = async () => {
+    if (!previewData || !user || !selectedPlan) return;
+    setIsConfirming(true);
+
+    try {
+      const transactionId = `PLAN${Date.now()}${Math.random()
+        .toString(36)
+        .slice(2, 8)
+        .toUpperCase()}`;
+
+      const { data: addressRecord } = await supabase
+        .from('deposit_addresses')
+        .select('address')
+        .eq('gateway', previewData.gateway)
+        .eq('is_active', true)
+        .single();
+
+      const paymentAddress =
+        addressRecord?.address || fallbackAddresses[previewData.gateway] || 'N/A';
+
+      // First, create a deposit record for the payment
+      const { data: createdDeposit, error: depositError } = await supabase
+        .from('deposits')
+        .insert({
+          user_id: user.id,
+          transaction_id: transactionId,
+          gateway: previewData.gateway,
+          amount: previewData.amount,
+          charge: previewData.charge,
+          payable: previewData.payable,
+          status: 'pending',
+          deposit_address: paymentAddress,
+          currency: previewData.currency,
+          conversion_rate: previewData.conversionRate,
+          crypto_amount: previewData.cryptoAmount,
+        })
+        .select('*')
+        .single();
+
+      if (depositError) throw depositError;
+
+      // Find or create mining plan in database
+      const { data: existingPlan } = await supabase
+        .from('mining_plans')
+        .select('id')
+        .eq('name', selectedPlan.name)
+        .eq('currency', selectedPlan.currency)
+        .single();
+
+      let planId = existingPlan?.id;
+
+      // If plan doesn't exist, create it
+      if (!planId) {
+        const { data: newPlan, error: planError } = await supabase
+          .from('mining_plans')
+          .insert({
+            name: selectedPlan.name,
+            currency: selectedPlan.currency,
+            price: selectedPlan.price,
+            duration: selectedPlan.duration,
+            hardware: selectedPlan.hardware,
+            daily_mining_btc: selectedPlan.dailyMining?.btc,
+            daily_mining_usd: selectedPlan.dailyMining?.usd,
+            monthly_mining_btc: selectedPlan.monthlyMining?.btc,
+            monthly_mining_usd: selectedPlan.monthlyMining?.usd,
+            total_mining_btc: selectedPlan.totalMining?.btc,
+            total_mining_usd: selectedPlan.totalMining?.usd,
+            referral_rewards: selectedPlan.referralRewards,
+            available: selectedPlan.available,
+            sold: selectedPlan.sold,
+            is_active: true,
+          })
+          .select('id')
+          .single();
+
+        if (planError) throw planError;
+        planId = newPlan.id;
+      }
+
+      // Calculate return per day (min and max based on plan)
+      const returnPerDayMin = selectedPlan.dailyMining?.btc || 0;
+      const returnPerDayMax = returnPerDayMin * 1.5; // Assume 50% variance
+
+      // Create user_plans record
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + selectedPlan.duration);
+
+      const { data: createdUserPlan, error: planPurchaseError } = await supabase
+        .from('user_plans')
+        .insert({
+          user_id: user.id,
+          plan_id: planId,
+          plan_name: selectedPlan.name,
+          price: selectedPlan.price,
+          currency: selectedPlan.currency,
+          return_per_day_min: returnPerDayMin,
+          return_per_day_max: returnPerDayMax,
+          total_days: selectedPlan.duration,
+          remaining_days: selectedPlan.duration,
+          fixed_return: 0,
+          status: 'pending',
+          expires_at: expiresAt.toISOString(),
+        })
+        .select('*')
+        .single();
+
+      if (planPurchaseError) throw planPurchaseError;
+
+      setActivePurchase({
+        ...createdDeposit,
+        gatewayLabel: previewData.gatewayLabel,
+        network: previewData.network,
+        currency: previewData.currency,
+        userPlan: createdUserPlan,
+      });
+      setPurchaseStage('payment');
+
+      toast({
+        title: 'Payment created',
+        description: 'Please complete the payment to activate your mining plan',
+      });
+    } catch (error: any) {
+      toast({
+        title: 'Unable to create payment',
+        description: error.message || 'Please try again shortly.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsConfirming(false);
+    }
+  };
+
+  const handleBackToForm = () => {
+    setPurchaseStage('form');
+    setPreviewData(null);
+    setActivePurchase(null);
+  };
+
+  const handleStartNewPurchase = () => {
+    setPurchaseStage('form');
+    setPreviewData(null);
+    setActivePurchase(null);
+    setSelectedPlan(null);
+    setGateway('');
+    setCharge(0);
+    setPayable(0);
+  };
+
+  const copyToClipboard = async (value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      toast({ title: 'Copied', description: 'Address copied to clipboard' });
+    } catch {
+      toast({
+        title: 'Copy failed',
+        description: 'Unable to copy address on this device',
+        variant: 'destructive',
+      });
+    }
+  };
+
+
+  const [selectedPurchasedPlan, setSelectedPurchasedPlan] = useState<PurchasedPlan | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [purchasedPlans, setPurchasedPlans] = useState<PurchasedPlan[]>([]);
+  const [userBalance, setUserBalance] = useState<number>(0);
+  const [showInsufficientFundsModal, setShowInsufficientFundsModal] = useState(false);
+  const [requiredAmount, setRequiredAmount] = useState<number>(0);
+  const [miningLogs, setMiningLogs] = useState<string[]>([]);
+  const [currentHashRate, setCurrentHashRate] = useState(15);
+  const [currentShares, setCurrentShares] = useState(19);
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [showStartSessionModal, setShowStartSessionModal] = useState(false);
+  const [miningProgress] = useState(75);
+  const { isSessionActive, sessionTarget, sessionStartTime, sessionId: currentSessionId, getCurrentMined, startSession: contextStartSession, SIMULATED_DAY_SECONDS } = useMining();
+  const DAILY_GROWTH_RATE = 0.2; // 20%
+  const [sessionMined, setSessionMined] = useState(0); // local display value, synced from context when on mining page
+
+  // Per-user mining: from profile (admin enables/disables per user)
+  const miningEnabled = profile?.mining_enabled ?? true;
+
+  // Fetch user balance (returns the balance so callers can use it immediately)
+  const fetchUserBalance = async (): Promise<number> => {
+    if (!user) return 0;
+    try {
+      const { data, error } = await supabase
+        .from('mining_stats')
+        .select('total_mined')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+
+      const balance = data?.total_mined || 0;
+      setUserBalance(balance);
+      return Number(balance);
+    } catch (error) {
+      console.error('Error fetching user balance:', error);
+      setUserBalance(0);
+      return 0;
+    }
+  };
+
+  // Fetch balance when user is available
+  useEffect(() => {
+    if (user) {
+      fetchUserBalance();
+    }
+  }, [user]);
+
+  // Fetch purchased plans from database
+  useEffect(() => {
+    if (user && activeView === 'purchased') {
+      fetchPurchasedPlans();
+    }
+  }, [user, activeView]);
+
+  const fetchPurchasedPlans = async () => {
+    if (!user) return;
+    try {
+      const { data, error } = await supabase
+        .from('user_plans')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('purchased_date', { ascending: false });
+
+      if (error) throw error;
+
+      // Transform database records to PurchasedPlan format
+      const transformedPlans: PurchasedPlan[] = (data || []).map((plan, index) => ({
+        id: plan.id,
+        sn: index + 1,
+        planName: plan.plan_name,
+        price: parseFloat(plan.price),
+        returnPerDay: {
+          min: parseFloat(plan.return_per_day_min || 0),
+          max: parseFloat(plan.return_per_day_max || 0),
+          currency: plan.currency,
+        },
+        totalDays: plan.total_days,
+        remainingDays: plan.remaining_days,
+        status: plan.status as 'pending' | 'active' | 'completed' | 'expired',
+        purchasedDate: new Date(plan.purchased_date).toLocaleDateString('en-US', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        }),
+        miner: plan.currency,
+        fixedReturn: parseFloat(plan.fixed_return || 0),
+      }));
+
+      setPurchasedPlans(transformedPlans);
+    } catch (error) {
+      console.error('Error fetching purchased plans:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to load purchased plans',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleViewChange = (view: string) => {
+    if (view === 'buy' || view === 'purchased' || view === 'mining') {
+      setActiveView(view as 'buy' | 'purchased' | 'mining');
+      // Clear sessionStorage if it was set
+      sessionStorage.removeItem('/start-mining_view');
+    }
+  };
+
+  // Listen for custom viewchange events
+  useEffect(() => {
+    const handleViewChangeEvent = (e: CustomEvent) => {
+      const view = e.detail?.view;
+      if (view === 'buy' || view === 'purchased' || view === 'mining') {
+        setActiveView(view as 'buy' | 'purchased' | 'mining');
+      }
+    };
+
+    window.addEventListener('viewchange', handleViewChangeEvent as EventListener);
+    return () => window.removeEventListener('viewchange', handleViewChangeEvent as EventListener);
+  }, []);
+
+  // Mining animation effect - continuously add logs showing address checking
+  useEffect(() => {
+    if (activeView !== 'mining') return;
+
+    // Initial logs
+    const initialLogs = [
+      '[2026-01-17 19:34:27] Switched to Tether mining',
+      '$ cryptohash-miner --start --algo=sha256d --coin=USDT --target=100 --payout=0xd239b1cb8f...a89d63',
+      '[2026-01-17 19:34:28] Initializing mining session...',
+      '[2026-01-17 19:34:28] Payout address: 0xd239b1cb8f...a89d63',
+      '[2026-01-17 19:34:29] Subscribing to mining.subscribe...',
+      '[2026-01-17 19:34:30] Authorized worker=cryptohash.4c74',
+      '[2026-01-17 19:34:31] Loading DAG to GPU memory...',
+    ];
+    setMiningLogs(initialLogs);
+
+    // Address pool for rotation
+    const addresses = [
+      '0xd239b1cb8f7a3e5b6c9d2f4a1b8c7e6d5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0',
+      '0x8a3f2e1c9d7b5a4e3f2c1d0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0',
+      '0x5e4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e',
+      '0x3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c',
+      '0x1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a',
+      '0xf9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9',
+    ];
+
+    let logCounter = initialLogs.length;
+    let addressIndex = 0;
+    let jobCounter = 1;
+
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const timestamp = now.toISOString().replace('T', ' ').substring(0, 19);
+
+      // Rotate through different log types
+      const logTypes = [
+        () => `[${timestamp}] Checking address: ${addresses[addressIndex % addresses.length].substring(0, 20)}...`,
+        () => `[${timestamp}] Processing block candidate #${jobCounter++}`,
+        () => `[${timestamp}] Hash found! Nonce: 0x${Math.floor(Math.random() * 0xFFFFFFFF).toString(16).padStart(8, '0')}`,
+        () => `[${timestamp}] Submitting share to pool...`,
+        () => `[${timestamp}] Share accepted! Difficulty: ${(Math.random() * 10 + 1).toFixed(2)}`,
+        () => `[${timestamp}] New job received from stratum server`,
+        () => `[${timestamp}] Checking next address in queue: ${addresses[(addressIndex + 1) % addresses.length].substring(0, 20)}...`,
+        () => `[${timestamp}] GPU0: ${Math.floor(Math.random() * 20 + 55)}°C ${Math.floor(Math.random() * 15 + 80)}% ${Math.floor(Math.random() * 50 + 180)}W`,
+        () => `[${timestamp}] GPU1: ${Math.floor(Math.random() * 20 + 55)}°C ${Math.floor(Math.random() * 15 + 80)}% ${Math.floor(Math.random() * 50 + 200)}W`,
+      ];
+
+      const newLog = logTypes[logCounter % logTypes.length]();
+      setMiningLogs((prev) => {
+        const updated = [...prev, newLog];
+        // Keep only last 50 logs
+        const sliced = updated.slice(-50);
+
+        // Auto-scroll to bottom
+        setTimeout(() => {
+          const container = document.getElementById('mining-log-container');
+          if (container) {
+            container.scrollTop = container.scrollHeight;
+          }
+        }, 100);
+
+        return sliced;
+      });
+
+      if (logCounter % 2 === 0) {
+        addressIndex++;
+      }
+
+      // Update hash rate and shares more frequently
+      if (logCounter % 3 === 0) {
+        setCurrentHashRate((prev) => Math.max(10, Math.min(20, prev + Math.random() * 0.5 - 0.25)));
+        setCurrentShares((prev) => prev + 1);
+      }
+
+      logCounter++;
+    }, 300); // Add new log every 0.3 seconds
+
+    return () => clearInterval(intervalId);
+  }, [activeView]);
+
+  // When on mining page and session is active, refresh displayed MINED from context so the number updates
+  useEffect(() => {
+    if (activeView !== 'mining' || !isSessionActive) return;
+    const intervalId = setInterval(() => setSessionMined(getCurrentMined()), 500);
+    return () => clearInterval(intervalId);
+  }, [activeView, isSessionActive, getCurrentMined]);
+
+  // Sync displayed mined when opening mining view while session active
+  useEffect(() => {
+    if (activeView === 'mining' && isSessionActive) setSessionMined(getCurrentMined());
+  }, [activeView, isSessionActive, getCurrentMined]);
+
+  const handleStartMiningSession = async () => {
+    if (!miningEnabled) {
+      toast({
+        title: 'Mining not activated',
+        description: 'Mining sessions are currently disabled. Please contact support to activate your mining session.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    if (userBalance <= 0) {
+      setShowStartSessionModal(true);
+      return;
+    }
+    // Daily mined amount must not exceed account balance
+    const target = Math.min(
+      Math.round(userBalance * DAILY_GROWTH_RATE * 100) / 100,
+      Math.round(userBalance * 100) / 100
+    );
+    setSessionMined(0);
+    setShowStartSessionModal(false);
+
+    try {
+      const { data: session, error } = await supabase
+        .from('mining_sessions')
+        .insert({
+          user_id: user.id,
+          target_amount: target,
+          status: 'running',
+        })
+        .select('id')
+        .single();
+      if (error) throw error;
+      const sessionId = session?.id ?? '';
+      contextStartSession({
+        sessionStartTime: Date.now(),
+        sessionTarget: target,
+        sessionId,
+        userId: user.id,
+        stopBalance: null,
+        balanceAtStart: userBalance,
+      });
+    } catch (e: any) {
+      toast({ title: 'Error', description: e?.message || 'Failed to start session', variant: 'destructive' });
+    }
+    toast({
+      title: 'Mining session started',
+      description: `Mining continues in background. Up to ${target.toFixed(2)} USD over ${SIMULATED_DAY_SECONDS}s (${(SIMULATED_DAY_SECONDS / 60).toFixed(0)} min). You can leave this page.`,
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0B1421] text-white">
+      <div className="flex">
+        <UserSidebar
+          activeView={activeView === 'buy' ? 'buy' : activeView === 'purchased' ? 'purchased' : activeView === 'mining' ? 'mining' : undefined}
+          onViewChange={handleViewChange}
+          onSignOut={handleSignOut}
+        />
+
+        {/* Main Content */}
+        <main className="flex-1 p-4 sm:p-6 overflow-x-hidden">
+          {/* Header */}
+          <header className="mb-4 sm:mb-6 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <h1 className="text-xl sm:text-2xl font-semibold">
+                {activeView === 'buy'
+                  ? purchaseStage === 'preview'
+                    ? 'Payment Preview'
+                    : purchaseStage === 'payment'
+                      ? 'Scan & Pay'
+                      : 'Buy Plan'
+                  : activeView === 'purchased'
+                    ? 'Purchased Plans'
+                    : 'Mining'}
+              </h1>
+            </div>
+            <div className="flex items-center gap-2 lg:gap-4">
+              {/* Language Selector */}
+              <select
+                className="hidden sm:block rounded-md bg-transparent px-3 py-2 text-sm text-white outline-none ring-1 ring-white/10"
+                value={language}
+                onChange={(e) => {
+                  const newLang = e.target.value as LanguageKey;
+                  setLanguage(newLang);
+                  localStorage.setItem('selectedLanguage', newLang);
+                }}
+              >
+                <option className="text-black" value="en">
+                  English
+                </option>
+                <option className="text-black" value="es">
+                  Español
+                </option>
+                <option className="text-black" value="fr">
+                  Français
+                </option>
+                <option className="text-black" value="de">
+                  Deutsch
+                </option>
+              </select>
+              <Button
+                variant="outline"
+                className="border-rose-500 text-rose-400 hover:bg-rose-500/10 text-sm px-3 lg:px-4"
+                onClick={handleSignOut}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
+            </div>
+          </header>
+
+          {activeView === 'buy' ? (
+            /* Buy Plan View */
+            <div className="space-y-6">
+              {/* Info Banner */}
+              <div className="bg-[#1E3A5F] border border-[#2E5A8F] rounded-lg p-6">
+                <h2 className="text-xl font-semibold text-[#87CEEB] mb-4">
+                  Your selected mining contract Is activated automatically once your payment Is confirmed.
+                </h2>
+                <div className="space-y-3 text-white/90 text-sm">
+                  <p>
+                    Mining income is released once a day. You can withdraw the output at any time (without waiting for the end of the contract) There is no limit to the number of withdrawals
+                  </p>
+                  <p>You can have the fastest bitcoin miner in 5 minutes:</p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Choose one of the below miners</li>
+                    <li>Click on "Buy Now" button and pay the miner price</li>
+                    <li>Your miner is launched and adds bitcoin to your balance every second (until your subscription ends)</li>
+                    <li>Your bitcoin increase every minute and you can withdraw it or buy a new bigger miner</li>
+                  </ol>
+                  <p>
+                    USDT. The profit of USDT Plans comes from intelligent quantitative trading strategies. Daily earnings may fluctuate based on Binance trading depth. The contract period is only one day, so you can withdraw all your funds the next day. There will be no automatic re-investment after the contract expires. If you need to re-invest, you need to manually purchase the plan again.
+                  </p>
+                </div>
+              </div>
+
+              {/* BTC Price Display */}
+              <div className="flex gap-4 items-center">
+                <div className="px-6 py-3 rounded-lg font-semibold bg-yellow-500 text-black">
+                  BTC
+                </div>
+                <div className="text-lg font-semibold">
+                  BTC≈${currentPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+              </div>
+
+              {/* Mining Plans Grid */}
+              {!selectedPlan && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {currentPlans.map((plan) => {
+                    const progress = (plan.sold / plan.available) * 100;
+
+                    return (
+                      <Card key={plan.id} className="bg-[#111B2D] border-white/5 overflow-hidden">
+                        {/* Header */}
+                        <div className="bg-yellow-500 p-4">
+                          <div className="text-white text-sm font-semibold mb-2">{plan.name}</div>
+                          <div className="text-white text-2xl font-bold">
+                            ${plan.price.toLocaleString()}
+                            <span className="text-lg font-normal"> / {plan.duration} {plan.duration === 1 ? 'Day' : 'Days'}</span>
+                          </div>
+                        </div>
+
+                        {/* Body */}
+                        <CardContent className="p-4 space-y-3">
+                          <div className="flex items-center gap-2 text-white/80 text-sm">
+                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <span>{t.hardware}: {plan.hardware}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-white/80 text-sm">
+                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                            <span>{t.contractDuration}: {plan.duration} {plan.duration === 1 ? t.day : t.days}</span>
+                          </div>
+                          {plan.totalMining && (
+                            <div className="flex items-center gap-2 text-white/80 text-sm">
+                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <span>
+                                {t.totalMining}: {plan.totalMining.btc?.toFixed(6)} BTC=${((plan.totalMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                          )}
+                          {plan.dailyMining && (
+                            <div className="flex items-center gap-2 text-white/80 text-sm">
+                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <span>
+                                {t.dailyMining}: {plan.dailyMining.btc?.toFixed(6)} BTC=${((plan.dailyMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                          )}
+                          {plan.monthlyMining && (
+                            <div className="flex items-center gap-2 text-white/80 text-sm">
+                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <span>
+                                {t.monthlyMining}: {plan.monthlyMining.btc?.toFixed(6)} BTC=${((plan.monthlyMining.btc || 0) * btcPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            </div>
+                          )}
+                          {plan.referralRewards && (
+                            <div className="flex items-center gap-2 text-white/80 text-sm">
+                              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                              <span>{t.referralRewards}: {plan.referralRewards} USDT</span>
+                            </div>
+                          )}
+
+                          {/* Progress Bar */}
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs text-white/60">
+                              <span>{plan.available} / {plan.sold} ({progress.toFixed(1)}%)</span>
+                            </div>
+                            <div className="relative h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                              <div
+                                className="absolute top-0 left-0 h-full bg-yellow-500 transition-all"
+                                style={{ width: `${progress}%` }}
+                              ></div>
+                            </div>
+                          </div>
+
+                          {/* Buy Now Button */}
+                          <Button
+                            onClick={() => handleBuyPlan(plan)}
+                            className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                          >
+                            Buy Now
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Purchase Form */}
+              {purchaseStage === 'form' && selectedPlan && (
+                <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                  <button
+                    onClick={handleStartNewPurchase}
+                    className="mb-4 flex items-center gap-2 text-sm text-white/60 hover:text-white"
+                  >
+                    <ArrowLeft className="h-4 w-4" /> Back to plans
+                  </button>
+                  <h2 className="text-xl font-semibold mb-2">Complete your purchase</h2>
+                  <p className="text-sm text-white/60 mb-6">
+                    Selected: {selectedPlan.name} — {formatUSD(selectedPlan.price)} + {formatUSD(charge)} charge ={' '}
+                    <span className="text-yellow-300 font-semibold">{formatUSD(payable)}</span>
+                  </p>
+
+                  <form onSubmit={handleSubmitPurchase} className="space-y-6">
+                    <div>
+                      <Label className="mb-2 block text-white/80">Select payment method *</Label>
+                      <Select
+                        value={gateway || undefined}
+                        onValueChange={(value) => handleGatewayChange(value as GatewayValue)}
+                      >
+                        <SelectTrigger className="h-12 border-white/10 bg-[#0B1421] text-white">
+                          <SelectValue placeholder="Select One" />
+                        </SelectTrigger>
+                        <SelectContent className="border-white/10 bg-[#0B1421] text-white">
+                          {gatewayOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              <div>
+                                <p className="font-medium">{option.label}</p>
+                                <p className="text-xs text-white/50">{option.description}</p>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
+                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                        <p className="text-xs uppercase tracking-wide text-white/50">Plan</p>
+                        <p className="mt-2 text-lg font-semibold">{selectedPlan.name}</p>
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                        <p className="text-xs uppercase tracking-wide text-white/50">Charge</p>
+                        <p className="mt-2 text-lg font-semibold">{charge > 0 ? formatUSD(charge) : '$0.00'}</p>
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-[#0B1421] p-4">
+                        <p className="text-xs uppercase tracking-wide text-white/50">Payable</p>
+                        <p className="mt-2 text-lg font-semibold text-yellow-400">
+                          {payable > 0 ? formatUSD(payable) : '$0.00'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting || !gateway}
+                      className="h-12 w-full bg-yellow-500 text-lg font-semibold text-black hover:bg-yellow-400 disabled:opacity-60"
+                    >
+                      {isSubmitting ? 'Preparing...' : 'Continue to payment'}
+                    </Button>
+                  </form>
+                </div>
+              )}
+
+              {/* Purchase Preview */}
+              {purchaseStage === 'preview' && previewData && (
+                <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                    <button
+                      onClick={handleBackToForm}
+                      className="mb-4 flex items-center gap-2 text-sm text-white/60 hover:text-white"
+                    >
+                      <ArrowLeft className="h-4 w-4" /> Change payment method
+                    </button>
+                    <h3 className="text-xl font-semibold text-white">Plan Summary</h3>
+                    <p className="text-sm text-white/60">Confirm the details before proceeding</p>
+                    <div className="mt-6 space-y-3 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">Plan</span>
+                        <span className="font-medium">{previewData.plan.name}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">Gateway</span>
+                        <span className="font-medium">{`${previewData.gatewayLabel} (${previewData.network})`}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">Amount</span>
+                        <span className="font-medium">{formatUSD(previewData.amount)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">Charge</span>
+                        <span>{formatUSD(previewData.charge)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">Payable</span>
+                        <span className="text-lg font-semibold text-yellow-400">{formatUSD(previewData.payable)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                    <div className="mb-4 text-sm text-white/60">Payment Preview</div>
+                    <div className="space-y-3 text-sm">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                        <span className="text-white/60">Conversion Rate</span>
+                        <span>1 {previewData.currency} = {formatUSD(previewData.conversionRate)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60">You will send</span>
+                        <span className="text-lg font-semibold text-emerald-400">
+                          {formatCrypto(previewData.cryptoAmount)} {previewData.currency}
+                        </span>
+                      </div>
+                      <Button
+                        onClick={handleConfirmPayment}
+                        disabled={isConfirming}
+                        className="mt-4 h-12 w-full bg-yellow-500 text-black hover:bg-yellow-400 disabled:opacity-60"
+                      >
+                        {isConfirming ? 'Reserving address...' : 'Pay Now'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Purchase Payment Instructions */}
+              {purchaseStage === 'payment' && activePurchase && (
+                <div className="space-y-6">
+                  <div className="rounded-xl border border-white/5 bg-[#111B2D] p-6">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm text-white/60">Transaction ID</p>
+                        <p className="font-mono text-lg text-yellow-400">{activePurchase.transaction_id}</p>
+                      </div>
+                      <Button variant="outline" onClick={handleStartNewPurchase}>
+                        Start new purchase
+                      </Button>
+                    </div>
+                    <div className="mt-6 rounded-xl border border-white/10 bg-[#0D1727] p-6 text-center">
+                      <p className="text-sm text-white/50">PLEASE SEND EXACTLY</p>
+                      <p className="mt-2 text-3xl font-semibold text-emerald-400">
+                        {formatCrypto(
+                          typeof activePurchase.crypto_amount === 'string'
+                            ? parseFloat(activePurchase.crypto_amount)
+                            : activePurchase.crypto_amount || 0
+                        )}{' '}
+                        {activePurchase.currency || 'BTC'}
+                      </p>
+                      <p className="text-sm text-white/50">TO</p>
+                      <div className="mt-4 flex items-center justify-center gap-2 text-sm">
+                        <span className="font-mono text-[#FF7B7B] break-all">{activePurchase.deposit_address}</span>
+                        <button
+                          onClick={() => copyToClipboard(activePurchase.deposit_address)}
+                          className="rounded-md bg-yellow-500/20 p-2 text-yellow-400 transition hover:bg-yellow-500/30 shrink-0"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </button>
+                      </div>
+                      <div className="mt-6 flex flex-col items-center gap-4">
+                        <div>
+                          {(() => {
+                            const payQr = depositAddressQrUrl(activePurchase.deposit_address);
+                            return payQr ? (
+                              <img
+                                src={payQr}
+                                alt="Scan to pay"
+                                className="h-48 w-48 rounded-lg border border-white/10 bg-white p-2 object-contain"
+                              />
+                            ) : (
+                              <div className="flex h-48 w-48 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-sm text-white/50">
+                                No address
+                              </div>
+                            );
+                          })()}
+                        </div>
+                        <p className="text-sm text-white/60">
+                          Amount: {formatUSD(activePurchase.payable)} | Network: {activePurchase.network}
+                        </p>
+                      </div>
+                      <p className="mt-4 text-xs text-white/40">
+                        Scan the QR code or copy the address. Your plan will activate once the payment is confirmed.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Our Partners Section */}
+              {purchaseStage === 'form' && !selectedPlan && (
+                <div className="mt-12">
+                  <h2 className="text-2xl font-bold text-center mb-8">Our Partners</h2>
+                  <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+                    {[
+                      { name: 'Google', domain: 'google.com' },
+                      { name: 'Forbes', domain: 'forbes.com' },
+                      { name: 'Yahoo!', domain: 'yahoo.com' },
+                      { name: 'YouTube', domain: 'youtube.com' },
+                      { name: 'BINANCE', domain: 'binance.com' },
+                      { name: 'Coinbase', domain: 'coinbase.com' },
+                      { name: 'CoinPedia', domain: 'coinpedia.org' },
+                      { name: 'AMBCRYPTO', domain: 'ambcrypto.com' },
+                      { name: 'BENZINGA', domain: 'benzinga.com' },
+                      { name: 'GlobeNewswire', domain: 'globenewswire.com' },
+                      { name: 'cryptonews', domain: 'cryptonews.com' },
+                      { name: 'Analytics Insight', domain: 'analyticsinsight.net' },
+                      { name: 'SOURCEFORGE', domain: 'sourceforge.net' },
+                      { name: 'MarketWatch', domain: 'marketwatch.com' },
+                    ].map((partner) => (
+                      <div
+                        key={partner.name}
+                        className="bg-white rounded-lg p-3 flex items-center justify-center h-20 hover:bg-gray-50 transition shadow-sm border border-gray-200"
+                      >
+                        <img
+                          src={`https://www.google.com/s2/favicons?domain=${partner.domain}&sz=128`}
+                          alt={partner.name}
+                          className="max-w-full max-h-full object-contain w-16 h-10"
+                          loading="lazy"
+                          onError={(e) => {
+                            const img = e.currentTarget;
+                            img.style.display = 'none';
+                            const parent = img.parentElement;
+                            if (!parent) return;
+                            if (parent.querySelector('.partner-fallback')) return;
+                            const fallback = document.createElement('span');
+                            fallback.className = 'partner-fallback text-gray-600 text-[10px] font-semibold text-center px-1';
+                            fallback.textContent = partner.name;
+                            parent.appendChild(fallback);
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Footer - Only show when not in purchase flow */}
+              {purchaseStage === 'form' && !selectedPlan && (
+                <footer className="mt-12 border-t border-white/10 pt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="rounded-full bg-[#f97316] px-2 py-1 text-sm font-bold">BTC</span>
+                        <span className="text-xl font-semibold">BtcCloudBase</span>
+                      </div>
+                      <p className="text-white/70 text-sm">
+                        BtcCloudBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Quick Links</h3>
+                      <ul className="space-y-2 text-white/70 text-sm">
+                        <li><a href="#" className="hover:text-yellow-400">Team</a></li>
+                        <li><a href="#" className="hover:text-yellow-400">AboutUs</a></li>
+                        <li><a href="#" className="hover:text-yellow-400">Plans</a></li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Useful Links</h3>
+                      <ul className="space-y-2 text-white/70 text-sm">
+                        <li><a href="#" className="hover:text-yellow-400">Usage Policy</a></li>
+                        <li><a href="#" className="hover:text-yellow-400">Cookie Policy</a></li>
+                        <li><a href="#" className="hover:text-yellow-400">Privacy Policy</a></li>
+                        <li><a href="#" className="hover:text-yellow-400">Terms of Service</a></li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-4 border-b border-yellow-500 pb-2 inline-block">Contact Info</h3>
+                      <ul className="space-y-2 text-white/70 text-sm">
+                        <li className="flex items-center gap-2">
+                          <span>📞</span>
+                          <span>VIP Customers Only</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span>✉️</span>
+                          <span>support@BtcCloudBase.com</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span>📍</span>
+                          <span>57 Kingfisher Grove, Willenhall, England, WV12 5HG (Company No. 15415402)</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </footer>
+              )}
+            </div>
+          ) : activeView === 'purchased' ? (
+            /* Purchased Plans View */
+            <div className="bg-[#111B2D] border border-white/5 rounded-lg overflow-hidden">
+              {purchasedPlans.length === 0 ? (
+                <div className="text-center py-12 p-6">
+                  <p className="text-white/60 text-lg">No purchased plans yet</p>
+                  <Button
+                    onClick={() => setActiveView('buy')}
+                    className="mt-4 bg-yellow-500 text-black hover:bg-yellow-400"
+                  >
+                    Browse Plans
+                  </Button>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-[#0B1421] border-b border-white/10">
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">S.N.</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Plan</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Price</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Return/Day</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Total Days</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Remaining Days</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Status</th>
+                        <th className="text-left py-4 px-4 text-white/80 font-semibold">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {purchasedPlans.map((plan) => (
+                        <tr key={plan.id} className="border-b border-white/5 hover:bg-white/5">
+                          <td className="py-4 px-4 text-white/80">{plan.sn}</td>
+                          <td className="py-4 px-4 text-white/80">{plan.planName}</td>
+                          <td className="py-4 px-4 text-white/80">{plan.price} USD</td>
+                          <td className="py-4 px-4 text-white/80">
+                            {plan.returnPerDay.min.toFixed(8)} - {plan.returnPerDay.max.toFixed(8)} {plan.returnPerDay.currency}
+                          </td>
+                          <td className="py-4 px-4 text-white/80">{plan.totalDays}</td>
+                          <td className="py-4 px-4 text-white/80">{plan.remainingDays}</td>
+                          <td className="py-4 px-4">
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${plan.status === 'pending'
+                              ? 'bg-orange-500/20 text-orange-400 border border-orange-500/50'
+                              : plan.status === 'active'
+                                ? 'bg-green-500/20 text-green-400'
+                                : plan.status === 'completed'
+                                  ? 'bg-blue-500/20 text-blue-400'
+                                  : 'bg-gray-500/20 text-gray-400'
+                              }`}>
+                              {plan.status.charAt(0).toUpperCase() + plan.status.slice(1)}
+                            </span>
+                          </td>
+                          <td className="py-4 px-4">
+                            <Button
+                              onClick={() => {
+                                setSelectedPurchasedPlan(plan);
+                                setIsDialogOpen(true);
+                              }}
+                              className="bg-yellow-500 text-black hover:bg-yellow-400"
+                            >
+                              View
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          ) : activeView === 'mining' ? (
+            /* Mining View */
+            <div className="space-y-6">
+              {/* Terminal-like Log Output */}
+              <div className="bg-[#111B2D] border border-white/10 rounded-lg p-4 font-mono text-xs overflow-hidden">
+                <div className="bg-[#0F1A2B] px-3 py-2 border-b border-white/10 mb-3 rounded-t">
+                  <span className="text-green-400">miner@cryptohash</span>
+                  <span className="text-white/60"> ~ </span>
+                  <span className="text-yellow-400">stratum+tcp:</span>
+                </div>
+                <div className="space-y-1 text-white/80 max-h-64 overflow-y-auto" id="mining-log-container">
+                  {miningLogs.length > 0 ? (
+                    miningLogs.map((log, index) => {
+                      const isGreen = log.includes('Checking address') || log.includes('Processing block') || log.includes('Hash found') || log.includes('Submitting share') || log.includes('Share accepted') || log.includes('New job') || log.includes('Initializing') || log.includes('Authorized') || log.includes('Loading');
+                      const isYellow = log.includes('GPU') || log.includes('MEM:');
+                      const isCommand = log.startsWith('$');
+                      return (
+                        <div
+                          key={index}
+                          className={isGreen ? 'text-green-400' : isYellow ? 'text-yellow-400' : isCommand ? 'text-white/50' : 'text-white/60'}
+                          style={{ animation: 'fadeIn 0.3s ease-in' }}
+                        >
+                          {log}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <>
+                      <div className="text-white/50">[2026-01-17 19:34:27] Switched to Tether mining</div>
+                      <div className="text-white/50">$ cryptohash-miner --start --algo=sha256d --coin=USDT --target=100 --payout=0xd239b1cb8f...a89d63</div>
+                      <div className="text-green-400">[2026-01-17 19:34:28] Initializing mining session...</div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Mining Statistics */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                    {sessionMined.toFixed(2)}
+                  </div>
+                  <div className="text-white/60 text-sm">MINED (USD)</div>
+                </div>
+                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-yellow-400 mb-2">
+                    {sessionTarget.toFixed(2)}
+                  </div>
+                  <div className="text-white/60 text-sm">TARGET</div>
+                </div>
+                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-yellow-400 mb-2">{currentHashRate.toFixed(1)} TH/s</div>
+                  <div className="text-white/60 text-sm">HASHRATE</div>
+                </div>
+                <div className="bg-[#111B2D] border border-white/10 rounded-lg p-6 text-center">
+                  <div className="text-3xl font-bold text-yellow-400 mb-2">{currentShares}</div>
+                  <div className="text-white/60 text-sm">SHARES</div>
+                </div>
+              </div>
+
+              {!miningEnabled && (
+                <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-200">
+                  <p className="font-semibold">Mining session is not activated</p>
+                </div>
+              )}
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 flex flex-col gap-1">
+                  <Button
+                    onClick={() => (userBalance > 0 ? handleStartMiningSession() : setShowStartSessionModal(true))}
+                    disabled={isSessionActive || userBalance <= 0 || !miningEnabled}
+                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold text-lg py-6 disabled:opacity-60 disabled:pointer-events-none"
+                  >
+                    {isSessionActive ? 'Mining...' : 'Start New Session'}
+                  </Button>
+                  {userBalance <= 0 && !isSessionActive && miningEnabled && (
+                    <p className="text-white/50 text-xs">Balance must be greater than zero to mine. Deposit first.</p>
+                  )}
+                </div>
+                <Button
+                  onClick={() => {
+                    setShowWithdrawModal(true);
+                  }}
+                  variant="outline"
+                  className="flex-1 border-white/20 text-white hover:bg-white/10 font-semibold text-lg py-6"
+                >
+                  Withdraw
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
+          {/* Withdraw Modal */}
+          <Dialog open={showWithdrawModal} onOpenChange={setShowWithdrawModal}>
+            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+              <DialogHeader className="relative">
+                <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
+                  Start Mining Session
+                </DialogTitle>
+                <button
+                  onClick={() => setShowWithdrawModal(false)}
+                  className="absolute right-4 top-4 w-6 h-6 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition"
+                >
+                  <span className="text-red-500 font-bold text-lg leading-none">×</span>
+                </button>
+              </DialogHeader>
+              <div className="space-y-4">
+                <p className="text-white/80">
+                  Start a new session to mine and withdraw.
+                </p>
+                <div className="flex flex-col gap-3 pt-4">
+                  <Button
+                    onClick={() => {
+                      setShowWithdrawModal(false);
+                      setShowStartSessionModal(true);
+                    }}
+                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                  >
+                    Start New Session
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowWithdrawModal(false);
+                    }}
+                    variant="outline"
+                    className="w-full border-white/20 text-white hover:bg-white/10"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Start New Session Modal */}
+          <Dialog open={showStartSessionModal} onOpenChange={setShowStartSessionModal}>
+            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+              <DialogHeader className="relative">
+                <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
+                  Purchase Plan Required
+                </DialogTitle>
+                <button
+                  onClick={() => setShowStartSessionModal(false)}
+                  className="absolute right-4 top-4 w-6 h-6 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition"
+                >
+                  <span className="text-red-500 font-bold text-lg leading-none">×</span>
+                </button>
+              </DialogHeader>
+              <div className="space-y-4">
+                <p className="text-white/80">
+                  Purchase a plan to start a new session.
+                </p>
+                <div className="flex flex-col gap-3 pt-4">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setShowStartSessionModal(false);
+                      setActiveView('buy');
+                    }}
+                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                  >
+                    Go to Buy Plan Page
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setShowStartSessionModal(false);
+                      sessionStorage.setItem('/deposit_view', 'deposit');
+                      navigate('/deposit');
+                    }}
+                    variant="outline"
+                    className="w-full border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                  >
+                    Go to Deposit Page
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowStartSessionModal(false);
+                    }}
+                    variant="outline"
+                    className="w-full border-white/20 text-white hover:bg-white/10"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Insufficient Funds Modal */}
+          <Dialog open={showInsufficientFundsModal} onOpenChange={setShowInsufficientFundsModal}>
+            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+              <DialogHeader className="relative">
+                <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
+                  Insufficient Funds
+                </DialogTitle>
+                <button
+                  onClick={() => setShowInsufficientFundsModal(false)}
+                  className="absolute right-4 top-4 w-6 h-6 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition"
+                >
+                  <span className="text-red-500 font-bold text-lg leading-none">×</span>
+                </button>
+              </DialogHeader>
+              <div className="space-y-4">
+                <p className="text-white/80">
+                  You need <span className="font-semibold text-yellow-400">${requiredAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> to purchase this plan.
+                </p>
+                <p className="text-white/80">
+                  Your current balance: <span className="font-semibold">${userBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </p>
+                <p className="text-white/80">
+                  You need <span className="font-semibold text-yellow-400">${Math.max(requiredAmount - userBalance, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span> or more.
+                </p>
+                <div className="flex flex-col gap-3 pt-4">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      const depositAmount = Math.max(requiredAmount - userBalance, 70);
+                      // Prefill deposit page (deposit_amount expects the "amount" you want to deposit)
+                      sessionStorage.setItem('/deposit_view', 'deposit');
+                      sessionStorage.setItem('deposit_amount', depositAmount.toString());
+                      setShowInsufficientFundsModal(false);
+                      navigate('/deposit');
+                    }}
+                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 font-semibold"
+                  >
+                    Go to Deposit Page
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      const depositAmount = Math.max(requiredAmount - userBalance, 70);
+                      sessionStorage.setItem('/deposit_view', 'deposit');
+                      sessionStorage.setItem('deposit_amount', depositAmount.toString());
+                      setShowInsufficientFundsModal(false);
+                      navigate('/deposit');
+                    }}
+                    variant="outline"
+                    className="w-full border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                  >
+                    Continue with Payment Gateway
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setShowInsufficientFundsModal(false);
+                      setSelectedPlan(null);
+                    }}
+                    variant="outline"
+                    className="w-full border-white/20 text-white hover:bg-white/10"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Plan Details Dialog */}
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent className="bg-[#111B2D] border-yellow-500/50 text-white max-w-md [&>button]:hidden">
+              <DialogHeader className="relative">
+                <DialogTitle className="text-white text-xl font-bold mb-4 pr-8">
+                  Purchased Plan Details
+                </DialogTitle>
+                <button
+                  onClick={() => setIsDialogOpen(false)}
+                  className="absolute right-4 top-4 w-6 h-6 rounded-full bg-white flex items-center justify-center hover:bg-white/90 transition"
+                >
+                  <span className="text-red-500 font-bold text-lg leading-none">×</span>
+                </button>
+              </DialogHeader>
+              {selectedPurchasedPlan && (
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Purchased Date:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.purchasedDate}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Plan Title:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.planName}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Plan Price:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.price} USD</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Miner:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.miner}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Return /Day:</span>
+                    <span className="text-white font-medium">
+                      {selectedPurchasedPlan.returnPerDay.min.toFixed(8)} - {selectedPurchasedPlan.returnPerDay.max.toFixed(8)} {selectedPurchasedPlan.returnPerDay.currency}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Total Days:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.totalDays}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Fixed Return:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.fixedReturn} {selectedPurchasedPlan.returnPerDay.currency}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">Remaining Days:</span>
+                    <span className="text-white font-medium">{selectedPurchasedPlan.remainingDays}</span>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default StartMining;
+
