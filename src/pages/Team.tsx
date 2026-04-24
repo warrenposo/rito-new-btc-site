@@ -20,7 +20,7 @@ const Team = () => {
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-8 text-center text-gradient-teal">Our Team</h1>
         <p className="text-center text-white/70 mb-12 max-w-3xl mx-auto">
-          Meet the dedicated professionals behind BtcNminingBase, working tirelessly to provide you with the best cloud mining experience.
+          Meet the dedicated professionals behind BtcNMiningBase, working tirelessly to provide you with the best cloud mining experience.
         </p>
         {/* Team content would go here - same as dashboard team view */}
         <div className="text-center py-12">

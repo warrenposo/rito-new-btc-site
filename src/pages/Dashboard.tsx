@@ -55,9 +55,9 @@ const translations = {
   en: {
     heroTitle: 'World-class security',
     heroBody1:
-      'As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNminingBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.',
+      'As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNMiningBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.',
     heroBody2:
-      'BtcNminingBase already supports direct transfers from Coinbase exchange accounts to BtcNminingBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.',
+      'BtcNMiningBase already supports direct transfers from Coinbase exchange accounts to BtcNMiningBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.',
     heroBody3: 'The funds are supervised by Coinbase, a third-party listed company.',
     depositCta: 'Deposit Funds',
     withdrawCta: 'Withdraw Now',
@@ -66,9 +66,9 @@ const translations = {
   es: {
     heroTitle: 'Seguridad de clase mundial',
     heroBody1:
-      'Como subsidiaria de Digital Currency Group, ofrecemos a los clientes la oportunidad de acceder a nuestro ecosistema. BtcNminingBase mantiene una alianza estratégica con Coinbase, el mayor intercambio de criptomonedas en Estados Unidos.',
+      'Como subsidiaria de Digital Currency Group, ofrecemos a los clientes la oportunidad de acceder a nuestro ecosistema. BtcNMiningBase mantiene una alianza estratégica con Coinbase, el mayor intercambio de criptomonedas en Estados Unidos.',
     heroBody2:
-      'BtcNminingBase ya admite transferencias directas desde cuentas de Coinbase a cuentas de BtcNminingBase. Si también eres cliente de Coinbase, puedes elegir Coinbase Payments al realizar pagos.',
+      'BtcNMiningBase ya admite transferencias directas desde cuentas de Coinbase a cuentas de BtcNMiningBase. Si también eres cliente de Coinbase, puedes elegir Coinbase Payments al realizar pagos.',
     heroBody3: 'Los fondos están supervisados por Coinbase, una compañía que cotiza en bolsa.',
     depositCta: 'Depositar fondos',
     withdrawCta: 'Retirar ahora',
@@ -77,9 +77,9 @@ const translations = {
   fr: {
     heroTitle: 'Une sécurité de classe mondiale',
     heroBody1:
-      "En tant que filiale du Digital Currency Group, nous offrons aux clients l'opportunité d'accéder à notre écosystème. BtcNminingBase a conclu un partenariat stratégique avec Coinbase, le plus grand échange de crypto-monnaies aux États-Unis.",
+      "En tant que filiale du Digital Currency Group, nous offrons aux clients l'opportunité d'accéder à notre écosystème. BtcNMiningBase a conclu un partenariat stratégique avec Coinbase, le plus grand échange de crypto-monnaies aux États-Unis.",
     heroBody2:
-      'BtcNminingBase prend déjà en charge les transferts directs des comptes Coinbase vers les comptes BtcNminingBase. Si vous êtes également client de Coinbase, vous pouvez choisir Coinbase Payments lors de vos paiements.',
+      'BtcNMiningBase prend déjà en charge les transferts directs des comptes Coinbase vers les comptes BtcNMiningBase. Si vous êtes également client de Coinbase, vous pouvez choisir Coinbase Payments lors de vos paiements.',
     heroBody3: 'Les fonds sont supervisés par Coinbase, une société cotée en bourse.',
     depositCta: 'Déposer des fonds',
     withdrawCta: 'Retirer maintenant',
@@ -88,9 +88,9 @@ const translations = {
   de: {
     heroTitle: 'Sicherheit auf Weltklasseniveau',
     heroBody1:
-      'Als Tochtergesellschaft der Digital Currency Group bieten wir Kunden Zugang zu unserem Ökosystem. BtcNminingBase hat eine strategische Partnerschaft mit Coinbase, der größten Kryptobörse in den USA.',
+      'Als Tochtergesellschaft der Digital Currency Group bieten wir Kunden Zugang zu unserem Ökosystem. BtcNMiningBase hat eine strategische Partnerschaft mit Coinbase, der größten Kryptobörse in den USA.',
     heroBody2:
-      'BtcNminingBase unterstützt bereits direkte Überweisungen von Coinbase-Konten auf BTC-Mining-Konten. Wenn Sie ebenfalls Coinbase-Kunde sind, können Sie Coinbase Payments für Zahlungen wählen.',
+      'BtcNMiningBase unterstützt bereits direkte Überweisungen von Coinbase-Konten auf BTC-Mining-Konten. Wenn Sie ebenfalls Coinbase-Kunde sind, können Sie Coinbase Payments für Zahlungen wählen.',
     heroBody3: 'Die Gelder werden von Coinbase, einem börsennotierten Unternehmen, überwacht.',
     depositCta: 'Geld einzahlen',
     withdrawCta: 'Jetzt abheben',
@@ -385,7 +385,7 @@ const Dashboard = () => {
             <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
               <span className="text-black font-bold text-lg">B</span>
             </div>
-            <span className="text-xl font-bold text-white">BtcNminingBase</span>
+            <span className="text-xl font-bold text-white">BtcNMiningBase</span>
           </div>
           
           {/* Center Navigation */}
@@ -541,7 +541,7 @@ const Dashboard = () => {
                   <li>
                     New users register with us. You will get 10% of the top-up amount. For example, You recommend user A, you can get 7% of the referral plan, A recommends B to buy plan, you can get 2% B recommends C to buy plan, you can get 1%
                   </li>
-                  <li>Mention BtcNminingBase. in your newsletter and use your affiliate link.</li>
+                  <li>Mention BtcNMiningBase. in your newsletter and use your affiliate link.</li>
                   <li>
                     Invite your friends and earn USDT benefits when they complete their purchases. Keep an eye on how much you earn each week, get paid in USDT, and each of your affiliates will generate lifetime commissions.
                   </li>
@@ -1586,7 +1586,7 @@ const Dashboard = () => {
                 <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
                   <h2 className="text-2xl font-semibold text-white mb-4">Our Mission</h2>
                   <p className="text-white/80 text-lg leading-relaxed">
-                    BtcNminingBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers and experienced miners alike. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+                    BtcNMiningBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers and experienced miners alike. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                   </p>
                 </div>
                 
@@ -1595,10 +1595,10 @@ const Dashboard = () => {
                   <h2 className="text-2xl font-semibold text-white mb-4">Company Overview</h2>
                   <div className="space-y-4 text-white/80">
                     <p>
-                      As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNminingBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.
+                      As a wholly owned subsidiary of Digital Currency Group, we offer clients the opportunity to tap into our ecosystem. BtcNMiningBase has entered a deep strategic partnership agreement with Coinbase, the largest cryptocurrency exchange in the United States.
                     </p>
                     <p>
-                      BtcNminingBase already supports direct transfers from Coinbase exchange accounts to BtcNminingBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.
+                      BtcNMiningBase already supports direct transfers from Coinbase exchange accounts to BtcNMiningBase accounts. If you are also a Coinbase client, you can choose Coinbase Payments when making payments.
                     </p>
                     <p>
                       The funds are supervised by Coinbase, a third-party listed company, ensuring the highest level of security and trust for our users.
@@ -1608,7 +1608,7 @@ const Dashboard = () => {
                 
                 {/* Why Choose Us */}
                 <div className="rounded-lg border border-white/5 bg-[#060d13]/70 p-8">
-                  <h2 className="text-2xl font-semibold text-white mb-4">Why Choose BtcNminingBase?</h2>
+                  <h2 className="text-2xl font-semibold text-white mb-4">Why Choose BtcNMiningBase?</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div className="bg-[#040a0f] rounded-lg p-6 border border-white/5">
                       <div className="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
@@ -1684,8 +1684,8 @@ const Dashboard = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <Mail className="h-5 w-5 text-teal-400" />
-                      <a href="mailto:support@BtcNminingBase.com" className="text-white/70 hover:text-teal-400 transition-colors">
-                        support@BtcNminingBase.com
+                      <a href="mailto:support@BtcNMiningBase.com" className="text-white/70 hover:text-teal-400 transition-colors">
+                        support@BtcNMiningBase.com
                       </a>
                     </div>
                     <div className="flex items-center gap-3">
@@ -1753,7 +1753,7 @@ const Dashboard = () => {
             </Card>
             <Card className="bg-gradient-to-br from-[#1B2436] to-[#131B2B] border-white/5">
               <CardHeader className="pb-2">
-                <CardTitle className="text-white">BtcNminingBase</CardTitle>
+                <CardTitle className="text-white">BtcNMiningBase</CardTitle>
                 <CardDescription className="text-teal-400">Start Mining</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col gap-3">
@@ -1836,7 +1836,7 @@ const Dashboard = () => {
                     Contact Support
                   </Button>
                 </div>
-                <p className="mt-4 text-sm text-white/50">support@BtcNminingBase.com</p>
+                <p className="mt-4 text-sm text-white/50">support@BtcNMiningBase.com</p>
                 <p className="text-xs text-white/40">57 Kingfisher Grove, Willenhall, England, WV12 5HG (Company No. 15415402)</p>
               </div>
             </div>
@@ -1845,9 +1845,9 @@ const Dashboard = () => {
           <footer id="about-section" className="rounded-2xl border border-white/5 bg-[#060d13]/70 p-6 text-sm text-white/70">
             <div className="grid gap-6 lg:grid-cols-3">
               <div>
-                <h5 className="text-lg font-semibold text-white">BtcNminingBase</h5>
+                <h5 className="text-lg font-semibold text-white">BtcNMiningBase</h5>
                 <p className="mt-2">
-                  BtcNminingBase is one of the leading cryptocurrency mining platforms, offering capacities in every range for newcomers and pros.
+                  BtcNMiningBase is one of the leading cryptocurrency mining platforms, offering capacities in every range for newcomers and pros.
                   Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                 </p>
               </div>
@@ -1869,7 +1869,7 @@ const Dashboard = () => {
                 </ul>
               </div>
             </div>
-            <p className="mt-6 text-center text-xs text-white/40">Copyright © 2020–2026 BtcNminingBase All Rights Reserved</p>
+            <p className="mt-6 text-center text-xs text-white/40">Copyright © 2020–2026 BtcNMiningBase All Rights Reserved</p>
           </footer>
             </>
           )}

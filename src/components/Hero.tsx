@@ -159,8 +159,8 @@ export const Hero = () => {
 
               {/* Subheadline */}
               <p className="text-lg text-white/50 max-w-xl leading-relaxed">
-                BtcNminingBase gives you instant access to professional-grade mining infrastructure —
-                no hardware, no setup, just pure earnings.
+                BtcNMiningBase gives you instant access to professional-grade mining infrastructure —
+                no hardware, no setup, just earnings.
               </p>
 
               {/* Feature pills */}
@@ -230,7 +230,7 @@ export const Hero = () => {
                       >
                         <Cpu className="w-4 h-4 text-black" />
                       </div>
-                      <span className="text-white font-bold text-sm">BtcNminingBase</span>
+                      <span className="text-white font-bold text-sm">BtcNMiningBase</span>
                     </div>
                     <span className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">
                       <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />

@@ -22,7 +22,7 @@ const features = [
   {
     icon: DollarSign,
     title: "Daily Payouts",
-    description: "Receive your mining rewards automatically every day, directly to your BtcNminingBase wallet.",
+    description: "Receive your mining rewards automatically every day, directly to your BtcNMiningBase wallet.",
     iconColor: "text-emerald-400",
     iconBg: "bg-emerald-500/10",
     iconBorder: "border-emerald-500/20",
@@ -74,7 +74,7 @@ export const Features = () => {
         {/* Section header */}
         <div className="text-center mb-16">
           <span className="inline-block text-xs font-semibold tracking-widest text-teal-400 uppercase mb-4 border border-teal-500/20 rounded-full px-4 py-1 bg-teal-500/5">
-            Why BtcNminingBase?
+            Why BtcNMiningBase?
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
             Everything You Need to

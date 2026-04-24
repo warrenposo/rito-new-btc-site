@@ -11,7 +11,7 @@ const UsagePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Acceptable Use</h2>
             <p>
-              BtcNminingBase provides cloud mining services for legitimate cryptocurrency mining purposes. Users are expected to use our platform in a responsible and lawful manner.
+              BtcNMiningBase provides cloud mining services for legitimate cryptocurrency mining purposes. Users are expected to use our platform in a responsible and lawful manner.
             </p>
           </section>
 
@@ -50,7 +50,7 @@ const UsagePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">5. Intellectual Property</h2>
             <p>
-              All content, features, and functionality of the BtcNminingBase platform are owned by us and are protected by international copyright, trademark, and other intellectual property laws.
+              All content, features, and functionality of the BtcNMiningBase platform are owned by us and are protected by international copyright, trademark, and other intellectual property laws.
             </p>
           </section>
 
@@ -64,7 +64,7 @@ const UsagePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">7. Contact Information</h2>
             <p>
-              For questions about this Usage Policy, please contact us at support@BtcNminingBase.com
+              For questions about this Usage Policy, please contact us at support@BtcNMiningBase.com
             </p>
           </section>
 

@@ -63,7 +63,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'BTC',
     currency: 'BTC',
     network: 'Bitcoin',
-    min: 70,
+    min: 100,
     max: 500000,
     coingeckoId: 'bitcoin',
     description: 'Instant confirmation on Bitcoin network',
@@ -73,7 +73,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'USDT.TRC20',
     currency: 'USDT',
     network: 'TRC20',
-    min: 70,
+    min: 100,
     max: 250000,
     description: 'Fast & low cost payments on Tron network',
   },
@@ -82,7 +82,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'USDT.ERC20',
     currency: 'USDT',
     network: 'ERC20',
-    min: 70,
+    min: 100,
     max: 250000,
     description: 'USDT payments on Ethereum network',
   },
@@ -91,7 +91,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'USDC',
     currency: 'USDC',
     network: 'ERC20',
-    min: 70,
+    min: 100,
     max: 250000,
     description: 'USD Coin payments (1:1 USD)',
   },
@@ -100,7 +100,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'ETH',
     currency: 'ETH',
     network: 'Ethereum',
-    min: 70,
+    min: 100,
     max: 500000,
     coingeckoId: 'ethereum',
     description: 'Native Ethereum deposits',
@@ -110,7 +110,7 @@ const gatewayOptions: GatewayOption[] = [
     label: 'Solana (SOL)',
     currency: 'SOL',
     network: 'Solana',
-    min: 70,
+    min: 100,
     max: 500000,
     coingeckoId: 'solana',
     description: 'Fast & low-fee payments on Solana network',
@@ -311,10 +311,10 @@ const Deposit = () => {
       return;
     }
 
-    if (!amount || parseFloat(amount) <= 0) {
+    if (!amount || parseFloat(amount) < 100) {
       toast({
-        title: 'Invalid amount',
-        description: 'Enter a deposit amount greater than 0',
+        title: 'Minimum deposit is $100',
+        description: 'Please enter an amount of at least $100.00 to proceed.',
         variant: 'destructive',
       });
       return;
@@ -550,7 +550,7 @@ const Deposit = () => {
               </div>
 
               <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 p-4 text-sm text-yellow-100">
-                Minimum deposit is <span className="font-semibold">$70</span>.
+                Minimum deposit is <span className="font-semibold">$100</span>.
               </div>
 
               {depositStage === 'form' && (

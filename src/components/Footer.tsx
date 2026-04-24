@@ -40,12 +40,12 @@ export const Footer = () => {
                 <Cpu className="w-5 h-5 text-black" />
               </div>
               <span className="text-xl font-black tracking-tight">
-                <span className="text-white">Btc</span>
-                <span className="text-gradient-teal">NminingBase</span>
+                <span className="text-white">BtcN</span>
+                <span className="text-gradient-teal">MiningBase</span>
               </span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed">
-              BtcNminingBase is one of the leading cryptocurrency cloud mining platforms, offering mining capacities for every level — from newcomers to professionals. Our mission is to make earning crypto easy and accessible worldwide.
+              BtcNMiningBase is one of the leading cryptocurrency cloud mining platforms, offering mining capacities for every level — from newcomers to professionals. Our mission is to make earning crypto easy and accessible worldwide.
             </p>
           </div>
 
@@ -154,7 +154,7 @@ export const Footer = () => {
               <Cpu className="w-5 h-5 text-teal-400" />
             </div>
             <p className="text-white/40 text-sm text-center">
-              Copyright © 2020–2026 BtcNminingBase. All Rights Reserved.
+              Copyright © 2020–2026 BtcNMiningBase. All Rights Reserved.
             </p>
           </div>
         </div>
