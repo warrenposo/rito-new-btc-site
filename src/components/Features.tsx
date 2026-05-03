@@ -1,4 +1,4 @@
-import { Zap, Shield, DollarSign, BarChart3, Globe, MessageCircle } from "lucide-react";
+import { Zap, Shield, BarChart3, Globe, MessageCircle } from "lucide-react";
 
 const features = [
   {
@@ -18,15 +18,6 @@ const features = [
     iconBg: "bg-sky-500/10",
     iconBorder: "border-sky-500/20",
     barColor: "bg-gradient-to-b from-sky-400 to-blue-600",
-  },
-  {
-    icon: DollarSign,
-    title: "Daily Payouts",
-    description: "Receive your mining rewards automatically every day, directly to your BtcNMiningBase wallet.",
-    iconColor: "text-emerald-400",
-    iconBg: "bg-emerald-500/10",
-    iconBorder: "border-emerald-500/20",
-    barColor: "bg-gradient-to-b from-emerald-400 to-teal-600",
   },
   {
     icon: BarChart3,
@@ -57,6 +48,46 @@ const features = [
   },
 ];
 
+type Feature = (typeof features)[number];
+
+function FeatureCard({ feature }: { feature: Feature }) {
+  return (
+    <div
+      className="group relative bg-[#060d13] border border-white/5 rounded-2xl p-5 hover:border-teal-500/25 transition-all duration-400 overflow-hidden flex gap-4 items-start"
+    >
+      <div
+        className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-full ${feature.barColor} opacity-0 group-hover:opacity-100 transition-opacity duration-400`}
+      />
+
+      <div
+        className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center ${feature.iconBg} border ${feature.iconBorder} group-hover:scale-110 transition-transform duration-300`}
+      >
+        <feature.icon className={`w-5 h-5 ${feature.iconColor}`} />
+      </div>
+
+      <div className="min-w-0">
+        <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-teal-300 transition-colors duration-300">
+          {feature.title}
+        </h3>
+        <p className="text-white/38 text-sm leading-relaxed">
+          {feature.description}
+        </p>
+      </div>
+
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(ellipse at 0% 50%, rgba(0,229,255,0.04) 0%, transparent 65%)",
+        }}
+      />
+    </div>
+  );
+}
+
+const TOP_FEATURES = features.slice(0, 3);
+const BOTTOM_FEATURES = features.slice(3);
+
 export const Features = () => {
   return (
     <section className="py-24 px-4 bg-[#050b10] relative overflow-hidden">
@@ -74,7 +105,7 @@ export const Features = () => {
         {/* Section header */}
         <div className="text-center mb-16">
           <span className="inline-block text-xs font-semibold tracking-widest text-teal-400 uppercase mb-4 border border-teal-500/20 rounded-full px-4 py-1 bg-teal-500/5">
-            Why BtcNMiningBase?
+            Why BtcnMiningBase?
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
             Everything You Need to
@@ -85,45 +116,18 @@ export const Features = () => {
           </p>
         </div>
 
-        {/* Feature cards — icon-left layout */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="group relative bg-[#060d13] border border-white/5 rounded-2xl p-5 hover:border-teal-500/25 transition-all duration-400 overflow-hidden flex gap-4 items-start"
-            >
-              {/* Left accent bar */}
-              <div
-                className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-full ${feature.barColor} opacity-0 group-hover:opacity-100 transition-opacity duration-400`}
-              />
-
-              {/* Circular icon */}
-              <div
-                className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center ${feature.iconBg} border ${feature.iconBorder} group-hover:scale-110 transition-transform duration-300`}
-              >
-                <feature.icon className={`w-5 h-5 ${feature.iconColor}`} />
-              </div>
-
-              {/* Text */}
-              <div className="min-w-0">
-                <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-teal-300 transition-colors duration-300">
-                  {feature.title}
-                </h3>
-                <p className="text-white/38 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-
-              {/* Radial hover glow */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 0% 50%, rgba(0,229,255,0.04) 0%, transparent 65%)",
-                }}
-              />
-            </div>
-          ))}
+        {/* Feature cards — 3+2 so the last row stays visually balanced after removals */}
+        <div className="space-y-4 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TOP_FEATURES.map((feature) => (
+              <FeatureCard key={feature.title} feature={feature} />
+            ))}
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {BOTTOM_FEATURES.map((feature) => (
+              <FeatureCard key={feature.title} feature={feature} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Introduction</h2>
             <p>
-              BtcNMiningBase ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cloud mining platform.
+              BtcnMiningBase ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our cloud mining platform.
             </p>
           </section>
 
@@ -95,7 +95,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">10. Contact Us</h2>
             <p>
-              If you have any questions about this Privacy Policy, please contact us at support@BtcNMiningBase.com
+              If you have any questions about this Privacy Policy, please contact us at support@BtcnMiningBase.com
             </p>
           </section>
 

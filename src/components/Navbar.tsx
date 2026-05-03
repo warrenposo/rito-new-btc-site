@@ -49,7 +49,7 @@ export const Navbar = () => {
               <Cpu className="w-5 h-5 text-black" />
             </div>
             <span className="text-xl font-black tracking-tight">
-              <span className="text-white">BtcN</span>
+              <span className="text-white">Btcn</span>
               <span className="text-gradient-teal">MiningBase</span>
             </span>
           </button>

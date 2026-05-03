@@ -1,5 +1,5 @@
 -- ============================================================
--- BtcNminingBase — Complete Database Schema
+-- BtcnMiningBase — Complete Database Schema
 -- Project:  https://rucaagoiuvlfcsjwfrqv.supabase.co
 -- Run this ONCE in your Supabase SQL Editor (Dashboard → SQL Editor)
 -- Admin email auto-assigned: warrenokumu98@gmail.com

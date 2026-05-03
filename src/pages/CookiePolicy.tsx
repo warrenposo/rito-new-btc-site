@@ -17,7 +17,7 @@ const CookiePolicy = () => {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">2. How We Use Cookies</h2>
-            <p>BtcNMiningBase uses cookies for the following purposes:</p>
+            <p>BtcnMiningBase uses cookies for the following purposes:</p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li><strong>Essential Cookies:</strong> Required for the website to function properly</li>
               <li><strong>Authentication Cookies:</strong> To keep you logged in and maintain your session</li>
@@ -78,7 +78,7 @@ const CookiePolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">8. Contact Us</h2>
             <p>
-              If you have any questions about our use of cookies, please contact us at support@BtcNMiningBase.com
+              If you have any questions about our use of cookies, please contact us at support@BtcnMiningBase.com
             </p>
           </section>
 

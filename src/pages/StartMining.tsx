@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMining } from '@/contexts/MiningContext';
 import { useNavigate } from 'react-router-dom';
@@ -1453,10 +1453,10 @@ const StartMining = () => {
                     <div>
                       <div className="flex items-center gap-2 mb-4">
                         <span className="rounded-full bg-[#f97316] px-2 py-1 text-sm font-bold">BTC</span>
-                        <span className="text-xl font-semibold">BtcNMiningBase</span>
+                        <span className="text-xl font-semibold">BtcnMiningBase</span>
                       </div>
                       <p className="text-white/70 text-sm">
-                        BtcNMiningBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
+                        BtcnMiningBase is one of the leading cryptocurrency mining platforms, offering cryptocurrency mining capacities in every range - for newcomers. Our mission is to make acquiring cryptocurrencies easy and fast for everyone.
                       </p>
                     </div>
                     <div>
@@ -1485,7 +1485,7 @@ const StartMining = () => {
                         </li>
                         <li className="flex items-center gap-2">
                           <span>✉️</span>
-                          <span>support@BtcNMiningBase.com</span>
+                          <span>support@BtcnMiningBase.com</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <span>📍</span>

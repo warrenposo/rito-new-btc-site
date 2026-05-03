@@ -118,7 +118,7 @@ export const Statistics = () => {
         {/* CTA strip */}
         <div className="mt-14 text-center">
           <p className="text-white/25 text-sm">
-            Join the fastest-growing cloud mining community — start earning in minutes.
+            Join the fastest-growing cloud mining community.
           </p>
         </div>
       </div>

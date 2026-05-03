@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bitcoin, ArrowRight, Cpu, Zap, Shield, Globe, TrendingUp } from "lucide-react";
+import { Bitcoin, ArrowRight, Cpu, Shield, Globe, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CG_TICKER_IDS = [
@@ -36,7 +36,6 @@ function formatUsdPrice(n: number): string {
 }
 
 const FEATURES = [
-  { icon: Zap, text: "Daily Payouts" },
   { icon: Shield, text: "99.9% Uptime" },
   { icon: Shield, text: "Bank-Grade Security" },
   { icon: Globe, text: "150+ Countries" },
@@ -159,7 +158,7 @@ export const Hero = () => {
 
               {/* Subheadline */}
               <p className="text-lg text-white/50 max-w-xl leading-relaxed">
-                BtcNMiningBase gives you instant access to professional-grade mining infrastructure —
+                BtcnMiningBase gives you instant access to professional-grade mining infrastructure —
                 no hardware, no setup, just earnings.
               </p>
 
@@ -230,7 +229,7 @@ export const Hero = () => {
                       >
                         <Cpu className="w-4 h-4 text-black" />
                       </div>
-                      <span className="text-white font-bold text-sm">BtcNMiningBase</span>
+                      <span className="text-white font-bold text-sm">BtcnMiningBase</span>
                     </div>
                     <span className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">
                       <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
@@ -265,7 +264,7 @@ export const Hero = () => {
                     }}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-white/40">Today's Earnings</span>
+                      <span className="text-xs text-white/40">Today Average Mining</span>
                       <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
                     </div>
                     <div className="text-2xl font-black font-mono" style={{ color: "#00e5a0" }}>

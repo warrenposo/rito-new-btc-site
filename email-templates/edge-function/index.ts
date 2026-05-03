@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════════
-//  BtcNminingBase — Welcome Email Edge Function
+//  BtcnMiningBase — Welcome Email Edge Function
 //  Supabase Edge Function: send-welcome-email
 //
 //  HOW IT WORKS:
@@ -32,7 +32,7 @@ function buildWelcomeHtml(firstName: string, email: string, siteUrl: string): st
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to BtcNminingBase</title>
+  <title>Welcome to BtcnMiningBase</title>
 </head>
 <body style="margin:0;padding:0;background-color:#040a0f;font-family:'Segoe UI',Arial,sans-serif;">
 
@@ -77,7 +77,7 @@ function buildWelcomeHtml(firstName: string, email: string, siteUrl: string): st
               <span style="color:#00e5ff;">${firstName}!</span>
             </h1>
             <p style="margin:0;font-size:16px;color:rgba(255,255,255,0.5);line-height:1.6;">
-              Your BtcNminingBase account has been successfully created.
+              Your BtcnMiningBase account has been successfully created.
             </p>
 
           </td>
@@ -239,12 +239,12 @@ function buildWelcomeHtml(firstName: string, email: string, siteUrl: string): st
                 <td>
                   <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.2);">
                     Best regards,<br/>
-                    <strong style="color:rgba(255,255,255,0.35);">The BtcNminingBase Team</strong>
+                    <strong style="color:rgba(255,255,255,0.35);">The BtcnMiningBase Team</strong>
                   </p>
                 </td>
                 <td style="text-align:right;">
                   <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.15);">
-                    &copy; 2026 BtcNminingBase.<br/>All rights reserved.
+                    &copy; 2026 BtcnMiningBase.<br/>All rights reserved.
                   </p>
                 </td>
               </tr>
@@ -308,9 +308,9 @@ serve(async (req: Request) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `BtcNminingBase <${FROM_EMAIL}>`,
+        from: `BtcnMiningBase <${FROM_EMAIL}>`,
         to: [email],
-        subject: `Welcome to BtcNminingBase, ${firstName}! 🎉`,
+        subject: `Welcome to BtcnMiningBase, ${firstName}! 🎉`,
         html,
       }),
     });

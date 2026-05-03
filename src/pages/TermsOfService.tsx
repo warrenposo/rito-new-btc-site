@@ -11,19 +11,19 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">1. Acceptance of Terms</h2>
             <p>
-              By accessing and using BtcNMiningBase ("we", "us", or "our"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+              By accessing and using BtcnMiningBase ("we", "us", or "our"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">2. Use License</h2>
             <p>
-              Permission is granted to temporarily access the materials on BtcNMiningBase's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+              Permission is granted to temporarily access the materials on BtcnMiningBase's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li>Modify or copy the materials</li>
               <li>Use the materials for any commercial purpose or for any public display</li>
-              <li>Attempt to reverse engineer any software contained on BtcNMiningBase's website</li>
+              <li>Attempt to reverse engineer any software contained on BtcnMiningBase's website</li>
               <li>Remove any copyright or other proprietary notations from the materials</li>
             </ul>
           </section>
@@ -31,7 +31,7 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">3. Mining Services</h2>
             <p>
-              BtcNMiningBase provides cloud mining services for cryptocurrency. By using our services, you acknowledge that:
+              BtcnMiningBase provides cloud mining services for cryptocurrency. By using our services, you acknowledge that:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1 ml-4">
               <li>Cryptocurrency mining involves risk and may result in losses</li>
@@ -63,21 +63,21 @@ const TermsOfService = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">6. Limitation of Liability</h2>
             <p>
-              In no event shall BtcNMiningBase or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on BtcNMiningBase's website.
+              In no event shall BtcnMiningBase or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on BtcnMiningBase's website.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">7. Revisions and Errata</h2>
             <p>
-              The materials appearing on BtcNMiningBase's website could include technical, typographical, or photographic errors. BtcNMiningBase does not warrant that any of the materials on its website are accurate, complete, or current.
+              The materials appearing on BtcnMiningBase's website could include technical, typographical, or photographic errors. BtcnMiningBase does not warrant that any of the materials on its website are accurate, complete, or current.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">8. Contact Information</h2>
             <p>
-              If you have any questions about these Terms of Service, please contact us at support@BtcNMiningBase.com
+              If you have any questions about these Terms of Service, please contact us at support@BtcnMiningBase.com
             </p>
           </section>
 

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
@@ -496,7 +496,7 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-teal-400" />
             <div>
-              <p className="text-xs sm:text-sm text-white/50">BtcNMiningBase</p>
+              <p className="text-xs sm:text-sm text-white/50">BtcnMiningBase</p>
               <p className="text-base sm:text-lg font-semibold">Admin Control Center</p>
             </div>
           </div>
